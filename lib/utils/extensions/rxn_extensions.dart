@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ajbell/utils/extensions/object_extensions.dart';
+import 'package:minimax/utils/extensions/object_extensions.dart' as obj_ext;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/images/images.dart';
@@ -7,34 +8,49 @@ import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
+import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
+import 'package:minimax/ui/widgets/backgrounds.dart';
+import 'package:minimax/ui/widgets/buttons.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const String routeName = "/";
+
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
+      body: withGlossyBackground(
+        body: _buildBody(),
+      ),
     );
   }
 
   Widget _buildBody() {
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: extraLarge, horizontal: large),
-        color: white,
-        child: Column(
-          children: [
-            _buildWelcomeTo(),
-            large.toSpace(),
-            _buildMinimaLogo(),
-            extraLarge.toSpace(),
-            _buildMinimaSentence(),
-            extraLarge.toSpace(),
-            _buildSetUpYourPhone(),
-            _buildContinueButton(),
-          ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: extraExtraExtraExtraLarge,
+        horizontal: large,
+      ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: extraLarge, horizontal: large),
+          color: white.withOpacity(0.5),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildWelcomeTo(),
+              large.toSpace(),
+              _buildMinimaLogo(),
+              extraLarge.toSpace(),
+              _buildMinimaSentence(),
+              extraLarge.toSpace(),
+              _buildSetUpYourPhone(),
+              extraExtraLarge.toSpace(),
+              _buildContinueButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -56,8 +72,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-
-
   Widget _buildMinimaSentence() {
     return Text(
       StringKeys.homeMinimaSentence.tr,
@@ -66,8 +80,6 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-
 
   Widget _buildSetUpYourPhone() {
     return Text(
@@ -78,5 +90,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  
+  Widget _buildContinueButton() {
+    return createPrimaryCTA(
+      text: StringKeys.homeCTATitle.tr,
+      onTap: () => Get.toNamed(BatterySettingsScreen.routeName),
+    );
+  }
 }

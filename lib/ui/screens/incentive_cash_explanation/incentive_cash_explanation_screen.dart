@@ -5,15 +5,15 @@ import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
-import 'package:minimax/ui/screens/background_running/background_running_screen.dart';
+import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
 import 'package:minimax/ui/utils/ui_constants.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
-class BatterySettingsScreen extends StatelessWidget {
-  static const String routeName = "/battery_settings";
+class IncentiveCashExplanationScreen extends StatelessWidget {
+  static const String routeName = "/incentive_cash_explanation";
 
-  const BatterySettingsScreen({Key? key}) : super(key: key);
+  const IncentiveCashExplanationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +40,9 @@ class BatterySettingsScreen extends StatelessWidget {
             children: [
               _buildTitle(),
               medium.toSpace(),
-              _buildBatterySettingsExplanation(),
+              _buildBackupExplanation(),
               large.toSpace(),
-              _buildConfirmButton(),
-              medium.toSpace(),
-              _buildSkipButton(),
+              _buildContinueButton(),
             ],
           ),
         ),
@@ -53,30 +51,28 @@ class BatterySettingsScreen extends StatelessWidget {
   }
 
   Widget _buildTitle() {
-    return Text(StringKeys.batterySettingsTitle.tr, style: lmH2.copyWith(color: coreBlue100));
+    return Text(StringKeys.incentiveExplanationTitle.tr, style: lmH2.copyWith(color: coreBlue100));
   }
 
-  Widget _buildBatterySettingsExplanation() {
+  Widget _buildBackupExplanation() {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: setUpModalMinExplanationHeight,
         minWidth: double.maxFinite,
       ),
-      child: Text(StringKeys.batterySettingsExplanation.tr, style: lmBodyCopy.copyWith(color: coreBlackContrast)),
+      child: Text(
+        StringKeys.incentiveExplanationText.tr,
+        style: lmBodyCopy.copyWith(
+          color: coreBlackContrast,
+        ),
+      ),
     );
   }
 
-  Widget _buildConfirmButton() {
+  Widget _buildContinueButton() {
     return createPrimaryCTA(
-      text: StringKeys.batterySettingsConfirm.tr,
-      onTap: () => Get.toNamed(BackgroundRunningScreen.routeName),
-    );
-  }
-
-  Widget _buildSkipButton() {
-    return createSecondaryCTA(
-      text: StringKeys.batterySettingsSkip.tr,
-      onTap: () {},
+      text: StringKeys.incentiveCashExplanationCTA.tr,
+      onTap: () => Get.toNamed(CongratulationsScreen.routeName),
     );
   }
 }

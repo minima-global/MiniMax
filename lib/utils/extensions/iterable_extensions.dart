@@ -1,4 +1,4 @@
-import 'package:ajbell/utils/extensions/object_extensions.dart' as ObjExt;
+import 'package:minimax/utils/extensions/object_extensions.dart' as obj_ext;
 
 extension IterableExtensions<T, E> on Iterable<T> {
   T? firstOrNull([bool Function(T)? predicate]) {
@@ -76,8 +76,8 @@ extension IterableExtensions<T, E> on Iterable<T> {
   List<T> sortedBy(E Function(T t) selector) {
     return toList()
       ..sort((t1, t2) {
-        final Comparable a = ObjExt.ObjectNullExt<T>(t1).cast<Comparable>(selector(t1)) ?? 0;
-        final Comparable b = ObjExt.ObjectNullExt<T>(t2).cast<Comparable>(selector(t2)) ?? 0;
+        final Comparable a = obj_ext.ObjectNullExt<T>(t1).cast<Comparable>(selector(t1)) ?? 0;
+        final Comparable b = obj_ext.ObjectNullExt<T>(t2).cast<Comparable>(selector(t2)) ?? 0;
 
         return a.compareTo(b);
       });
