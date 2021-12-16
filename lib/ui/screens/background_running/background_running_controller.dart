@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
+import 'package:minimax/data/dependencies/battery.dart';
 import 'package:minimax/ui/screens/background_running/enum/background_running_state_model.dart';
 
 class BackgroundRunningController extends GetxController {
+  final BatteryProvider _batteryProvider;
+
   final Rx<BackgroundRunningState> state = Rx(BackgroundRunningState.fresh);
   final Rxn nextTrigger = Rxn();
+
+  BackgroundRunningController(this._batteryProvider);
 
   void confirm() {
     switch(state.value) {
@@ -14,6 +19,7 @@ class BackgroundRunningController extends GetxController {
         state(BackgroundRunningState.doubleConfirm);
         break;
       case BackgroundRunningState.doubleConfirm:
+        _batteryProvider.ignoreBatteryOptimization(); // Fire and forget
         nextTrigger.trigger(null);
         break;
     }
