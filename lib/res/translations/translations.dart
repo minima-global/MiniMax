@@ -16,7 +16,7 @@ class MiniMaxTranslations extends Translations {
         'backgroundRunningTitle': 'Minima',
         'backgroundRunningBigTitle': 'Background running',
         'backgroundRunningBigTitleAreYouSure': 'Are you sure?',
-        'backgroundRunningExplanation1': 'Allowing Minima to run in the background may reduce battery life.\n\nAre you sure you want to allow Minima permission to run in the background.',
+        'backgroundRunningExplanation1': 'Allowing Minima to run in the background may reduce battery life.\n\nPlease confirm that you allow Minima permission to run in the background.',
         'backgroundRunningExplanation2': 'Are you sure you want to skip this stage?',
         'backgroundRunningExplanation3': 'For Minima to function as expected, it must be allowed to run in the background. You can change this setting later by choosing Battery Optimisation from the side navigation menu in the app.',
         'backgroundRunningCTAConfirm': 'Confirm',
@@ -28,7 +28,7 @@ class MiniMaxTranslations extends Translations {
         'backupExplanationTextSplit4': 'RESTORE',
         'backupExplanationTextSplit5': ' your backup from the Options menu as well.\n\nAfter clicking ',
         'backupExplanationTextSplit6': 'BACKUP',
-        'backupExplanationTextSplit7': ', please wait for your backup file to be created. Your phone will then ask you where to save it',
+        'backupExplanationTextSplit7': ', please wait for your backup file to be created. Your phone will then ask you where to save it.',
         'backupExplanationCTA': 'Continue',
         'incentiveExplanationTitle': 'IncentiveCash',
         'incentiveExplanationText': 'Minima is currently in ‘Beta’ test net.\n\nWe are running an Incentive program for you to get Minima coins for running the app until we launch at main net.\n\nTo claim your existing rewards and to receive future daily rewards, be sure to set up your account on the IncentiveCash page.',
