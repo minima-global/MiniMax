@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-const double extraExtraExtraLarge = 84.0;
-const double extraExtraExtraExtraLarge = 102.0;
 const double extraSmall = 8.0;
 const double small = 12.0;
 const double medium = 16.0;
-const double large = 24.0;
-const double extraLarge = 32.0;
-const double extraExtraLarge = 64.0;
+const double large1 = 24.0;
+const double large2 = 32.0;
+const double large3 = 56.0;
+const double large4 = 64.0;
+const double large5 = 84.0;
+const double large6 = 102.0;
 
 extension MarginExtensions on double {
   Widget toSpace({bool horizontally = true, bool vertically = true}) {

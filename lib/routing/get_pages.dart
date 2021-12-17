@@ -6,6 +6,7 @@ import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart
 import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
 import 'package:minimax/ui/screens/home/home_screen.dart';
 import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
+import 'package:minimax/ui/screens/sync_screen/sync_screen.dart';
 
 /// Facade of the main routing pages
 
@@ -16,4 +17,5 @@ List<GetPage> getPages = [
   GetPage(name: BackupExplanationScreen.routeName, page: () => const BackupExplanationScreen()),
   GetPage(name: IncentiveCashExplanationScreen.routeName, page: () => const IncentiveCashExplanationScreen()),
   GetPage(name: CongratulationsScreen.routeName, page: () => const CongratulationsScreen()),
+  GetPage(name: SyncScreen.routeName, page: () => const SyncScreen()),
 ];

@@ -27,21 +27,21 @@ class BatterySettingsScreen extends StatelessWidget {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: extraExtraExtraExtraLarge,
-        horizontal: large,
+        vertical: large6,
+        horizontal: large1,
       ),
-      child: ClipRRect(
+      child: Material(
+        elevation: mainModalElevation,
         borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: extraLarge, horizontal: large),
-          color: white.withOpacity(0.5),
+          padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildTitle(),
               medium.toSpace(),
               _buildBatterySettingsExplanation(),
-              large.toSpace(),
+              large1.toSpace(),
               _buildConfirmButton(),
               medium.toSpace(),
               _buildSkipButton(),

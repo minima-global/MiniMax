@@ -5,6 +5,7 @@ import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
+import 'package:minimax/ui/screens/sync_screen/sync_screen.dart';
 import 'package:minimax/ui/utils/ui_constants.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
@@ -26,21 +27,21 @@ class CongratulationsScreen extends StatelessWidget {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: extraExtraExtraExtraLarge,
-        horizontal: large,
+        vertical: large6,
+        horizontal: large1,
       ),
-      child: ClipRRect(
+      child: Material(
+        elevation: mainModalElevation,
         borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: extraLarge, horizontal: large),
-          color: white.withOpacity(0.5),
+          padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildTitle(),
               medium.toSpace(),
               _buildBackupExplanation(),
-              large.toSpace(),
+              large1.toSpace(),
               _buildContinueButton(),
             ],
           ),
@@ -80,7 +81,7 @@ class CongratulationsScreen extends StatelessWidget {
   Widget _buildContinueButton() {
     return createPrimaryCTA(
       text: StringKeys.congratulationsCTA.tr,
-      onTap: () {},
+      onTap: () => Get.toNamed(SyncScreen.routeName),
     );
   }
 }

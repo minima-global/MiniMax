@@ -45,5 +45,9 @@ class StringKeys {
   static const String congratulationsExplanationSplit2 = "congratulationsExplanationSplit2";
   static const String congratulationsCTA = "congratulationsCTA";
 
+  // Sync screen
+  static const String syncScreenSyncingText = "syncScreenSyncingText";
+  static const String syncScreenGreetingText = "syncScreenGreetingText";
+  static const String syncScreenLaunchCTA = "syncScreenLaunchCTA";
 
 }

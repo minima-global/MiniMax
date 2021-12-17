@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/images/images.dart';
@@ -29,25 +28,25 @@ class HomeScreen extends StatelessWidget {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: extraExtraExtraExtraLarge,
-        horizontal: large,
+        vertical: large6,
+        horizontal: large1,
       ),
-      child: ClipRRect(
+      child: Material(
+        elevation: mainModalElevation,
         borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: extraLarge, horizontal: large),
-          color: white.withOpacity(0.5),
+          padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildWelcomeTo(),
-              large.toSpace(),
+              large1.toSpace(),
               _buildMinimaLogo(),
-              extraLarge.toSpace(),
+              large2.toSpace(),
               _buildMinimaSentence(),
-              extraLarge.toSpace(),
+              large2.toSpace(),
               _buildSetUpYourPhone(),
-              extraExtraLarge.toSpace(),
+              large4.toSpace(),
               _buildContinueButton(),
             ],
           ),

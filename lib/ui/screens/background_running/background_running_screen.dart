@@ -31,14 +31,15 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
     return controller.state.build((state) {
       return Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: extraExtraExtraExtraLarge,
-          horizontal: large,
+          vertical: large6,
+          horizontal: large1,
         ),
-        child: ClipRRect(
+        child: Material(
+          elevation: mainModalElevation,
           borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
+          color: _cardColour(state),
           child: AnimatedContainer(
-            padding: const EdgeInsets.symmetric(vertical: extraLarge, horizontal: large),
-            color: _cardColour(state),
+            padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOutCubic,
             child: Column(
@@ -51,7 +52,7 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
                 _buildMainTitle(state),
                 small.toSpace(),
                 _buildExplanation(state),
-                large.toSpace(),
+                large1.toSpace(),
                 _buildConfirmButton(),
                 medium.toSpace(),
                 _buildDenyButton(),
@@ -145,10 +146,10 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
   Color _cardColour(BackgroundRunningState state) {
     switch (state) {
       case BackgroundRunningState.fresh:
-        return white.withOpacity(0.9);
+        return white;
       case BackgroundRunningState.confirm:
       case BackgroundRunningState.doubleConfirm:
-        return surface.withOpacity(0.9);
+        return surface;
     }
   }
 

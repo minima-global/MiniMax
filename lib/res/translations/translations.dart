@@ -37,6 +37,9 @@ class MiniMaxTranslations extends Translations {
         'congratulationsExplanationSplit1': 'You are now ready to start using Minima.\n\n\n',
         'congratulationsExplanationSplit2': 'A new world of Freedom awaits you.',
         'congratulationsCTA': 'Continue',
+        'syncScreenSyncingText': 'Synchronising,  please wait…',
+        'syncScreenGreetingText': 'Greeting received',
+        'syncScreenLaunchCTA': 'Launch',
       }
     };
   }
