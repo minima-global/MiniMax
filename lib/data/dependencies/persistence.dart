@@ -7,12 +7,10 @@ class MinimaStorage {
 
   static const _userConfiguredDeviceFirstTime = "_userConfiguredDeviceFirstTime";
 
-  Future<bool> get userConfiguredDeviceFirstTime =>
+  Future<bool> getUserConfiguredDeviceFirstTime() =>
       _storage.read(key: _userConfiguredDeviceFirstTime).then((value) => value == true.toString());
 
-  set userConfiguredDeviceFirstTime(Future<bool> userConfiguredDeviceFirstTime) {
-    userConfiguredDeviceFirstTime.then(
-      (value) => _storage.write(key: _userConfiguredDeviceFirstTime, value: value.toString()),
-    );
+  void setUserConfiguredDeviceFirstTime(bool userConfiguredDeviceFirstTime) {
+    _storage.write(key: _userConfiguredDeviceFirstTime, value: userConfiguredDeviceFirstTime.toString());
   }
 }

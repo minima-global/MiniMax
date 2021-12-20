@@ -13,7 +13,7 @@ class DeciderController extends GetxController {
   void onInit() {
     super.onInit();
 
-    _minimaStorage.userConfiguredDeviceFirstTime //
+    _minimaStorage.getUserConfiguredDeviceFirstTime() //
         .then((configured) {
       switch (configured) {
         case true:

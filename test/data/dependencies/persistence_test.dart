@@ -22,7 +22,7 @@ void main() {
     when(() => storage.read(key: "_userConfiguredDeviceFirstTime")).thenAnswer((_) => Future.value(null));
 
     // When
-    bool result = await subject.userConfiguredDeviceFirstTime;
+    bool result = await subject.getUserConfiguredDeviceFirstTime();
 
     // Then
     expect(result, false);
@@ -33,7 +33,7 @@ void main() {
     when(() => storage.read(key: "_userConfiguredDeviceFirstTime")).thenAnswer((_) => Future.value("false"));
 
     // When
-    bool result = await subject.userConfiguredDeviceFirstTime;
+    bool result = await subject.getUserConfiguredDeviceFirstTime();
 
     // Then
     expect(result, false);
@@ -44,7 +44,7 @@ void main() {
     when(() => storage.read(key: "_userConfiguredDeviceFirstTime")).thenAnswer((_) => Future.value("true"));
 
     // When
-    bool result = await subject.userConfiguredDeviceFirstTime;
+    bool result = await subject.getUserConfiguredDeviceFirstTime();
 
     // Then
     expect(result, true);
@@ -56,7 +56,7 @@ void main() {
       when(() => storage.write(key: any(named: "key"), value: any(named: "value"))).thenAnswer((_) => Future.value());
 
       // When
-      subject.userConfiguredDeviceFirstTime = Future.value(true);
+      subject.setUserConfiguredDeviceFirstTime(true);
       fakeAsync.flushTimers();
 
       // Then
