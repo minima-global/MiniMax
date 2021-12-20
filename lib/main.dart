@@ -5,7 +5,7 @@ import 'package:minimax/data/injector/injector.dart';
 import 'package:minimax/res/styles/styles.dart';
 import 'package:minimax/res/translations/translations.dart';
 import 'package:minimax/routing/get_pages.dart';
-import 'package:minimax/ui/screens/home/home_screen.dart';
+import 'package:minimax/ui/screens/decider/decider_screen.dart';
 
 void main() {
   inject();
@@ -23,7 +23,7 @@ class MiniMaxApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: generateAppTheme(),
       getPages: getPages,
-      home: const HomeScreen(),
+      home: const DeciderScreen(),
     );
   }
 }

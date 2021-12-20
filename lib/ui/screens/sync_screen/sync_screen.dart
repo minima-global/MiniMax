@@ -8,6 +8,7 @@ import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
+import 'package:minimax/ui/screens/home/home_screen.dart';
 import 'package:minimax/ui/screens/sync_screen/sync_controller.dart';
 import 'package:minimax/ui/screens/sync_screen/sync_state_model.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
@@ -96,7 +97,10 @@ class SyncScreen extends GetWidget<SyncController> {
         case SyncStateModel.readyToLaunch:
           return Align(
             alignment: Alignment.bottomCenter,
-            child: createPrimaryCTA(text: StringKeys.syncScreenLaunchCTA.tr, onTap: () {}),
+            child: createPrimaryCTA(
+              text: StringKeys.syncScreenLaunchCTA.tr,
+              onTap: () => Get.toNamed(HomeScreen.routeName),
+            ),
           );
       }
     });

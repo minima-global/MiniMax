@@ -1,0 +1,4 @@
+enum DeciderModel {
+  setUp,
+  goMain,
+}
