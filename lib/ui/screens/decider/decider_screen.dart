@@ -30,12 +30,14 @@ class DeciderScreen extends GetWidget<DeciderController> {
     );
   }
 
-  Future? _onDecision(DeciderModel decision) {
+  void _onDecision(DeciderModel decision) {
     switch (decision) {
       case DeciderModel.setUp:
-        return Get.toNamed(SetUpScreen.routeName);
+        Get.toNamed(SetUpScreen.routeName);
+        break;
       case DeciderModel.goMain:
-        return Get.toNamed(HomeScreen.routeName);
+        Get.toNamed(HomeScreen.routeName);
+        break;
     }
   }
 }

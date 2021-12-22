@@ -50,4 +50,14 @@ class StringKeys {
   static const String syncScreenGreetingText = "syncScreenGreetingText";
   static const String syncScreenLaunchCTA = "syncScreenLaunchCTA";
 
+  // Home
+  static const String homeScreenDrawerBackUpNodeCTA = "homeScreenDrawerBackUpNodeCTA";
+  static const String homeScreenDrawerHeaderVersion = "homeScreenDrawerHeaderVersion";
+  static const String homeScreenDrawerTitleNodeStatus = "homeScreenDrawerTitleNodeStatus";
+  static const String homeScreenDrawerTitleIncentiveCash = "homeScreenDrawerTitleIncentiveCash";
+  static const String homeScreenDrawerTitleNewsFeed = "homeScreenDrawerTitleNewsFeed";
+  static const String homeScreenDrawerTitleBatteryOptimisation = "homeScreenDrawerTitleBatteryOptimisation";
+  static const String homeScreenDrawerTitleTerminal = "homeScreenDrawerTitleTerminal";
+  static const String homeScreenDrawerTitleHelp = "homeScreenDrawerTitleHelp";
+
 }

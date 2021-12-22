@@ -8,11 +8,12 @@ import 'package:minimax/ui/screens/congratulations/congratulations_controller.da
 import 'package:minimax/ui/screens/decider/decider_controller.dart';
 import 'package:minimax/ui/screens/home/home_controller.dart';
 import 'package:minimax/ui/screens/sync_screen/sync_controller.dart';
+import 'package:package_info/package_info.dart';
 
-void inject() {
+Future inject() async {
   /// Controllers
   Get.create(() => DeciderController(Get.find()), permanent: false);
-  Get.create(() => HomeController(), permanent: false);
+  Get.create(() => HomeController(Get.find()), permanent: false);
   Get.create(() => BackgroundRunningController(Get.find()), permanent: false);
   Get.create(() => SyncController(), permanent: false);
   Get.create(() => CongratulationsController(Get.find()), permanent: false);
@@ -27,4 +28,8 @@ void inject() {
   // Storage
   Get.create(() => const FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true)));
   Get.create(() => MinimaStorage(Get.find()));
+
+  // Packages
+  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  Get.create(() => packageInfo, permanent: false);
 }

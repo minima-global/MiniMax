@@ -7,8 +7,9 @@ import 'package:minimax/res/translations/translations.dart';
 import 'package:minimax/routing/get_pages.dart';
 import 'package:minimax/ui/screens/decider/decider_screen.dart';
 
-void main() {
-  inject();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await inject();
   runApp(const MiniMaxApp());
 }
 
