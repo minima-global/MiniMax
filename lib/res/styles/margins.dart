@@ -5,10 +5,11 @@ const double small = 12.0;
 const double medium = 16.0;
 const double large1 = 24.0;
 const double large2 = 32.0;
-const double large3 = 56.0;
-const double large4 = 64.0;
-const double large5 = 84.0;
-const double large6 = 102.0;
+const double large3 = 40.0;
+const double large4 = 56.0;
+const double large5 = 64.0;
+const double large6 = 84.0;
+const double large7 = 102.0;
 
 extension MarginExtensions on double {
   Widget toSpace({bool horizontally = true, bool vertically = true}) {

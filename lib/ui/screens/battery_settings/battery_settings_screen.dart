@@ -27,7 +27,7 @@ class BatterySettingsScreen extends StatelessWidget {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: large6,
+        vertical: large7,
         horizontal: large1,
       ),
       child: Material(

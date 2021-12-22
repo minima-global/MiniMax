@@ -31,7 +31,7 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
     return controller.state.build((state) {
       return Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: large6,
+          vertical: large7,
           horizontal: large1,
         ),
         child: Material(

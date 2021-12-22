@@ -28,11 +28,10 @@ class SetUpScreen extends StatelessWidget {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: large6,
+        vertical: large7,
         horizontal: large1,
       ),
-      child: Material(
-        elevation: mainModalElevation,
+      child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
@@ -46,7 +45,7 @@ class SetUpScreen extends StatelessWidget {
               _buildMinimaSentence(),
               large2.toSpace(),
               _buildSetUpYourPhone(),
-              large4.toSpace(),
+              large5.toSpace(),
               _buildContinueButton(),
             ],
           ),

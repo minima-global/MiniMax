@@ -1,6 +1,10 @@
 class StringKeys {
   StringKeys._();
 
+  // Other
+  static const generalNetworkTitleError = 'generalNetworkTitleError';
+  static const generalNetworkMessageError = 'generalNetworkMessageError';
+
   // Home
   static const String homeWelcomeTitle = "homeWelcomeTitle";
   static const String homeMinimaSentence = "homeMinimaSentence";

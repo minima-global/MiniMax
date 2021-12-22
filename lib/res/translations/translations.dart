@@ -5,6 +5,8 @@ class MiniMaxTranslations extends Translations {
   Map<String, Map<String, String>> get keys {
     return {
       'en': {
+        'generalNetworkTitleError': 'Error',
+        'generalNetworkMessageError': 'There\'s been an error, please try again later.',
         'homeWelcomeTitle': 'Welcome to',
         'homeMinimaSentence': 'The complete blockchain solution',
         'homeSetUpYourPhone': 'Let’s set up your phone',
