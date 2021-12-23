@@ -66,9 +66,11 @@ class HomeScreen extends GetWidget<HomeController> {
   Widget _buildBody() {
     return Navigator(
       initialRoute: HomeController.defaultPageSelected.routeName,
+      onPopPage: (_, __) => true,
       onGenerateRoute: (RouteSettings routeSettings) {
         return MaterialPageRoute(
-            builder: (_) => _nestedPages.firstWhere((element) => element.name == routeSettings.name).page());
+            builder: (_) =>
+                _nestedPages.firstWhereOrNull((element) => element.name == routeSettings.name)?.page() ?? Container());
       },
       key: _navigatorKey,
       pages: _nestedPages,

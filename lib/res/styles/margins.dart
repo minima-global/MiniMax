@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-const double extraSmall = 8.0;
-const double small = 12.0;
+const double small3 = 4.0;
+const double small2 = 8.0;
+const double small1 = 12.0;
 const double medium = 16.0;
 const double large1 = 24.0;
 const double large2 = 32.0;

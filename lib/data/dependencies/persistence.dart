@@ -5,12 +5,22 @@ class MinimaStorage {
 
   MinimaStorage(this._storage);
 
-  static const _userConfiguredDeviceFirstTime = "_userConfiguredDeviceFirstTime";
+  static const _userConfiguredDeviceFirstTimeKey = "_userConfiguredDeviceFirstTimeKey";
 
   Future<bool> getUserConfiguredDeviceFirstTime() =>
-      _storage.read(key: _userConfiguredDeviceFirstTime).then((value) => value == true.toString());
+      _storage.read(key: _userConfiguredDeviceFirstTimeKey).then((value) => value == true.toString());
 
   void setUserConfiguredDeviceFirstTime(bool userConfiguredDeviceFirstTime) {
-    _storage.write(key: _userConfiguredDeviceFirstTime, value: userConfiguredDeviceFirstTime.toString());
+    _storage.write(key: _userConfiguredDeviceFirstTimeKey, value: userConfiguredDeviceFirstTime.toString());
+  }
+
+  static const _nodeIdSavedKey = "_nodeIdSavedKey";
+
+  Future<String?> getNodeId() {
+    return _storage.read(key: _nodeIdSavedKey);
+  }
+
+  Future setNodeId(String nodeId) {
+    return _storage.write(key: _nodeIdSavedKey, value: nodeId);
   }
 }

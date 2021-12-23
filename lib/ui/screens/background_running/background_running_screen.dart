@@ -46,11 +46,11 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildTitle(),
-                small.toSpace(),
+                small1.toSpace(),
                 _buildSeparator(state),
                 medium.toSpace(),
                 _buildMainTitle(state),
-                small.toSpace(),
+                small1.toSpace(),
                 _buildExplanation(state),
                 large1.toSpace(),
                 _buildConfirmButton(),

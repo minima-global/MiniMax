@@ -50,6 +50,18 @@ class MiniMaxTranslations extends Translations {
         'homeScreenDrawerTitleBatteryOptimisation': 'Battery Optimisation',
         'homeScreenDrawerTitleTerminal': 'Terminal',
         'homeScreenDrawerTitleHelp': 'Help',
+        'incentiveCashScreenSetUpTab': 'Set-up instructions',
+        'incentiveCashScreenBalanceTab': 'Balance',
+        'incentiveCashScreenSetUpTextFieldTitle': 'IncentiveCash NodeID',
+        'incentiveCashScreenSetUpTextFieldHint': 'Enter IncentiveCash NodeID',
+        'incentiveCashScreenSetUpTextFieldEnterFirstTime': 'Enter',
+        'incentiveCashScreenSetUpTextFieldEnterUpdate': 'Update',
+        'incentiveCashScreenIncentiveCashProgramTitle': 'The IncentiveCash Program:',
+        'incentiveCashScreenIncentiveCashProgramExplanation': 'The Minima IncentiveCash Program is designed to reward our users for running a Minima node. Users will receive one IncentiveCash token for every day your node pings us to let us know it is connected. IncentiveCash Tokens will be redeemable for Minima coins at mainnet launch on a one for one basis. In order to join the Minima IncentiveCash Program, you must enter your unique IncentiveCash NodeID in to the field below.  This can be found by logging in or registering to the IncentiveCash website. If you already have your IncentiveCash NodeID, please enter it below. If you do not have your IncentiveCash NodeID, Please use the button below to navigate to the IncentiveCash website.',
+        'incentiveCashScreenIncentiveCashProgramCTA': 'IncentiveCash Website',
+        'incentiveCashScreenIncentiveCashProgramCTAUrl': 'https://incentivecash.minima.global/',
+        'incentiveCashScreenBalanceTitle': 'Incentive Cash Token Balance:',
+        'incentiveCashScreenBalancePingTitle': 'Ping (Last sent):',
       }
     };
   }

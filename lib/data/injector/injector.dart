@@ -10,7 +10,9 @@ import 'package:minimax/ui/screens/background_running/background_running_control
 import 'package:minimax/ui/screens/congratulations/congratulations_controller.dart';
 import 'package:minimax/ui/screens/decider/decider_controller.dart';
 import 'package:minimax/ui/screens/home/home_controller.dart';
+import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_controller.dart';
 import 'package:minimax/ui/screens/home/screens/news_feed/news_feed_controller.dart';
+import 'package:minimax/ui/screens/home/screens/node_status/node_status_controller.dart';
 import 'package:minimax/ui/screens/sync_screen/sync_controller.dart';
 import 'package:package_info/package_info.dart';
 
@@ -22,6 +24,8 @@ Future inject() async {
   Get.create(() => SyncController(), permanent: false);
   Get.create(() => CongratulationsController(Get.find()), permanent: false);
   Get.create(() => NewsFeedController(Get.find()), permanent: true);
+  Get.create(() => NodeStatusController(), permanent: true);
+  Get.create(() => IncentiveCashController(Get.find()), permanent: true);
 
   /// Services and repositories
   Get.create<NewsService>(() => NewsServiceImpl(Get.find()));

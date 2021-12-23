@@ -9,6 +9,7 @@ import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/ui/screens/home/screens/news_feed/model/news_model.dart';
 import 'package:minimax/utils/extensions/object_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:html/parser.dart';
 
 class NewsCard extends StatelessWidget {
   final NewsModel _newsModel;
@@ -29,9 +30,9 @@ class NewsCard extends StatelessWidget {
               _buildImage(),
               medium.toSpace(),
               _buildTitle(),
-              extraSmall.toSpace(),
+              small2.toSpace(),
               _buildContent(),
-              extraSmall.toSpace(),
+              small2.toSpace(),
               _buildDate(),
             ],
           ),

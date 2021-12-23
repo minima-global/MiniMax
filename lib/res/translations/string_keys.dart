@@ -64,4 +64,18 @@ class StringKeys {
   static const String homeScreenDrawerTitleTerminal = "homeScreenDrawerTitleTerminal";
   static const String homeScreenDrawerTitleHelp = "homeScreenDrawerTitleHelp";
 
+  // Incentive cash
+  static const String incentiveCashScreenSetUpTab = "incentiveCashScreenSetUpTab";
+  static const String incentiveCashScreenBalanceTab = "incentiveCashScreenBalanceTab";
+  static const String incentiveCashScreenSetUpTextFieldTitle = "incentiveCashScreenSetUpTextFieldTitle";
+  static const String incentiveCashScreenSetUpTextFieldEnterFirstTime =
+      "incentiveCashScreenSetUpTextFieldEnterFirstTime";
+  static const String incentiveCashScreenSetUpTextFieldEnterUpdate = "incentiveCashScreenSetUpTextFieldEnterUpdate";
+  static const String incentiveCashScreenSetUpTextFieldHint = "incentiveCashScreenSetUpTextFieldHint";
+  static const String incentiveCashScreenIncentiveCashProgramTitle = "incentiveCashScreenIncentiveCashProgramTitle";
+  static const String incentiveCashScreenIncentiveCashProgramExplanation = "incentiveCashScreenIncentiveCashProgramExplanation";
+  static const String incentiveCashScreenIncentiveCashProgramCTA = "incentiveCashScreenIncentiveCashProgramCTA";
+  static const String incentiveCashScreenIncentiveCashProgramCTAUrl = "incentiveCashScreenIncentiveCashProgramCTAUrl";
+  static const String incentiveCashScreenBalanceTitle = "incentiveCashScreenBalanceTitle";
+  static const String incentiveCashScreenBalancePingTitle = "incentiveCashScreenBalancePingTitle";
 }

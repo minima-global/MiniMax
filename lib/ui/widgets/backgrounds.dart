@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimax/res/images/images.dart';
+import 'package:minimax/res/styles/colours.dart';
+import 'package:minimax/res/styles/dimensions.dart';
 
 Widget withGlossyBackground({required Widget body}) {
   return Stack(
@@ -14,5 +16,15 @@ Widget withGlossyBackground({required Widget body}) {
       ),
       body,
     ],
+  );
+}
+
+Widget semiTransparentModal({required Widget child}) {
+  return ClipRRect(
+    borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
+    child: Container(
+      color: white.withOpacity(0.5),
+      child: child,
+    ),
   );
 }
