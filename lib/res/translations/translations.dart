@@ -62,6 +62,12 @@ class MiniMaxTranslations extends Translations {
         'incentiveCashScreenIncentiveCashProgramCTAUrl': 'https://incentivecash.minima.global/',
         'incentiveCashScreenBalanceTitle': 'Incentive Cash Token Balance:',
         'incentiveCashScreenBalancePingTitle': 'Ping (Last sent):',
+        'incentiveCashScreenBalancePingDateFormat1': "EEE dd MMM yyyy '/'",
+        'incentiveCashScreenBalancePingDateFormat2': " HH:mm:ss '%s'",
+        'incentiveCashScreenBalanceExplanation': 'A ping is sent to the Minima network once at day at random. Please check that it is up to date.',
+        'incentiveCashScreenBalanceStatusTitle': 'Node Status : ',
+        'incentiveCashScreenBalanceStatusConnected': 'Connected',
+        'incentiveCashScreenBalanceStatusOffline': 'Offline',
       }
     };
   }

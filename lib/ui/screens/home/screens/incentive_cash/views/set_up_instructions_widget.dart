@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:minimax/res/styles/colours.dart';
@@ -54,9 +53,12 @@ class SetUpInstructionsWidget extends StatelessWidget {
   }
 
   Widget _buildIncentiveCashInfoTitle() {
-    return Text(
-      StringKeys.incentiveCashScreenIncentiveCashProgramTitle.tr,
-      style: lmH4Xtra.copyWith(color: coreBlue100),
+    return SizedBox(
+      width: double.maxFinite,
+      child: Text(
+        StringKeys.incentiveCashScreenIncentiveCashProgramTitle.tr,
+        style: lmH4Xtra.copyWith(color: coreBlue100),
+      ),
     );
   }
 
@@ -76,19 +78,20 @@ class SetUpInstructionsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: large2),
+              padding: const EdgeInsets.symmetric(horizontal: large1),
               child: Text(
                 StringKeys.incentiveCashScreenSetUpTextFieldTitle.tr,
                 style: lmH2.copyWith(color: coreBlackContrast),
               ),
             ),
-            small3.toSpace(),
+            small2.toSpace(),
             semiTransparentModal(
               child: Padding(
                 padding: const EdgeInsets.all(medium),
                 child: TextFormField(
                   focusNode: _nodeIdFocusNode,
                   controller: controller.nodeIdController,
+                  keyboardType: TextInputType.visiblePassword,
                   maxLines: 1,
                   textInputAction: TextInputAction.done,
                   style: lmH2.copyWith(color: coreBlackContrast),

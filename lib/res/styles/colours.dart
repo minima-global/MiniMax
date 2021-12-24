@@ -10,3 +10,4 @@ const Color coreGrey5 = Color(0xFFF9F9FA);
 const Color surface = Color(0xFFFDEFBE);
 const Color transparent = Color(0x00000000);
 const Color signsWarning = Color(0xFFF5455C);
+const Color signsGreenGood = Color(0xFF00CBB6);

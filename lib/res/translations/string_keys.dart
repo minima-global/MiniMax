@@ -78,4 +78,10 @@ class StringKeys {
   static const String incentiveCashScreenIncentiveCashProgramCTAUrl = "incentiveCashScreenIncentiveCashProgramCTAUrl";
   static const String incentiveCashScreenBalanceTitle = "incentiveCashScreenBalanceTitle";
   static const String incentiveCashScreenBalancePingTitle = "incentiveCashScreenBalancePingTitle";
+  static const String incentiveCashScreenBalancePingDateFormat1 = "incentiveCashScreenBalancePingDateFormat1";
+  static const String incentiveCashScreenBalancePingDateFormat2 = "incentiveCashScreenBalancePingDateFormat2";
+  static const String incentiveCashScreenBalanceExplanation = "incentiveCashScreenBalanceExplanation";
+  static const String incentiveCashScreenBalanceStatusTitle = "incentiveCashScreenBalanceStatusTitle";
+  static const String incentiveCashScreenBalanceStatusConnected = "incentiveCashScreenBalanceStatusConnected";
+  static const String incentiveCashScreenBalanceStatusOffline = "incentiveCashScreenBalanceStatusOffline";
 }

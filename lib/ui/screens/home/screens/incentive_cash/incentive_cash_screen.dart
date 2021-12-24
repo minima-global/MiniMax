@@ -7,7 +7,8 @@ import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_controller.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_tab.dart';
-import 'package:minimax/ui/screens/home/screens/incentive_cash/views/set_up_instructions_widgett.dart';
+import 'package:minimax/ui/screens/home/screens/incentive_cash/views/incentive_cash_widget.dart';
+import 'package:minimax/ui/screens/home/screens/incentive_cash/views/set_up_instructions_widget.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
 
@@ -75,8 +76,13 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
   }
 
   Widget _buildBalance() {
-    return Expanded(
-      child: trarns,
+    return controller.loadingBalance.build(
+      (loading) => controller.incentiveCashModel.build(
+        (incentiveCashModel) => IncentiveCashWidget(
+          incentiveCashModel,
+          loading,
+        ),
+      ),
     );
   }
 
