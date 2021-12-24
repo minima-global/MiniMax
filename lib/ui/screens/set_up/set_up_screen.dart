@@ -31,8 +31,7 @@ class SetUpScreen extends StatelessWidget {
         vertical: large7,
         horizontal: large1,
       ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
+      child: semiTransparentModal(
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: Column(
