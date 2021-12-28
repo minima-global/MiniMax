@@ -73,7 +73,8 @@ class StringKeys {
   static const String incentiveCashScreenSetUpTextFieldEnterUpdate = "incentiveCashScreenSetUpTextFieldEnterUpdate";
   static const String incentiveCashScreenSetUpTextFieldHint = "incentiveCashScreenSetUpTextFieldHint";
   static const String incentiveCashScreenIncentiveCashProgramTitle = "incentiveCashScreenIncentiveCashProgramTitle";
-  static const String incentiveCashScreenIncentiveCashProgramExplanation = "incentiveCashScreenIncentiveCashProgramExplanation";
+  static const String incentiveCashScreenIncentiveCashProgramExplanation =
+      "incentiveCashScreenIncentiveCashProgramExplanation";
   static const String incentiveCashScreenIncentiveCashProgramCTA = "incentiveCashScreenIncentiveCashProgramCTA";
   static const String incentiveCashScreenIncentiveCashProgramCTAUrl = "incentiveCashScreenIncentiveCashProgramCTAUrl";
   static const String incentiveCashScreenBalanceTitle = "incentiveCashScreenBalanceTitle";
@@ -84,4 +85,36 @@ class StringKeys {
   static const String incentiveCashScreenBalanceStatusTitle = "incentiveCashScreenBalanceStatusTitle";
   static const String incentiveCashScreenBalanceStatusConnected = "incentiveCashScreenBalanceStatusConnected";
   static const String incentiveCashScreenBalanceStatusOffline = "incentiveCashScreenBalanceStatusOffline";
+
+  // Help
+  static const String helpScreenCommunityTab = "helpScreenCommunityTab";
+  static const String helpScreenCommunityDev = "helpScreenCommunityDev";
+  static const String helpScreenCommunityTechPapers = "helpScreenCommunityTechPapers";
+  static const String helpScreenTileCommunityWiki = "helpScreenTileCommunityWiki";
+  static const String helpScreenTileDiscord = "helpScreenTileDiscord";
+  static const String helpScreenTileTelegram = "helpScreenTileTelegram";
+  static const String helpScreenTileTwitter = "helpScreenTileTwitter";
+  static const String helpScreenTileYoutube = "helpScreenTileYoutube";
+  static const String helpScreenTileWebsite = "helpScreenTileWebsite";
+  static const String helpScreenTileBlogs = "helpScreenTileBlogs";
+  static const String helpScreenTileGithub = "helpScreenTileGithub";
+  static const String helpScreenTileMinimaWhitePaper = "helpScreenTileMinimaWhitePaper";
+  static const String helpScreenTileTokenomicsPaper = "helpScreenTileTokenomicsPaper";
+  static const String helpScreenTileProtocolLayers = "helpScreenTileProtocolLayers";
+  static const String helpScreenLinkCommunityWiki = "helpScreenLinkCommunityWiki";
+  static const String helpScreenLinkDiscord = "helpScreenLinkDiscord";
+  static const String helpScreenLinkTelegram = "helpScreenLinkTelegram";
+  static const String helpScreenLinkTwitter = "helpScreenLinkTwitter";
+  static const String helpScreenLinkWebsite = "helpScreenLinkWebsite";
+  static const String helpScreenLinkBlogs = "helpScreenLinkBlogs";
+  static const String helpScreenLinkYoutube = "helpScreenLinkYoutube";
+  static const String helpScreenLinkGithub = "helpScreenLinkGithub";
+  static const String helpScreenLinkMinimaWhitePaper = "helpScreenLinkMinimaWhitePaper";
+  static const String helpScreenLinkTokenomicsPaper = "helpScreenLinkTokenomicsPaper";
+  static const String helpScreenLinkProtocolLayers = "helpScreenLinkProtocolLayers";
+
+  // PDF screen
+  static const String pdfReaderPagesOfD = "pdfReaderPagesOfD";
+  static const String pdfReaderCantLoadPdfError = 'pdfReaderCantLoadPdfError';
+
 }

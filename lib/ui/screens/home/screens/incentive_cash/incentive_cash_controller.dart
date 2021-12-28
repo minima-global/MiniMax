@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
+import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_model.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_tab.dart';
 import 'package:minimax/utils/extensions/rxn_extensions.dart';
-
-import 'model/incentive_cash_model.dart';
 
 class IncentiveCashController extends GetxController {
   final MinimaStorage _storage;
