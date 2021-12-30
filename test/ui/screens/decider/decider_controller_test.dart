@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:minimax/data/dependencies/background.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
 import 'package:minimax/ui/screens/decider/decider_controller.dart';
 import 'package:minimax/ui/screens/decider/model/decider_model.dart';
@@ -9,15 +10,19 @@ import '../../../utils/rx_stream/test_observer.dart';
 
 class MockMinimaStorage extends Mock implements MinimaStorage {}
 
+class MockBackgroundService extends Mock implements BackgroundService {}
+
 void main() {
   late MinimaStorage storage;
+  late MockBackgroundService backgroundService;
 
   late DeciderController subject;
 
   setUp(() {
     storage = MockMinimaStorage();
+    backgroundService = MockBackgroundService();
 
-    subject = DeciderController(storage);
+    subject = DeciderController(storage, backgroundService);
   });
 
   test("User configured", () {
@@ -48,5 +53,16 @@ void main() {
       // Then
       expect(observer.history, containsAllInOrder([DeciderModel.setUp]));
     });
+  });
+
+  test("onInit starts background service", () {
+    // Given
+    when(() => storage.getUserConfiguredDeviceFirstTime()).thenAnswer((_) => Future.value(false));
+
+    // When
+    subject.onInit();
+
+    // Then
+    verify(() => backgroundService.startBackgroundService());
   });
 }

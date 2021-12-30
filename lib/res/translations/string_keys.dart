@@ -117,4 +117,10 @@ class StringKeys {
   static const String pdfReaderPagesOfD = "pdfReaderPagesOfD";
   static const String pdfReaderCantLoadPdfError = 'pdfReaderCantLoadPdfError';
 
+  // Terminal
+  static const String terminalScreenTextFieldTitle = "terminalScreenTextFieldTitle";
+  static const String terminalScreenTextFieldHint = "terminalScreenTextFieldHint";
+  static const String terminalScreenClearConsole = "terminalScreenClearConsole";
+
+
 }

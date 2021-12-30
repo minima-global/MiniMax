@@ -181,7 +181,7 @@ List<GetPage> _nestedPages = [
   ),
   GetPage(
     name: TerminalScreen.routeName,
-    page: () => const TerminalScreen(),
+    page: () => TerminalScreen(),
   ),
   GetPage(
     name: HelpScreen.routeName,

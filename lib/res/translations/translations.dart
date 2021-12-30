@@ -101,7 +101,10 @@ class MiniMaxTranslations extends Translations {
         'helpScreenLinkTokenomicsPaper': 'https://cdn.minima.global/media/2021/11/16/Minima_Token_Economics_Aug2021-1.pdf',
         'helpScreenLinkProtocolLayers': 'https://cdn.minima.global/media/2021/07/02/Protocol_Layers_.pdf',
         'pdfReaderPagesOfD': 'of %d',
-        'pdfReaderCantLoadPdfError': 'Can\'t load the Pdf'
+        'pdfReaderCantLoadPdfError': 'Can\'t load the Pdf',
+        'terminalScreenTextFieldTitle': 'Enter Minima Command:',
+        'terminalScreenTextFieldHint': 'Enter the command here…',
+        'terminalScreenClearConsole': 'Clear console',
       }
     };
   }

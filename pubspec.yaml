@@ -23,6 +23,7 @@ dependencies:
   intl: ^0.17.0
   advance_pdf_viewer: ^2.0.0
   sprintf: ^6.0.0
+  flutter_keyboard_visibility: ^5.1.0
 
 dev_dependencies:
   flutter_test:
