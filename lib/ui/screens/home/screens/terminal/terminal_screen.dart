@@ -20,15 +20,20 @@ class TerminalScreen extends GetWidget<TerminalController> {
   @override
   Widget build(BuildContext context) {
     return withGlossyBackground(
-      body: Scaffold(
-        body: _buildBody(),
-        floatingActionButton: _buildFloatingActionButton(),
+      body: KeyboardVisibilityBuilder(
+        builder: (_, isKeyboardVisible) {
+          return Scaffold(
+            body: _buildBody(isKeyboardVisible),
+            floatingActionButton: _buildFloatingActionButton(isKeyboardVisible),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(bool isKeyboardVisible) {
     return ListView(
+      physics: isKeyboardVisible ? const AlwaysScrollableScrollPhysics() : const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(horizontal: large1),
       children: [
         _buildTerminal(),
@@ -91,22 +96,18 @@ class TerminalScreen extends GetWidget<TerminalController> {
     );
   }
 
-  Widget _buildFloatingActionButton() {
-    return KeyboardVisibilityBuilder(
-      builder: (_, isKeyboardVisible) {
-        return Visibility(
-          visible: !isKeyboardVisible,
-          child: FloatingActionButton.extended(
-            onPressed: () {
-              controller.clearConsole();
-              hideKeyboard();
-            },
-            label: Text(
-              StringKeys.terminalScreenClearConsole.tr,
-            ),
-          ),
-        );
-      },
+  Widget _buildFloatingActionButton(bool isKeyboardVisible) {
+    return Visibility(
+      visible: !isKeyboardVisible,
+      child: FloatingActionButton.extended(
+        onPressed: () {
+          controller.clearConsole();
+          hideKeyboard();
+        },
+        label: Text(
+          StringKeys.terminalScreenClearConsole.tr,
+        ),
+      ),
     );
   }
 }

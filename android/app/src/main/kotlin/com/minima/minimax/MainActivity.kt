@@ -40,8 +40,11 @@ class MainActivity : FlutterActivity(), ServiceConnection {
                     result.success(true)
                 }
                 "runCommand" -> {
+
                     minima?.let {
-                        result.success(it.runCommandFromArguments(call))
+                        Thread {
+                            result.success(it.runCommandFromArguments(call))
+                        }.start()
                     }
                         ?: result.error("MINIMA_NOT_STARTED", "Minima not started", null)
                 }

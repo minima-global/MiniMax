@@ -44,3 +44,13 @@ enum Status {
   inactive,
   unknown,
 }
+
+extension StatusExtensions on bool {
+  Status get status {
+    if (this) {
+      return Status.active;
+    } else {
+      return Status.inactive;
+    }
+  }
+}
