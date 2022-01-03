@@ -28,3 +28,14 @@ Widget semiTransparentModal({required Widget child}) {
     ),
   );
 }
+
+Widget allDoneModal({required Widget child}) {
+  return ClipRRect(
+    borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
+    child: Container(
+      color: allDoneIncentiveCash.withOpacity(0.9),
+      child: child,
+    ),
+  );
+}
+

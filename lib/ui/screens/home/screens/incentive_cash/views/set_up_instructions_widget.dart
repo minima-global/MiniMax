@@ -15,16 +15,18 @@ class SetUpInstructionsWidget extends StatelessWidget {
   final IncentiveCashController controller;
   final FocusNode _nodeIdFocusNode = FocusNode();
 
-  SetUpInstructionsWidget(this.nodeId, this.controller);
+  SetUpInstructionsWidget(this.nodeId, this.controller, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> widgets = [
+      _buildNodeIdInput(),
+      medium.toSpace(),
+      _buildIncentiveCashInfoProgram(),
+    ];
+
     return Column(
-      children: [
-        _buildNodeIdInput(),
-        medium.toSpace(),
-        _buildIncentiveCashInfoProgram(),
-      ],
+      children: nodeId != null ? widgets : widgets.reversed.toList(),
     );
   }
 
@@ -111,8 +113,7 @@ class SetUpInstructionsWidget extends StatelessWidget {
                   controller.saveNodeId();
                   hideKeyboard();
                   _nodeIdFocusNode.unfocus();
-                }
-            )
+                })
           ],
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:minimax/data/dependencies/network_manager.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
 import 'package:minimax/data/repositories/incentive_cash_repository.dart';
 import 'package:minimax/data/repositories/news_repository.dart';
+import 'package:minimax/data/repositories/node_status_repository.dart';
 import 'package:minimax/data/services/news_service.dart';
 import 'package:minimax/ui/screens/background_running/background_running_controller.dart';
 import 'package:minimax/ui/screens/congratulations/congratulations_controller.dart';
@@ -29,7 +30,7 @@ Future inject() async {
   Get.create(() => SyncController(), permanent: false);
   Get.create(() => CongratulationsController(Get.find()), permanent: false);
   Get.create(() => NewsFeedController(Get.find()), permanent: true);
-  Get.create(() => NodeStatusController(), permanent: true);
+  Get.create(() => NodeStatusController(Get.find(), Get.find()), permanent: true);
   Get.create(() => IncentiveCashController(Get.find(), Get.find()), permanent: true);
   Get.create(() => HelpController(), permanent: true);
   Get.create(() => PDFController(), permanent: true);
@@ -39,6 +40,7 @@ Future inject() async {
   Get.create<NewsService>(() => NewsServiceImpl(Get.find()));
   Get.create<NewsRepository>(() => NewsRepositoryImpl(Get.find()));
   Get.create<IncentiveCashRepository>(() => IncentiveCashRepositoryImpl(Get.find(), Get.find()));
+  Get.create<NodeStatusRepository>(() => NodeStatusRepositoryImpl(Get.find(), Get.find()));
 
   /// Dependencies
   // Main bridge platform channel
@@ -59,5 +61,8 @@ Future inject() async {
   Get.create(() => DioClient());
 
   // Background service
-  Get.create(() => BackgroundService(Get.find(), Get.find()));
+  Get.create(() => BackgroundService(Get.find()));
+
+  // Version
+  Get.putAsync(() => PackageInfo.fromPlatform());
 }

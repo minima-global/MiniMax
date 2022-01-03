@@ -65,10 +65,11 @@ class NewsCard extends StatelessWidget {
       width: double.maxFinite,
       child: Html(
         data: _newsModel.content,
-        onLinkTap: (String? url, _, __, ___) => _handleContentRedirection(url),
+        onLinkTap: (String? url, _, __, ___) => url?.let((url) => launch(url)),
         tagsList: Html.tags..removeWhere((element) => ["img", "figure"].contains(element)),
         style: {
-          'p': Style.fromTextStyle(lmBodyCopy.copyWith(color: coreBlackContrast)),
+          "body": Style(margin: EdgeInsets.zero, padding: EdgeInsets.zero),
+          "html": Style.fromTextStyle(lmBodyCopyMedium.copyWith(color: coreBlackContrast)),
         },
       ),
     );
@@ -86,7 +87,4 @@ class NewsCard extends StatelessWidget {
     );
   }
 
-  void _handleContentRedirection(String? url) {
-    url?.let((url) => launch(url));
-  }
 }

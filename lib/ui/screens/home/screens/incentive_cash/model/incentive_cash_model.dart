@@ -14,5 +14,5 @@ class IncentiveCashModel {
   IncentiveCashModel.offline()
       : minimaBalance = 0,
         lastPing = DateTime.now(),
-        status = Status.unknown;
+        status = Status.inactive;
 }

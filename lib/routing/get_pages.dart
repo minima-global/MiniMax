@@ -6,6 +6,7 @@ import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart
 import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
 import 'package:minimax/ui/screens/decider/decider_screen.dart';
 import 'package:minimax/ui/screens/home/home_screen.dart';
+import 'package:minimax/ui/screens/home/screens/all_done/all_done_screen.dart';
 import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
 import 'package:minimax/ui/screens/set_up/set_up_screen.dart';
 import 'package:minimax/ui/screens/sync_screen/sync_screen.dart';
@@ -22,4 +23,5 @@ List<GetPage> getPages = [
   GetPage(name: CongratulationsScreen.routeName, page: () => const CongratulationsScreen()),
   GetPage(name: SyncScreen.routeName, page: () => const SyncScreen()),
   GetPage(name: HomeScreen.routeName, page: () => HomeScreen()),
+  GetPage(name: AllDoneScreen.routeName, page: () => const AllDoneScreen()),
 ];

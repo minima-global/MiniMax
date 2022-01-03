@@ -2,8 +2,17 @@ class StringKeys {
   StringKeys._();
 
   // Other
-  static const generalNetworkTitleError = 'generalNetworkTitleError';
-  static const generalNetworkMessageError = 'generalNetworkMessageError';
+  static const String generalNetworkTitleError = 'generalNetworkTitleError';
+  static const String generalNetworkMessageError = 'generalNetworkMessageError';
+  static const String nodeStatusCardTitle = "nodeStatusCardTitle";
+  static const String nodeStatusCardInactiveActionRequired = "nodeStatusCardInactiveActionRequired";
+  static const String statusCardActionRequiredTitle = "statusCardActionRequiredTitle";
+  static const String incentiveCashCardTitle = "incentiveCashCardTitle";
+  static const String incentiveCashCardInactiveActionRequired = "incentiveCashCardInactiveActionRequired";
+  static const String apkCardTitle = "apkCardTitle";
+  static const String apkCardInactiveActionRequired = "apkCardInactiveActionRequired";
+  static const String apkCardStatusUpToDate = "apkCardStatusUpToDate";
+  static const String apkCardStatusOutOfDate = "apkCardStatusOutOfDate";
 
   // Home
   static const String homeWelcomeTitle = "homeWelcomeTitle";
@@ -82,8 +91,8 @@ class StringKeys {
   static const String incentiveCashScreenBalancePingDateFormat1 = "incentiveCashScreenBalancePingDateFormat1";
   static const String incentiveCashScreenBalancePingDateFormat2 = "incentiveCashScreenBalancePingDateFormat2";
   static const String incentiveCashScreenBalanceExplanation = "incentiveCashScreenBalanceExplanation";
-  static const String incentiveCashScreenBalanceStatusTitle = "incentiveCashScreenBalanceStatusTitle";
   static const String incentiveCashScreenBalanceStatusConnected = "incentiveCashScreenBalanceStatusConnected";
+  static const String incentiveCashScreenBalanceStatusNotConnected = "incentiveCashScreenBalanceStatusNotConnected";
   static const String incentiveCashScreenBalanceStatusOffline = "incentiveCashScreenBalanceStatusOffline";
 
   // Help
@@ -122,5 +131,13 @@ class StringKeys {
   static const String terminalScreenTextFieldHint = "terminalScreenTextFieldHint";
   static const String terminalScreenClearConsole = "terminalScreenClearConsole";
 
+  // Node status
+  static const String nodeStatusTitle = "nodeStatusTitle";
+  static const String nodeStatusExplanation = "nodeStatusExplanation";
 
+  // All done
+  static const String allDoneScreenCloseCTA = "allDoneScreenCloseCTA";
+  static const String allDoneScreenTitle = "allDoneScreenTitle";
+  static const String allDoneScreenBigTitle = "allDoneScreenBigTitle";
+  static const String allDoneScreenContent = "allDoneScreenContent";
 }

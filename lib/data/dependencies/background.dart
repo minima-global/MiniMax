@@ -5,9 +5,8 @@ import 'package:minimax/data/dependencies/persistence.dart';
 
 class BackgroundService {
   final MethodChannel _methodChannel;
-  final MinimaStorage _storage;
 
-  BackgroundService(this._methodChannel, this._storage);
+  BackgroundService(this._methodChannel);
 
   void startBackgroundService() {
     _methodChannel.invokeMethod("startMinimaService");
@@ -27,6 +26,13 @@ class BackgroundService {
   Future<String?> getIncentiveCashInfo(String nodeId) {
     return runCommand(
       command: "incentivecash uid:$nodeId",
+      showInConsole: false,
+    );
+  }
+
+  Future<String?> getNodeStatus() {
+    return runCommand(
+      command: "status",
       showInConsole: false,
     );
   }

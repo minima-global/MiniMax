@@ -39,9 +39,10 @@ class IncentiveCashWidget extends StatelessWidget {
   Widget _buildStatus() {
     return semiTransparentModal(
       child: buildStatusWidget(
-        title: (_) => StringKeys.incentiveCashScreenBalanceStatusTitle.tr,
-        text: _statusText,
+        title: (_) => StringKeys.nodeStatusCardTitle.tr,
+        text: (Status status) => status.statusText,
         status: _status(),
+        actionRequiredIfInactive: StringKeys.nodeStatusCardInactiveActionRequired.tr,
       ),
     );
   }
@@ -137,17 +138,6 @@ class IncentiveCashWidget extends StatelessWidget {
       return Status.inactive;
     } else {
       return Status.active;
-    }
-  }
-
-  String _statusText(Status status) {
-    switch(status) {
-      case Status.active:
-        return StringKeys.incentiveCashScreenBalanceStatusConnected.tr;
-      case Status.inactive:
-        return StringKeys.incentiveCashScreenBalanceStatusOffline.tr;
-      case Status.unknown:
-        return "";
     }
   }
 }

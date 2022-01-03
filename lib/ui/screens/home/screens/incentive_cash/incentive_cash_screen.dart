@@ -5,6 +5,7 @@ import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
+import 'package:minimax/ui/screens/home/screens/all_done/all_done_screen.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_controller.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_tab.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/views/incentive_cash_widget.dart';
@@ -19,6 +20,7 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.showAllDoneTrigger.listen(_showAllDoneTrigger);
     return SafeArea(
       child: _buildBody(),
     );
@@ -107,6 +109,10 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
         ),
       ),
     );
+  }
+
+  void _showAllDoneTrigger(_) {
+    Get.toNamed(AllDoneScreen.routeName);
   }
 }
 
