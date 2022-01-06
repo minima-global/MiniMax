@@ -20,7 +20,7 @@ class TerminalScreen extends GetWidget<TerminalController> {
   @override
   Widget build(BuildContext context) {
     return withGlossyBackground(
-      body: KeyboardVisibilityBuilder(
+      child: KeyboardVisibilityBuilder(
         builder: (_, isKeyboardVisible) {
           return Scaffold(
             body: _buildBody(isKeyboardVisible),

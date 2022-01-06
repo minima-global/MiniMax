@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/images/images.dart';
 import 'package:minimax/res/styles/colours.dart';
-import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
@@ -18,8 +17,8 @@ class SetUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: withGlossyBackground(
+    return withGlossyBackground(
+      child: Scaffold(
         body: _buildBody(),
       ),
     );

@@ -16,8 +16,10 @@ class AllDoneScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: withGlossyBackground(body: _buildBody()),
+    return withGlossyBackground(
+      child: Scaffold(
+        body: _buildBody(),
+      ),
     );
   }
 
@@ -103,5 +105,4 @@ class AllDoneScreen extends StatelessWidget {
       onTap: Get.back,
     );
   }
-
 }

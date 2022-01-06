@@ -18,8 +18,8 @@ class CongratulationsScreen extends GetWidget<CongratulationsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: withGlossyBackground(
+    return withGlossyBackground(
+      child: Scaffold(
         body: _buildBody(),
       ),
     );

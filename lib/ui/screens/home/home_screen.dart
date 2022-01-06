@@ -31,13 +31,13 @@ class HomeScreen extends GetWidget<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: _buildDrawer(),
-      appBar: _buildAppBar(),
-      body: withGlossyBackground(
+    return withGlossyBackground(
+      child: Scaffold(
+        key: _scaffoldKey,
+        drawer: _buildDrawer(),
+        appBar: _buildAppBar(),
         body: _buildBody(),
-      ),
+      )
     );
   }
 
@@ -150,8 +150,6 @@ class HomeScreen extends GetWidget<HomeController> {
       padding: const EdgeInsets.symmetric(vertical: large2),
       child: Column(
         children: [
-          createPrimaryCTA(text: StringKeys.homeScreenDrawerBackUpNodeCTA.tr),
-          large2.toSpace(),
           SvgPicture.asset(
             ImageKeys.minimaLogoLandscape1,
             height: 32,

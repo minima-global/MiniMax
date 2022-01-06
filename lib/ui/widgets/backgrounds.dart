@@ -3,7 +3,7 @@ import 'package:minimax/res/images/images.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/dimensions.dart';
 
-Widget withGlossyBackground({required Widget body}) {
+Widget withGlossyBackground({required Widget child}) {
   return Stack(
     children: [
       Container(
@@ -14,7 +14,7 @@ Widget withGlossyBackground({required Widget body}) {
           ),
         ),
       ),
-      body,
+      child,
     ],
   );
 }
