@@ -12,6 +12,7 @@ import 'package:minimax/ui/screens/home/screens/incentive_cash/views/incentive_c
 import 'package:minimax/ui/screens/home/screens/incentive_cash/views/set_up_instructions_widget.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
+import 'package:minimax/utils/extensions/rxn_extensions.dart';
 
 class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
   static const String routeName = "/home/incentive_cash";
@@ -27,7 +28,7 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
   }
 
   Widget _buildBody() {
-    return controller.selectedTab.build((selectedTab) {
+    return controller.selectedTab.buildIgnoreNull((selectedTab) {
       return SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: large1, vertical: large2),
         child: Column(

@@ -6,11 +6,12 @@ import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_c
 import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_tab.dart';
 import 'package:minimax/utils/extensions/rxn_extensions.dart';
 
+// TODO test this class
 class IncentiveCashController extends GetxController {
   final MinimaStorage _storage;
   final IncentiveCashRepository _incentiveCashRepository;
 
-  final Rx<IncentiveCashTab> selectedTab = Rx(IncentiveCashTab.values.first);
+  final Rxn<IncentiveCashTab> selectedTab = Rxn();
   final Rxn<String> nodeId = Rxn<String>();
   final RxBool loadingBalance = RxBool(false);
   final Rxn<IncentiveCashModel> incentiveCashModel = Rxn();
@@ -28,6 +29,18 @@ class IncentiveCashController extends GetxController {
 
     nodeId.listenWhenNotNull((nodeId) {
       nodeIdController.text = nodeId;
+    });
+
+    _selectFirstTab();
+  }
+
+  void _selectFirstTab() {
+    _storage.getNodeId().then((value) {
+      if (value == null) {
+        selectedTab(IncentiveCashTab.setUpInstructions);
+      } else {
+        selectedTab(IncentiveCashTab.balance);
+      }
     });
   }
 
