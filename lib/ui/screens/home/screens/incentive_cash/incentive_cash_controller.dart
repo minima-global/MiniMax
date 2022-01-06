@@ -48,9 +48,10 @@ class IncentiveCashController extends GetxController {
   void _updateNodeId() {
     _storage.getNodeId().then((value) => nodeId(value));
 
+    loadingBalance(true);
     _incentiveCashRepository.getIncentiveCashInfo().then((value) {
       incentiveCashModel(value);
-    });
+    }).whenComplete(() => loadingBalance(false));
   }
 
   void selectTab(IncentiveCashTab tab) {

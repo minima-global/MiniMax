@@ -23,6 +23,11 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin advance_pdf_viewer, pt.tribeiro.flutter_plugin_pdf_viewer.FlutterPluginPdfViewerPlugin", e);
     }
     try {
+      flutterEngine.getPlugins().add(new com.example.appsettings.AppSettingsPlugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin app_settings, com.example.appsettings.AppSettingsPlugin", e);
+    }
+    try {
       flutterEngine.getPlugins().add(new com.jrai.flutter_keyboard_visibility.FlutterKeyboardVisibilityPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin flutter_keyboard_visibility, com.jrai.flutter_keyboard_visibility.FlutterKeyboardVisibilityPlugin", e);

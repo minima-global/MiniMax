@@ -79,7 +79,8 @@ class StringKeys {
   static const String incentiveCashScreenSetUpTextFieldEnterFirstTime =
       "incentiveCashScreenSetUpTextFieldEnterFirstTime";
   static const String incentiveCashScreenSetUpTextFieldEnterUpdate = "incentiveCashScreenSetUpTextFieldEnterUpdate";
-  static const String incentiveCashScreenSetUpTextFieldEnterUpdateLocked = "incentiveCashScreenSetUpTextFieldEnterUpdateLocked";
+  static const String incentiveCashScreenSetUpTextFieldEnterUpdateLocked =
+      "incentiveCashScreenSetUpTextFieldEnterUpdateLocked";
   static const String incentiveCashScreenSetUpTextFieldHint = "incentiveCashScreenSetUpTextFieldHint";
   static const String incentiveCashScreenIncentiveCashProgramTitle = "incentiveCashScreenIncentiveCashProgramTitle";
   static const String incentiveCashScreenIncentiveCashProgramExplanation =
@@ -140,4 +141,9 @@ class StringKeys {
   static const String allDoneScreenTitle = "allDoneScreenTitle";
   static const String allDoneScreenBigTitle = "allDoneScreenBigTitle";
   static const String allDoneScreenContent = "allDoneScreenContent";
+
+  // Battery optimisation
+  static const String batteryOptimisationCTA = "batteryOptimisationCTA";
+  static const String batteryOptimisationTitle = "batteryOptimisationTitle";
+  static const String batteryOptimisationExplanation = "batteryOptimisationExplanation";
 }

@@ -121,6 +121,9 @@ class MiniMaxTranslations extends Translations {
         'allDoneScreenTitle': 'Incentive Cash',
         'allDoneScreenBigTitle': 'All done!',
         'allDoneScreenContent': 'Your node is now connected to your IncentiveCash account and it will ping us so we know your node is connected to the network.\nFor every day we receive a ping from your node, we will add one IncentiveCash Token to your Balance.\nIncentiveCash Tokens will be redeemable for Minima coins at mainnet on a one for one basis.',
+        'batteryOptimisationCTA': 'Battery optimization settings',
+        'batteryOptimisationTitle': 'Battery Optimisation:',
+        'batteryOptimisationExplanation': 'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\n\nPlease use the button below to navigate to your phones battery optimisation settings and grant permission for Minima to run in the background.',
       }
     };
   }
