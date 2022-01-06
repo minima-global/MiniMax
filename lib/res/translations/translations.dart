@@ -47,7 +47,6 @@ class MiniMaxTranslations extends Translations {
         'syncScreenSyncingText': 'Synchronising,  please wait…',
         'syncScreenGreetingText': 'Greeting received',
         'syncScreenLaunchCTA': 'Launch',
-        'homeScreenDrawerBackUpNodeCTA': 'Back up Node',
         'homeScreenDrawerHeaderVersion': 'Minima v%s',
         'homeScreenDrawerTitleNodeStatus': 'Node Status',
         'homeScreenDrawerTitleIncentiveCash': 'IncentiveCash',

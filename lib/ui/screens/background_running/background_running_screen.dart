@@ -22,8 +22,10 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
   Widget build(BuildContext context) {
     controller.nextTrigger.listen(_next);
 
-    return Scaffold(
-      body: withGlossyBackground(body: _buildBody()),
+    return withGlossyBackground(
+      body: Scaffold(
+        body: _buildBody(),
+      ),
     );
   }
 

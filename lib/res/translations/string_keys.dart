@@ -64,7 +64,6 @@ class StringKeys {
   static const String syncScreenLaunchCTA = "syncScreenLaunchCTA";
 
   // Home
-  static const String homeScreenDrawerBackUpNodeCTA = "homeScreenDrawerBackUpNodeCTA";
   static const String homeScreenDrawerHeaderVersion = "homeScreenDrawerHeaderVersion";
   static const String homeScreenDrawerTitleNodeStatus = "homeScreenDrawerTitleNodeStatus";
   static const String homeScreenDrawerTitleIncentiveCash = "homeScreenDrawerTitleIncentiveCash";
