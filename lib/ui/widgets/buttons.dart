@@ -32,10 +32,11 @@ Widget createCTA({
 Widget createPrimaryCTA({
   required String text,
   Function()? onTap,
+  Color? colour,
 }) {
   return createCTA(
     text: text,
-    backgroundColour: coreBlue100,
+    backgroundColour: colour ?? primaryCTAColour,
     textColour: white,
     onTap: onTap,
   );
@@ -53,3 +54,5 @@ Widget createSecondaryCTA({
     onTap: onTap,
   );
 }
+
+const Color primaryCTAColour = coreBlue100;

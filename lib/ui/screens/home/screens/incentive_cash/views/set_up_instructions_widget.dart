@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:minimax/res/images/images.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
@@ -7,6 +9,7 @@ import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_controller.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
+import 'package:minimax/utils/extensions/rx_extensions.dart';
 import 'package:minimax/utils/keyboard.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -72,51 +75,99 @@ class SetUpInstructionsWidget extends StatelessWidget {
   }
 
   Widget _buildNodeIdInput() {
-    return semiTransparentModal(
-      child: Container(
-        width: double.maxFinite,
-        padding: const EdgeInsets.all(medium),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: large1),
-              child: Text(
-                StringKeys.incentiveCashScreenSetUpTextFieldTitle.tr,
-                style: lmH2.copyWith(color: coreBlackContrast),
-              ),
-            ),
-            small2.toSpace(),
-            semiTransparentModal(
-              child: Padding(
-                padding: const EdgeInsets.all(medium),
-                child: TextFormField(
-                  focusNode: _nodeIdFocusNode,
-                  controller: controller.nodeIdController,
-                  keyboardType: TextInputType.visiblePassword,
-                  maxLines: 1,
-                  textInputAction: TextInputAction.done,
+    return controller.lockedEdition.build(
+      (locked) => semiTransparentModal(
+        child: Container(
+          width: double.maxFinite,
+          padding: const EdgeInsets.all(medium),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: large1),
+                child: Text(
+                  StringKeys.incentiveCashScreenSetUpTextFieldTitle.tr,
                   style: lmH2.copyWith(color: coreBlackContrast),
-                  decoration: InputDecoration.collapsed(
-                    hintText: StringKeys.incentiveCashScreenSetUpTextFieldHint.tr,
-                    hintStyle: lmH2.copyWith(color: coreGrey40),
-                  ),
                 ),
               ),
-            ),
-            medium.toSpace(),
-            createPrimaryCTA(
+              small2.toSpace(),
+              semiTransparentModal(
+                child: _buildTextFormField(locked),
+              ),
+              medium.toSpace(),
+              createPrimaryCTA(
                 text: nodeId == null
                     ? StringKeys.incentiveCashScreenSetUpTextFieldEnterFirstTime.tr
-                    : StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdate.tr,
-                onTap: () {
-                  controller.saveNodeId();
-                  hideKeyboard();
-                  _nodeIdFocusNode.unfocus();
-                })
-          ],
+                    : locked
+                        ? StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdateLocked.tr
+                        : StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdate.tr,
+                onTap: locked
+                    ? null
+                    : () {
+                        controller.saveNodeId();
+                        hideKeyboard();
+                        _nodeIdFocusNode.unfocus();
+                      },
+                colour: primaryCTAColour.withOpacity(locked ? 0.2 : 1),
+              )
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Widget _buildTextFormField(bool locked) {
+    _focusIfNeeded(locked);
+
+    return Padding(
+      padding: const EdgeInsets.all(medium),
+      child: Row(
+        children: [
+          Expanded(
+            child: AbsorbPointer(
+              absorbing: locked,
+              child: TextFormField(
+                focusNode: _nodeIdFocusNode,
+                controller: controller.nodeIdController,
+                keyboardType: TextInputType.visiblePassword,
+                maxLines: 1,
+                textInputAction: TextInputAction.done,
+                style: lmH2.copyWith(color: coreBlackContrast),
+                decoration: InputDecoration(
+                  hintText: StringKeys.incentiveCashScreenSetUpTextFieldHint.tr,
+                  hintStyle: lmH2.copyWith(color: coreGrey40),
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: controller.toggleLock,
+            child: Padding(
+              padding: const EdgeInsetsDirectional.only(start: small1),
+              child: locked
+                  ? const Icon(
+                      Icons.lock_outline,
+                      color: coreGrey100,
+                    )
+                  : SvgPicture.asset(
+                      ImageKeys.icLockOpen,
+                      color: coreGrey100,
+                    ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _focusIfNeeded(bool locked) {
+    if (!locked) {
+      FocusScope.of(Get.context!).requestFocus(_nodeIdFocusNode);
+    } else {
+      FocusScope.of(Get.context!).unfocus();
+      _nodeIdFocusNode.unfocus();
+      hideKeyboard();
+    }
   }
 }

@@ -16,6 +16,7 @@ class IncentiveCashController extends GetxController {
   final RxBool loadingBalance = RxBool(false);
   final Rxn<IncentiveCashModel> incentiveCashModel = Rxn();
   final Rxn showAllDoneTrigger = Rxn();
+  final RxBool lockedEdition = RxBool(true);
 
   final TextEditingController nodeIdController = TextEditingController();
 
@@ -67,5 +68,9 @@ class IncentiveCashController extends GetxController {
           .setNodeId(newNodeId)
           .then((_) => _updateNodeId());
     });
+  }
+
+  void toggleLock() {
+    lockedEdition.toggle();
   }
 }
