@@ -7,7 +7,7 @@ import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/background_running/background_running_controller.dart';
 import 'package:minimax/ui/screens/background_running/enum/background_running_state_model.dart';
-import 'package:minimax/ui/screens/backup_explanation/backup_explanation_screen.dart';
+import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 import 'package:minimax/utils/device/vibration.dart';
@@ -164,7 +164,7 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
   }
 
   void _next(_) {
-    Get.toNamed(BackupExplanationScreen.routeName);
+    Get.toNamed(IncentiveCashExplanationScreen.routeName);
   }
 
 }

@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:minimax/ui/screens/are_you_sure_skip_battery/are_you_sure_skip_battery.dart';
 import 'package:minimax/ui/screens/background_running/background_running_screen.dart';
-import 'package:minimax/ui/screens/backup_explanation/backup_explanation_screen.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
 import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
 import 'package:minimax/ui/screens/decider/decider_screen.dart';
@@ -20,7 +19,6 @@ List<GetPage> getPages = [
   GetPage(name: BatterySettingsScreen.routeName, page: () => const BatterySettingsScreen()),
   GetPage(name: AreYouSureSkipBatteryScreen.routeName, page: () => const AreYouSureSkipBatteryScreen()),
   GetPage(name: BackgroundRunningScreen.routeName, page: () => const BackgroundRunningScreen()),
-  GetPage(name: BackupExplanationScreen.routeName, page: () => const BackupExplanationScreen()),
   GetPage(name: IncentiveCashExplanationScreen.routeName, page: () => const IncentiveCashExplanationScreen()),
   GetPage(name: CongratulationsScreen.routeName, page: () => const CongratulationsScreen()),
   GetPage(name: SyncScreen.routeName, page: () => const SyncScreen()),

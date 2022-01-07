@@ -5,8 +5,9 @@ import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
-import 'package:minimax/ui/screens/backup_explanation/backup_explanation_screen.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
+import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_screen.dart';
+import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
@@ -116,7 +117,7 @@ class AreYouSureSkipBatteryScreen extends StatelessWidget {
 
   void _confirm() {
     Get.offNamedUntil(
-        BackupExplanationScreen.routeName, (route) => route.settings.name == BatterySettingsScreen.routeName);
+        IncentiveCashExplanationScreen.routeName, (route) => route.settings.name == BatterySettingsScreen.routeName);
   }
 
   void _deny() {
