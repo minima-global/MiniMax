@@ -10,6 +10,7 @@ import 'package:minimax/data/repositories/news_repository.dart';
 import 'package:minimax/data/repositories/node_status_repository.dart';
 import 'package:minimax/data/services/news_service.dart';
 import 'package:minimax/ui/screens/background_running/background_running_controller.dart';
+import 'package:minimax/ui/screens/battery_settings/battery_settings_controller.dart';
 import 'package:minimax/ui/screens/congratulations/congratulations_controller.dart';
 import 'package:minimax/ui/screens/decider/decider_controller.dart';
 import 'package:minimax/ui/screens/home/home_controller.dart';
@@ -35,6 +36,7 @@ Future inject() async {
   Get.create(() => HelpController(), permanent: true);
   Get.create(() => PDFController(), permanent: true);
   Get.create(() => TerminalController(Get.find()), permanent: true);
+  Get.create(() => BatterySettingsController(Get.find()), permanent: true);
 
   /// Services and repositories
   Get.create<NewsService>(() => NewsServiceImpl(Get.find()));

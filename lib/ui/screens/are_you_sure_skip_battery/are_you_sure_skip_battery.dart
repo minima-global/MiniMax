@@ -5,23 +5,18 @@ import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
-import 'package:minimax/ui/screens/background_running/background_running_controller.dart';
-import 'package:minimax/ui/screens/background_running/enum/background_running_state_model.dart';
 import 'package:minimax/ui/screens/backup_explanation/backup_explanation_screen.dart';
+import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
-import 'package:minimax/utils/device/vibration.dart';
-import 'package:minimax/utils/extensions/rx_extensions.dart';
 
-class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
-  static const String routeName = "/background_running";
+class AreYouSureSkipBatteryScreen extends StatelessWidget {
+  static const String routeName = "/battery_settings/ignore";
 
-  const BackgroundRunningScreen({Key? key}) : super(key: key);
+  const AreYouSureSkipBatteryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    controller.nextTrigger.listen(_next);
-
     return withGlossyBackground(
       child: Scaffold(
         body: _buildBody(),
@@ -30,40 +25,36 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
   }
 
   Widget _buildBody() {
-    return controller.state.build((state) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: large7,
-          horizontal: large1,
-        ),
-        child: Material(
-          elevation: mainModalElevation,
-          borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
-          color: _cardColour(state),
-          child: AnimatedContainer(
-            padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOutCubic,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildTitle(),
-                small1.toSpace(),
-                _buildSeparator(state),
-                medium.toSpace(),
-                _buildMainTitle(state),
-                small1.toSpace(),
-                _buildExplanation(state),
-                large1.toSpace(),
-                _buildConfirmButton(),
-                medium.toSpace(),
-                _buildDenyButton(),
-              ],
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: large7,
+        horizontal: large1,
+      ),
+      child: semiTransparentModal(
+        child: AnimatedContainer(
+          color: surface,
+          padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOutCubic,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildTitle(),
+              small1.toSpace(),
+              _buildSeparator(),
+              medium.toSpace(),
+              _buildMainTitle(),
+              small1.toSpace(),
+              _buildExplanation(),
+              large1.toSpace(),
+              _buildConfirmButton(),
+              medium.toSpace(),
+              _buildDenyButton(),
+            ],
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 
   Widget _buildTitle() {
@@ -76,36 +67,25 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
     );
   }
 
-  Widget _buildSeparator(BackgroundRunningState state) {
+  Widget _buildSeparator() {
     return Container(
-      color: _separatorColour(state),
+      color: white,
       height: 1,
       width: double.maxFinite,
     );
   }
 
-  Widget _buildMainTitle(BackgroundRunningState state) {
+  Widget _buildMainTitle() {
     return SizedBox(
       width: double.maxFinite,
       child: Text(
-        _createBigTitle(state),
+        StringKeys.backgroundRunningBigTitle.tr,
         style: lmH1.copyWith(color: coreBlackContrast),
       ),
     );
   }
 
-  String _createBigTitle(BackgroundRunningState state) {
-    switch (state) {
-      case BackgroundRunningState.fresh:
-      case BackgroundRunningState.confirm:
-        return StringKeys.backgroundRunningBigTitle.tr;
-      case BackgroundRunningState.doubleConfirm:
-        hapticFeedback();
-        return StringKeys.backgroundRunningBigTitleAreYouSure.tr;
-    }
-  }
-
-  Widget _buildExplanation(BackgroundRunningState state) {
+  Widget _buildExplanation() {
     final TextStyle explanationStyle = lmBodyCopy.copyWith(color: coreBlackContrast);
     return ConstrainedBox(
       // Min 5 lines
@@ -114,27 +94,16 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
         minWidth: double.maxFinite,
       ),
       child: Text(
-        _createExplanation(state),
+        StringKeys.backgroundRunningExplanation2.tr,
         style: explanationStyle,
       ),
     );
   }
 
-  String _createExplanation(BackgroundRunningState state) {
-    switch (state) {
-      case BackgroundRunningState.fresh:
-        return StringKeys.backgroundRunningExplanation1.tr;
-      case BackgroundRunningState.confirm:
-        return StringKeys.backgroundRunningExplanation2.tr;
-      case BackgroundRunningState.doubleConfirm:
-        return StringKeys.backgroundRunningExplanation3.tr;
-    }
-  }
-
   Widget _buildConfirmButton() {
     return createPrimaryCTA(
       text: StringKeys.backgroundRunningCTAConfirm.tr,
-      onTap: controller.confirm,
+      onTap: _confirm,
     );
   }
 
@@ -145,32 +114,12 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
     );
   }
 
-  Color _cardColour(BackgroundRunningState state) {
-    switch (state) {
-      case BackgroundRunningState.fresh:
-        return white;
-      case BackgroundRunningState.confirm:
-      case BackgroundRunningState.doubleConfirm:
-        return surface;
-    }
-  }
-
-  Color _separatorColour(BackgroundRunningState state) {
-    switch (state) {
-      case BackgroundRunningState.fresh:
-        return coreGrey100;
-      case BackgroundRunningState.confirm:
-      case BackgroundRunningState.doubleConfirm:
-        return white;
-    }
-  }
-
-  void _next(_) {
-    // TODO background functionality
-    Get.toNamed(BackupExplanationScreen.routeName);
+  void _confirm() {
+    Get.offNamedUntil(
+        BackupExplanationScreen.routeName, (route) => route.settings.name == BatterySettingsScreen.routeName);
   }
 
   void _deny() {
-    Get.toNamed(BackupExplanationScreen.routeName);
+    Get.back();
   }
 }

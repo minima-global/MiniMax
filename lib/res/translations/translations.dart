@@ -13,14 +13,14 @@ class MiniMaxTranslations extends Translations {
         'homeCTATitle': 'Continue',
         'batterySettingsTitle': 'Battery Settings',
         'batterySettingsExplanation':
-            'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\nPlease grant permission by clicking allow.\nIf you do not wish to do this now, you can change this setting later by choosing Battery Optimisation from the Options menu in the app.',
+            'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\n\nPlease grant permission by clicking allow.\n\nIf you do not wish to do this now, you can change this setting later by choosing Battery Optimisation from the Options menu in the app.',
         'batterySettingsConfirm': 'Confirm',
         'batterySettingsSkip': 'Skip',
         'backgroundRunningTitle': 'Minima',
         'backgroundRunningBigTitle': 'Background running',
         'backgroundRunningBigTitleAreYouSure': 'Are you sure?',
         'backgroundRunningExplanation1':
-            'Allowing Minima to run in the background may reduce battery life.\n\nPlease confirm that you allow Minima permission to run in the background.',
+            'Allowing Minima to run in the background may reduce battery life.\nPlease confirm that you allow Minima permission to run in the background.',
         'backgroundRunningExplanation2': 'Are you sure you want to skip this stage?',
         'backgroundRunningExplanation3':
             'For Minima to function as expected, it must be allowed to run in the background. You can change this setting later by choosing Battery Optimisation from the side navigation menu in the app.',

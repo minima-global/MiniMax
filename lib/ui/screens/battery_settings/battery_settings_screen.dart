@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
-import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
+import 'package:minimax/ui/screens/are_you_sure_skip_battery/are_you_sure_skip_battery.dart';
 import 'package:minimax/ui/screens/background_running/background_running_screen.dart';
+import 'package:minimax/ui/screens/battery_settings/battery_settings_controller.dart';
 import 'package:minimax/ui/utils/ui_constants.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
-class BatterySettingsScreen extends StatelessWidget {
+class BatterySettingsScreen extends GetWidget<BatterySettingsController> {
   static const String routeName = "/battery_settings";
 
   const BatterySettingsScreen({Key? key}) : super(key: key);
@@ -30,9 +31,7 @@ class BatterySettingsScreen extends StatelessWidget {
         vertical: large7,
         horizontal: large1,
       ),
-      child: Material(
-        elevation: mainModalElevation,
-        borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
+      child: semiTransparentModal(
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: Column(
@@ -62,21 +61,28 @@ class BatterySettingsScreen extends StatelessWidget {
         minHeight: setUpModalMinExplanationHeight,
         minWidth: double.maxFinite,
       ),
-      child: Text(StringKeys.batterySettingsExplanation.tr, style: lmBodyCopy.copyWith(color: coreBlackContrast)),
+      child: Text(StringKeys.batterySettingsExplanation.tr, style: lmBodyCopyMedium.copyWith(color: coreBlackContrast)),
     );
   }
 
   Widget _buildConfirmButton() {
     return createPrimaryCTA(
       text: StringKeys.batterySettingsConfirm.tr,
-      onTap: () => Get.toNamed(BackgroundRunningScreen.routeName),
+      onTap: _confirm,
     );
   }
 
   Widget _buildSkipButton() {
     return createSecondaryCTA(
       text: StringKeys.batterySettingsSkip.tr,
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(AreYouSureSkipBatteryScreen.routeName);
+      },
     );
+  }
+
+  void _confirm() {
+    controller.onConfirmedClicked();
+    Get.toNamed(BackgroundRunningScreen.routeName);
   }
 }

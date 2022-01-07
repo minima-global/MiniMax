@@ -19,11 +19,11 @@ Widget withGlossyBackground({required Widget child}) {
   );
 }
 
-Widget semiTransparentModal({required Widget child}) {
+Widget semiTransparentModal({required Widget child, Color? colour}) {
   return ClipRRect(
     borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
     child: Container(
-      color: white.withOpacity(0.5),
+      color: colour ?? white.withOpacity(0.5),
       child: child,
     ),
   );
