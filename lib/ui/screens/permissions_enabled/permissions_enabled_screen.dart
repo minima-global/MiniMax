@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
-import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
-import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_screen.dart';
 import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
-class AreYouSureSkipBatteryScreen extends StatelessWidget {
-  static const String routeName = "/battery_settings/ignore";
+class PermissionsEnabledScreen extends StatelessWidget {
+  static const String routeName = "/background_running/permissions_enabled";
 
-  const AreYouSureSkipBatteryScreen({Key? key}) : super(key: key);
+  const PermissionsEnabledScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return withGlossyBackground(
-      child: Scaffold(
-        body: _buildBody(),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: withGlossyBackground(
+        child: Scaffold(
+          body: _buildBody(),
+        ),
       ),
     );
   }
@@ -33,7 +34,7 @@ class AreYouSureSkipBatteryScreen extends StatelessWidget {
       ),
       child: semiTransparentModal(
         child: AnimatedContainer(
-          color: surface,
+          color: allDone,
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOutCubic,
@@ -49,8 +50,6 @@ class AreYouSureSkipBatteryScreen extends StatelessWidget {
               _buildExplanation(),
               large1.toSpace(),
               _buildConfirmButton(),
-              medium.toSpace(),
-              _buildDenyButton(),
             ],
           ),
         ),
@@ -62,7 +61,7 @@ class AreYouSureSkipBatteryScreen extends StatelessWidget {
     return SizedBox(
       width: double.maxFinite,
       child: Text(
-        StringKeys.backgroundRunningTitle.tr,
+        StringKeys.permissionsEnabledTitle.tr,
         style: lmBodyCopy.copyWith(fontSize: 14, color: coreBlackContrast),
       ),
     );
@@ -80,14 +79,14 @@ class AreYouSureSkipBatteryScreen extends StatelessWidget {
     return SizedBox(
       width: double.maxFinite,
       child: Text(
-        StringKeys.backgroundRunningBigTitle.tr,
+        StringKeys.permissionsEnabledMainTitle.tr,
         style: lmH1.copyWith(color: coreBlackContrast),
       ),
     );
   }
 
   Widget _buildExplanation() {
-    final TextStyle explanationStyle = lmBodyCopy.copyWith(color: coreBlackContrast);
+    final TextStyle explanationStyle = lmBodyCopyMedium.copyWith(color: coreBlackContrast);
     return ConstrainedBox(
       // Min 5 lines
       constraints: BoxConstraints(
@@ -95,7 +94,7 @@ class AreYouSureSkipBatteryScreen extends StatelessWidget {
         minWidth: double.maxFinite,
       ),
       child: Text(
-        StringKeys.backgroundRunningExplanation2.tr,
+        StringKeys.permissionsEnabledExplanation.tr,
         style: explanationStyle,
       ),
     );
@@ -103,24 +102,14 @@ class AreYouSureSkipBatteryScreen extends StatelessWidget {
 
   Widget _buildConfirmButton() {
     return createPrimaryCTA(
-      text: StringKeys.backgroundRunningCTAConfirm.tr,
-      onTap: _confirm,
+      text: StringKeys.permissionsEnabledCTA.tr,
+      onTap: _continue,
     );
   }
 
-  Widget _buildDenyButton() {
-    return createSecondaryCTA(
-      text: StringKeys.backgroundRunningCTASkip.tr,
-      onTap: _deny,
-    );
-  }
-
-  void _confirm() {
+  void _continue() {
     Get.offNamedUntil(
         IncentiveCashExplanationScreen.routeName, (route) => route.settings.name == BatterySettingsScreen.routeName);
   }
 
-  void _deny() {
-    Get.back();
-  }
 }

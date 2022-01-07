@@ -34,6 +34,8 @@ class StringKeys {
   static const String backgroundRunningExplanation2 = "backgroundRunningExplanation2";
   static const String backgroundRunningExplanation3 = "backgroundRunningExplanation3";
   static const String backgroundRunningCTAConfirm = "backgroundRunningCTAConfirm";
+  static const String backgroundRunningCTAYes = "backgroundRunningCTAYes";
+  static const String backgroundRunningCTANo = "backgroundRunningCTANo";
   static const String backgroundRunningCTASkip = "backgroundRunningCTASkip";
 
   // Backup Explanation Settings
@@ -146,4 +148,11 @@ class StringKeys {
   static const String batteryOptimisationCTA = "batteryOptimisationCTA";
   static const String batteryOptimisationTitle = "batteryOptimisationTitle";
   static const String batteryOptimisationExplanation = "batteryOptimisationExplanation";
+
+  // Permissions enabled
+  static const String permissionsEnabledTitle = "permissionsEnabledTitle";
+  static const String permissionsEnabledMainTitle = "permissionsEnabledMainTitle";
+  static const String permissionsEnabledExplanation = "permissionsEnabledExplanation";
+  static const String permissionsEnabledCTA = "permissionsEnabledCTA";
+
 }

@@ -181,7 +181,7 @@ public class MinimaService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        MinimaLogger.log("Service : OnStartCommand "+startId+" "+mListenerAdded);
 
-        if (intent.getBooleanExtra(runInBackgroundWhenKilledKey, true)) {
+        if (intent != null && intent.getBooleanExtra(runInBackgroundWhenKilledKey, true)) {
             //Set the Alarm..
             mAlarm = new Alarm();
             mAlarm.cancelAlarm(this);
@@ -216,6 +216,10 @@ public class MinimaService extends Service {
         //Release the wakelocks..
         mWakeLock.release();
         mWifiLock.release();
+
+        if (mAlarm != null) {
+            mAlarm.cancelAlarm(this);
+        }
     }
 
     @Override

@@ -25,6 +25,8 @@ class MiniMaxTranslations extends Translations {
         'backgroundRunningExplanation3':
             'For Minima to function as expected, it must be allowed to run in the background. You can change this setting later by choosing Battery Optimisation from the side navigation menu in the app.',
         'backgroundRunningCTAConfirm': 'Confirm',
+        'backgroundRunningCTAYes': 'Yes',
+        'backgroundRunningCTANo': 'No',
         'backgroundRunningCTASkip': 'Deny',
         'backupExplanationTitle': 'Backup',
         'backupExplanationTextSplit1': 'Once your app has loaded, navigate to the Options menu and choose ',
@@ -124,6 +126,10 @@ class MiniMaxTranslations extends Translations {
         'batteryOptimisationCTA': 'Battery optimization settings',
         'batteryOptimisationTitle': 'Battery Optimisation:',
         'batteryOptimisationExplanation': 'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\n\nPlease use the button below to navigate to your phones battery optimisation settings and grant permission for Minima to run in the background.',
+        'permissionsEnabledTitle': 'Minima',
+        'permissionsEnabledMainTitle': 'Permissions enabled',
+        'permissionsEnabledExplanation': 'Minima has now been granted permission to run in the background.',
+        'permissionsEnabledCTA': 'Continue',
       }
     };
   }

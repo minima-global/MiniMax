@@ -60,7 +60,7 @@ class IncentiveCashExplanationScreen extends StatelessWidget {
       ),
       child: Text(
         StringKeys.incentiveExplanationText.tr,
-        style: lmBodyCopy.copyWith(
+        style: lmBodyCopyMedium.copyWith(
           color: coreBlackContrast,
         ),
       ),

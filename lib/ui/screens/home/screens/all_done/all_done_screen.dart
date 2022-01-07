@@ -32,7 +32,7 @@ class AllDoneScreen extends StatelessWidget {
       child: Material(
         elevation: mainModalElevation,
         borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
-        color: allDoneIncentiveCash,
+        color: allDone,
         child: AnimatedContainer(
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           duration: const Duration(milliseconds: 300),
@@ -85,7 +85,7 @@ class AllDoneScreen extends StatelessWidget {
   }
 
   Widget _buildExplanation() {
-    final TextStyle explanationStyle = lmBodyCopy.copyWith(color: coreBlackContrast);
+    final TextStyle explanationStyle = lmBodyCopyMedium.copyWith(color: coreBlackContrast);
     return ConstrainedBox(
       // Min 5 lines
       constraints: BoxConstraints(

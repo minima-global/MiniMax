@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
-import 'package:minimax/data/dependencies/persistence.dart';
 
 class BackgroundService {
   final MethodChannel _methodChannel;
@@ -9,7 +6,9 @@ class BackgroundService {
   BackgroundService(this._methodChannel);
 
   void startBackgroundService(bool runInBackgroundEvenWhenKilled) {
-    _methodChannel.invokeMethod("startMinimaService", runInBackgroundEvenWhenKilled);
+    _methodChannel.invokeMethod("startMinimaService", {
+      "runInBackgroundEvenWhenKilled": runInBackgroundEvenWhenKilled,
+    });
   }
 
   Future<T?> runCommand<T>({required String command, required bool showInConsole}) {

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
-import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/background_running/background_running_controller.dart';
 import 'package:minimax/ui/screens/background_running/enum/background_running_state_model.dart';
 import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
+import 'package:minimax/ui/screens/permissions_enabled/permissions_enabled_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 import 'package:minimax/utils/device/vibration.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
+import 'package:minimax/utils/extensions/rxn_extensions.dart';
 
 class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
   static const String routeName = "/background_running";
@@ -20,7 +21,7 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.nextTrigger.listen(_next);
+    controller.nextTrigger.listenWhenNotNull(_next);
 
     return withGlossyBackground(
       child: Scaffold(
@@ -53,9 +54,9 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
                 small1.toSpace(),
                 _buildExplanation(state),
                 large1.toSpace(),
-                _buildConfirmButton(),
+                _buildConfirmButton(state),
                 medium.toSpace(),
-                _buildDenyButton(),
+                _buildDenyButton(state),
               ],
             ),
           ),
@@ -129,17 +130,21 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
     }
   }
 
-  Widget _buildConfirmButton() {
+  Widget _buildConfirmButton(BackgroundRunningState state) {
     return createPrimaryCTA(
-      text: StringKeys.backgroundRunningCTAConfirm.tr,
-      onTap: controller.confirm,
+      text: state == BackgroundRunningState.fresh
+          ? StringKeys.backgroundRunningCTAConfirm.tr
+          : StringKeys.backgroundRunningCTAYes.tr,
+      onTap: controller.yesTapped,
     );
   }
 
-  Widget _buildDenyButton() {
+  Widget _buildDenyButton(BackgroundRunningState state) {
     return createSecondaryCTA(
-      text: StringKeys.backgroundRunningCTASkip.tr,
-      onTap: controller.deny,
+      text: state == BackgroundRunningState.fresh
+          ? StringKeys.backgroundRunningCTASkip.tr
+          : StringKeys.backgroundRunningCTANo.tr,
+      onTap: controller.noTapped,
     );
   }
 
@@ -163,8 +168,11 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
     }
   }
 
-  void _next(_) {
-    Get.toNamed(IncentiveCashExplanationScreen.routeName);
+  void _next(bool useBackground) {
+    if (useBackground) {
+      Get.toNamed(PermissionsEnabledScreen.routeName);
+    } else {
+      Get.toNamed(IncentiveCashExplanationScreen.routeName);
+    }
   }
-
 }

@@ -75,7 +75,8 @@ class SetUpInstructionsWidget extends StatelessWidget {
   }
 
   Widget _buildNodeIdInput() {
-    return controller.lockedEdition.build(
+    return controller.lockedEdition.buildMapped(
+      (locked) => locked && nodeId != null,
       (locked) => semiTransparentModal(
         child: Container(
           width: double.maxFinite,
@@ -141,27 +142,31 @@ class SetUpInstructionsWidget extends StatelessWidget {
               ),
             ),
           ),
-          InkWell(
-            onTap: controller.toggleLock,
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(start: small1),
-              child: locked
-                  ? const Icon(
-                      Icons.lock_outline,
-                      color: coreGrey100,
-                    )
-                  : SvgPicture.asset(
-                      ImageKeys.icLockOpen,
-                      color: coreGrey100,
-                    ),
+          if (nodeId != null)
+            InkWell(
+              onTap: controller.toggleLock,
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(start: small1),
+                child: locked
+                    ? const Icon(
+                        Icons.lock_outline,
+                        color: coreGrey100,
+                      )
+                    : SvgPicture.asset(
+                        ImageKeys.icLockOpen,
+                        color: coreGrey100,
+                      ),
+              ),
             ),
-          ),
         ],
       ),
     );
   }
 
   void _focusIfNeeded(bool locked) {
+    if (nodeId == null) {
+      return;
+    }
     if (!locked) {
       FocusScope.of(Get.context!).requestFocus(_nodeIdFocusNode);
     } else {

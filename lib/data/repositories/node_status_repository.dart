@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:minimax/data/dependencies/background.dart';
 import 'package:minimax/ui/screens/home/screens/node_status/model/node_status_model.dart';
 import 'package:package_info/package_info.dart';
@@ -15,8 +16,9 @@ class NodeStatusRepositoryImpl extends NodeStatusRepository {
 
   NodeStatusRepositoryImpl(this._backgroundService, this._packageInfo);
 
+  int timeoutMilliseconds = 500;
   @override
-  Future<NodeStatusModel> getNodeStatus() {
+  Future<NodeStatusModel> getNodeStatus({int timeout = 500}) {
     return _backgroundService.getNodeStatus().then((value) {
       if (value == null) {
         return NodeStatusModel.notConnectedYet();
@@ -30,6 +32,12 @@ class NodeStatusRepositoryImpl extends NodeStatusRepository {
         } else {
           return NodeStatusModel.notConnectedYet();
         }
+      }
+    }).timeout(Duration(milliseconds: timeoutMilliseconds), onTimeout: () {
+      return getNodeStatus(timeout: timeout + 500);
+    }).catchError((error) {
+      if (error is PlatformException && error.code == "MINIMA_NOT_STARTED") {
+        return getNodeStatus(timeout: timeout + 500);
       }
     });
   }
