@@ -42,6 +42,8 @@ import java.util.Date;
  * */
 public class MinimaService extends Service {
 
+    public static String runInBackgroundWhenKilledKey = "runInBackgroundWhenKilledKey";
+
     //Currently Binding doesn't work as we run in a separate process..
     public class MyBinder extends Binder {
         public MinimaService getService() {
@@ -109,11 +111,6 @@ public class MinimaService extends Service {
         Intent NotificationIntent = new Intent(getBaseContext(), MainActivity.class);
         mPendingIntent = PendingIntent.getActivity(getBaseContext(), 0
                 , NotificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        //Set the Alarm..
-        mAlarm = new Alarm();
-        mAlarm.cancelAlarm(this);
-        mAlarm.setAlarm(this);
 
         mService = this;
 
@@ -184,6 +181,12 @@ public class MinimaService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        MinimaLogger.log("Service : OnStartCommand "+startId+" "+mListenerAdded);
 
+        if (intent.getBooleanExtra(runInBackgroundWhenKilledKey, true)) {
+            //Set the Alarm..
+            mAlarm = new Alarm();
+            mAlarm.cancelAlarm(this);
+            mAlarm.setAlarm(this);
+        }
         //Set the default message
         if(mTxPow == null){
             startForeground(1, createNotification("Starting up.. please wait.."));

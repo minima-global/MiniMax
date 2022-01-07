@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
@@ -52,7 +51,12 @@
         <service
             android:name="com.minima.service.MinimaService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
+        <service
+            android:name="com.minima.service.MinimaStuckToAppService"
+            android:enabled="true"
+            android:stopWithTask="true"
+            android:exported="false" />
         <service
             android:name="com.minima.service.ServiceStarterJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />

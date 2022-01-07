@@ -8,8 +8,8 @@ class BackgroundService {
 
   BackgroundService(this._methodChannel);
 
-  void startBackgroundService() {
-    _methodChannel.invokeMethod("startMinimaService");
+  void startBackgroundService(bool runInBackgroundEvenWhenKilled) {
+    _methodChannel.invokeMethod("startMinimaService", runInBackgroundEvenWhenKilled);
   }
 
   Future<T?> runCommand<T>({required String command, required bool showInConsole}) {

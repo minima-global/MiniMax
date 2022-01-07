@@ -23,4 +23,19 @@ class MinimaStorage {
   Future setNodeId(String nodeId) {
     return _storage.write(key: _nodeIdSavedKey, value: nodeId);
   }
+
+  static const _userWantsToKeepRunningTheService = "_userWantsToKeepRunningTheService";
+
+  Future<bool?> getUserWantsToKeepRunningTheService() =>
+      _storage.read(key: _userWantsToKeepRunningTheService).then((value) {
+        if (value != null) {
+          return value == true.toString();
+        } else {
+          return null;
+        }
+      });
+
+  void setUserWantsToKeepRunningTheService(bool userWantsToKeepRunningTheService) {
+    _storage.write(key: _userWantsToKeepRunningTheService, value: userWantsToKeepRunningTheService.toString());
+  }
 }

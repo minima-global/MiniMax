@@ -36,7 +36,7 @@ class MainActivity : FlutterActivity(), ServiceConnection {
             when (call.method) {
                 "ignoreBatteryOptimization" -> result.success(ignoreBatteryOptimization())
                 "startMinimaService" -> {
-                    startMinimaService()
+                    startMinimaService(call)
                     result.success(true)
                 }
                 "runCommand" -> {

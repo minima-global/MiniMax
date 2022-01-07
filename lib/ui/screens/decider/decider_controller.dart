@@ -26,6 +26,10 @@ class DeciderController extends GetxController {
       }
     });
 
-    _backgroundService.startBackgroundService();
+    _minimaStorage.getUserWantsToKeepRunningTheService().then((value) {
+      if (value != null) {
+        _backgroundService.startBackgroundService(value);
+      }
+    });
   }
 }

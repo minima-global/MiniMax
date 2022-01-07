@@ -36,8 +36,10 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
           vertical: large7,
           horizontal: large1,
         ),
-        child: semiTransparentModal(
-          colour: _cardColour(state),
+        child: Material(
+          elevation: mainModalElevation,
+          borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
+          color: _cardColour(state),
           child: AnimatedContainer(
             padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
             duration: const Duration(milliseconds: 300),
@@ -104,7 +106,7 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
   }
 
   Widget _buildExplanation(BackgroundRunningState state) {
-    final TextStyle explanationStyle = lmBodyCopyMedium.copyWith(color: coreBlackContrast);
+    final TextStyle explanationStyle = lmBodyCopy.copyWith(color: coreBlackContrast);
     return ConstrainedBox(
       // Min 5 lines
       constraints: BoxConstraints(
@@ -139,7 +141,7 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
   Widget _buildDenyButton() {
     return createSecondaryCTA(
       text: StringKeys.backgroundRunningCTASkip.tr,
-      onTap: controller.deny,
+      onTap: _deny,
     );
   }
 
@@ -164,7 +166,11 @@ class BackgroundRunningScreen extends GetWidget<BackgroundRunningController> {
   }
 
   void _next(_) {
+    // TODO background functionality
     Get.toNamed(BackupExplanationScreen.routeName);
   }
 
+  void _deny() {
+    Get.toNamed(BackupExplanationScreen.routeName);
+  }
 }
