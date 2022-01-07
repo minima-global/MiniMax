@@ -20,7 +20,6 @@ import 'package:minimax/ui/screens/home/screens/news_feed/news_feed_controller.d
 import 'package:minimax/ui/screens/home/screens/node_status/node_status_controller.dart';
 import 'package:minimax/ui/screens/home/screens/terminal/terminal_controller.dart';
 import 'package:minimax/ui/screens/pdf_screen/pdf_controller.dart';
-import 'package:minimax/ui/screens/sync_screen/sync_controller.dart';
 import 'package:package_info/package_info.dart';
 
 Future inject() async {
@@ -28,7 +27,6 @@ Future inject() async {
   Get.create(() => DeciderController(Get.find(), Get.find()), permanent: false);
   Get.create(() => HomeController(Get.find()), permanent: false);
   Get.create(() => BackgroundRunningController(Get.find()), permanent: false);
-  Get.create(() => SyncController(), permanent: false);
   Get.create(() => CongratulationsController(Get.find()), permanent: false);
   Get.create(() => NewsFeedController(Get.find()), permanent: true);
   Get.create(() => NodeStatusController(Get.find(), Get.find()), permanent: true);
