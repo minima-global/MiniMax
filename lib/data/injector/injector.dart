@@ -27,7 +27,7 @@ Future inject() async {
   /// Controllers
   Get.create(() => DeciderController(Get.find(), Get.find()), permanent: false);
   Get.create(() => HomeController(Get.find()), permanent: false);
-  Get.create(() => BackgroundRunningController(), permanent: false);
+  Get.create(() => BackgroundRunningController(Get.find()), permanent: false);
   Get.create(() => SyncController(), permanent: false);
   Get.create(() => CongratulationsController(Get.find()), permanent: false);
   Get.create(() => NewsFeedController(Get.find()), permanent: true);
