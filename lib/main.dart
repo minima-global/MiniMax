@@ -19,6 +19,7 @@ class MiniMaxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      defaultTransition: Transition.downToUp,
       translations: MiniMaxTranslations(),
       locale: const Locale.fromSubtags(languageCode: "en"),
       debugShowCheckedModeBanner: false,

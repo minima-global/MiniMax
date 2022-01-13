@@ -9,6 +9,7 @@ TextStyle lmBodyCopy = const TextStyle(
 );
 
 TextStyle lmBodyCopyMedium = lmBodyCopy.copyWith(fontSize: 14);
+TextStyle lmBodyCopySmall = lmBodyCopy.copyWith(fontSize: 12);
 
 TextStyle lmH2 = const TextStyle(
   fontFamily: _manrope,

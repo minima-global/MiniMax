@@ -130,6 +130,7 @@ class MiniMaxTranslations extends Translations {
         'permissionsEnabledMainTitle': 'Permissions enabled',
         'permissionsEnabledExplanation': 'Minima has now been granted permission to run in the background.',
         'permissionsEnabledCTA': 'Continue',
+        'deciderMainContent': 'Empowering Freedom',
       }
     };
   }

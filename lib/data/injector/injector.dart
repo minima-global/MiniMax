@@ -24,7 +24,7 @@ import 'package:package_info/package_info.dart';
 
 Future inject() async {
   /// Controllers
-  Get.create(() => DeciderController(Get.find(), Get.find()), permanent: false);
+  Get.create(() => DeciderController(Get.find(), Get.find(), Get.find()), permanent: false);
   Get.create(() => HomeController(Get.find()), permanent: false);
   Get.create(() => BackgroundRunningController(Get.find(), Get.find()), permanent: false);
   Get.create(() => CongratulationsController(Get.find()), permanent: false);

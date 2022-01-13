@@ -151,7 +151,7 @@ class HomeScreen extends GetWidget<HomeController> {
       child: Column(
         children: [
           SvgPicture.asset(
-            ImageKeys.minimaLogoLandscape1,
+            ImageKeys.minimaLogoLandscape,
             height: 32,
           ),
         ],

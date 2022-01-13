@@ -63,7 +63,7 @@ class SetUpScreen extends StatelessWidget {
 
   Widget _buildMinimaLogo() {
     return SvgPicture.asset(
-      ImageKeys.minimaLogoLandscape1,
+      ImageKeys.minimaLogoLandscape,
       height: 51,
     );
   }

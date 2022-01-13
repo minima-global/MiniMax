@@ -155,4 +155,6 @@ class StringKeys {
   static const String permissionsEnabledExplanation = "permissionsEnabledExplanation";
   static const String permissionsEnabledCTA = "permissionsEnabledCTA";
 
+  // Decider
+  static const String deciderMainContent = "deciderMainContent";
 }
