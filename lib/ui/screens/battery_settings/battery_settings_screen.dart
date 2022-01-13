@@ -6,6 +6,7 @@ import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/background_running/background_running_screen.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_controller.dart';
+import 'package:minimax/ui/screens/permissions_enabled/permissions_enabled_screen.dart';
 import 'package:minimax/ui/utils/ui_constants.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
@@ -74,16 +75,16 @@ class BatterySettingsScreen extends GetWidget<BatterySettingsController> {
   Widget _buildSkipButton() {
     return createSecondaryCTA(
       text: StringKeys.batterySettingsSkip.tr,
-      onTap: _next,
+      onTap: _skip,
     );
   }
 
   void _confirm() {
     controller.onConfirmedClicked();
-    _next();
+    Get.toNamed(PermissionsEnabledScreen.routeName);
   }
 
-  void _next() {
-    Get.toNamed(BackgroundRunningScreen.routeName);
+  void _skip() {
+    Get.toNamed(BackgroundRunningWarningScreen.routeName);
   }
 }

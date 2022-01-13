@@ -43,6 +43,10 @@ flutter:
     - assets/backgrounds/
 
   fonts:
+    - family: roboto
+      fonts:
+        - asset: fonts/roboto/Roboto-Medium.ttf
+          weight: 500
     - family: manrope
       fonts:
         - asset: fonts/manrope/manrope-extra-light.ttf

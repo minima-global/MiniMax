@@ -35,6 +35,15 @@ TextStyle lmH4 = const TextStyle(
   letterSpacing: 0.01,
 );
 
+TextStyle button = const TextStyle(
+  fontFamily: _roboto,
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
+  height: 1.71,
+  letterSpacing: 0.015,
+);
+
 TextStyle lmH4Xtra = lmH4.copyWith(fontWeight: FontWeight.w800);
 
 const _manrope = "manrope";
+const _roboto = "roboto";

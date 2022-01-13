@@ -30,13 +30,10 @@ class StringKeys {
   static const String backgroundRunningTitle = "backgroundRunningTitle";
   static const String backgroundRunningBigTitle = "backgroundRunningBigTitle";
   static const String backgroundRunningBigTitleAreYouSure = "backgroundRunningBigTitleAreYouSure";
-  static const String backgroundRunningExplanation1 = "backgroundRunningExplanation1";
   static const String backgroundRunningExplanation2 = "backgroundRunningExplanation2";
   static const String backgroundRunningExplanation3 = "backgroundRunningExplanation3";
-  static const String backgroundRunningCTAConfirm = "backgroundRunningCTAConfirm";
   static const String backgroundRunningCTAYes = "backgroundRunningCTAYes";
   static const String backgroundRunningCTANo = "backgroundRunningCTANo";
-  static const String backgroundRunningCTASkip = "backgroundRunningCTASkip";
 
   // Backup Explanation Settings
   static const String backupExplanationTitle = "backupExplanationTitle";

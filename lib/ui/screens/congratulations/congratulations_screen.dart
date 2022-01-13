@@ -6,6 +6,7 @@ import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/congratulations/congratulations_controller.dart';
+import 'package:minimax/ui/screens/decider/decider_screen.dart';
 import 'package:minimax/ui/screens/home/home_screen.dart';
 import 'package:minimax/ui/utils/ui_constants.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
@@ -82,7 +83,7 @@ class CongratulationsScreen extends GetWidget<CongratulationsController> {
       text: StringKeys.congratulationsCTA.tr,
       onTap: () {
         controller.setUserConfiguredDevice(); // Fire and forget
-        Get.toNamed(HomeScreen.routeName);
+        Get.offAllNamed(DeciderScreen.routeName);
       },
     );
   }

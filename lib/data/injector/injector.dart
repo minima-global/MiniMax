@@ -26,7 +26,7 @@ Future inject() async {
   /// Controllers
   Get.create(() => DeciderController(Get.find(), Get.find(), Get.find()), permanent: false);
   Get.create(() => HomeController(Get.find()), permanent: false);
-  Get.create(() => BackgroundRunningController(Get.find(), Get.find()), permanent: false);
+  Get.create(() => BackgroundRunningWarningController(Get.find()), permanent: false);
   Get.create(() => CongratulationsController(Get.find()), permanent: false);
   Get.create(() => NewsFeedController(Get.find()), permanent: true);
   Get.create(() => NodeStatusController(Get.find(), Get.find()), permanent: true);
@@ -34,7 +34,7 @@ Future inject() async {
   Get.create(() => HelpController(), permanent: true);
   Get.create(() => PDFController(), permanent: true);
   Get.create(() => TerminalController(Get.find()), permanent: true);
-  Get.create(() => BatterySettingsController(Get.find()), permanent: true);
+  Get.create(() => BatterySettingsController(Get.find(), Get.find()), permanent: true);
 
   /// Services and repositories
   Get.create<NewsService>(() => NewsServiceImpl(Get.find()));

@@ -19,15 +19,11 @@ class MiniMaxTranslations extends Translations {
         'backgroundRunningTitle': 'Minima',
         'backgroundRunningBigTitle': 'Background running',
         'backgroundRunningBigTitleAreYouSure': 'Are you sure?',
-        'backgroundRunningExplanation1':
-            'Allowing Minima to run in the background may reduce battery life.\nPlease confirm that you allow Minima permission to run in the background.',
         'backgroundRunningExplanation2': 'Are you sure you want to skip this stage?',
         'backgroundRunningExplanation3':
             'For Minima to function as expected, it must be allowed to run in the background. You can change this setting later by choosing Battery Optimisation from the side navigation menu in the app.',
-        'backgroundRunningCTAConfirm': 'Confirm',
         'backgroundRunningCTAYes': 'Yes',
         'backgroundRunningCTANo': 'No',
-        'backgroundRunningCTASkip': 'Deny',
         'backupExplanationTitle': 'Backup',
         'backupExplanationTextSplit1': 'Once your app has loaded, navigate to the Options menu and choose ',
         'backupExplanationTextSplit2': 'BACKUP',

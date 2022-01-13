@@ -32,9 +32,13 @@ class DeciderController extends GetxController {
       }
     });
 
-    _minimaStorage.getUserWantsToKeepRunningTheService().then((value) {
-      if (value != null) {
-        _backgroundService.startBackgroundService(value);
+    _minimaStorage.getUserConfiguredDeviceFirstTime().then((userHasConfiguredDeviceFirstTime) {
+      if (userHasConfiguredDeviceFirstTime) {
+        _minimaStorage.getUserWantsToKeepRunningTheService().then((value) {
+          if (value != null) {
+            _backgroundService.startBackgroundService(value);
+          }
+        });
       }
     });
   }

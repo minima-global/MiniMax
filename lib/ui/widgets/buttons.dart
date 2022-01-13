@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/dimensions.dart';
+import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 
 Widget createCTA({
@@ -52,6 +53,23 @@ Widget createSecondaryCTA({
     textColour: coreBlue100,
     borderColour: coreBlue100,
     onTap: onTap,
+  );
+}
+
+Widget createRobotoButton({
+  required String text,
+  required Color colour,
+  Function()? onTap,
+}) {
+  return InkWell(
+    onTap: onTap,
+    child: Padding(
+      padding: const EdgeInsets.all(small1),
+      child: Text(
+        text.toUpperCase(),
+        style: button.copyWith(color: colour),
+      ),
+    ),
   );
 }
 

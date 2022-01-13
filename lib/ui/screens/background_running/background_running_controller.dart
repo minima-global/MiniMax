@@ -4,47 +4,41 @@ import 'package:minimax/data/dependencies/battery.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
 import 'package:minimax/ui/screens/background_running/enum/background_running_state_model.dart';
 
-class BackgroundRunningController extends GetxController {
-  final BackgroundService _backgroundService;
+class BackgroundRunningWarningController extends GetxController {
   final MinimaStorage _minimaStorage;
 
-  final Rx<BackgroundRunningState> state = Rx(BackgroundRunningState.fresh);
-  final Rxn<bool> nextTrigger = Rxn<bool>();
+  final Rx<BackgroundRunningState> state = Rx(BackgroundRunningState.confirm);
+  final Rxn nextTrigger = Rxn();
+  final Rxn backTrigger = Rxn();
 
-  BackgroundRunningController(this._backgroundService, this._minimaStorage);
+  BackgroundRunningWarningController(this._minimaStorage);
 
   void noTapped() {
     switch (state.value) {
-      case BackgroundRunningState.fresh:
-        state(BackgroundRunningState.confirm);
-        break;
       case BackgroundRunningState.confirm:
+        backTrigger.trigger(null);
+        break;
       case BackgroundRunningState.doubleConfirm:
-        state(BackgroundRunningState.fresh);
+        state(BackgroundRunningState.confirm);
         break;
     }
   }
 
   void yesTapped() {
     switch (state.value) {
-      case BackgroundRunningState.fresh:
-        _next(useBackground: true);
-        break;
       case BackgroundRunningState.confirm:
         state(BackgroundRunningState.doubleConfirm);
         break;
       case BackgroundRunningState.doubleConfirm:
-        _next(useBackground: false);
+        _next();
         break;
     }
   }
 
+  void _next() {
+    nextTrigger.trigger(null);
+    _minimaStorage.setUserWantsToKeepRunningTheService(false);
 
-  void _next({required bool useBackground}) {
-    nextTrigger.trigger(useBackground);
-    _backgroundService.startBackgroundService(useBackground);
-    _minimaStorage.setUserWantsToKeepRunningTheService(useBackground);
-
-    Future.delayed(const Duration(seconds: 1)).then((_) => state(BackgroundRunningState.fresh));
+    Future.delayed(const Duration(seconds: 1)).then((_) => state(BackgroundRunningState.confirm));
   }
 }

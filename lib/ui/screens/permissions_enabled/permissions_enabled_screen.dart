@@ -35,7 +35,7 @@ class PermissionsEnabledScreen extends StatelessWidget {
       child: semiTransparentModal(
         child: AnimatedContainer(
           color: allDone,
-          padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+          padding: const EdgeInsetsDirectional.only(top: large2,  start: large1, end: large1, bottom: small2),
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOutCubic,
           child: Column(
@@ -101,9 +101,15 @@ class PermissionsEnabledScreen extends StatelessWidget {
   }
 
   Widget _buildConfirmButton() {
-    return createPrimaryCTA(
-      text: StringKeys.permissionsEnabledCTA.tr,
-      onTap: _continue,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        createRobotoButton(
+          text: StringKeys.permissionsEnabledCTA.tr,
+          colour: coreBlue100,
+          onTap: _continue,
+        ),
+      ],
     );
   }
 
