@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <queries>
         <intent>
@@ -25,7 +26,8 @@
             android:hardwareAccelerated="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
@@ -55,8 +57,8 @@
         <service
             android:name="com.minima.service.MinimaStuckToAppService"
             android:enabled="true"
-            android:stopWithTask="true"
-            android:exported="false" />
+            android:exported="false"
+            android:stopWithTask="true" />
         <service
             android:name="com.minima.service.ServiceStarterJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />

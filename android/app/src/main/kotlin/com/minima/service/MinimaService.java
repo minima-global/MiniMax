@@ -110,7 +110,7 @@ public class MinimaService extends Service {
 
         Intent NotificationIntent = new Intent(getBaseContext(), MainActivity.class);
         mPendingIntent = PendingIntent.getActivity(getBaseContext(), 0
-                , NotificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                , NotificationIntent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
 
         mService = this;
 
