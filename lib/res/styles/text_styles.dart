@@ -5,7 +5,7 @@ TextStyle lmBodyCopy = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w400,
   height: 1.5,
-  letterSpacing: 0.02,
+  letterSpacing: 0.2,
 );
 
 TextStyle lmBodyCopyMedium = lmBodyCopy.copyWith(fontSize: 14);
@@ -16,7 +16,7 @@ TextStyle lmH2 = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w700,
   height: 1.5,
-  letterSpacing: 0.02,
+  letterSpacing: 0.2,
 );
 
 TextStyle lmH1 = const TextStyle(
@@ -24,7 +24,7 @@ TextStyle lmH1 = const TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w700,
   height: 1.5,
-  letterSpacing: 0.02,
+  letterSpacing: 0.2,
 );
 
 TextStyle lmH4 = const TextStyle(
@@ -32,7 +32,7 @@ TextStyle lmH4 = const TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w700,
   height: 1.5,
-  letterSpacing: 0.01,
+  letterSpacing: 0.2,
 );
 
 TextStyle button = const TextStyle(
@@ -40,7 +40,7 @@ TextStyle button = const TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w500,
   height: 1.71,
-  letterSpacing: 0.015,
+  letterSpacing: 0.75,
 );
 
 TextStyle lmH4Xtra = lmH4.copyWith(fontWeight: FontWeight.w800);

@@ -42,11 +42,14 @@ class NewsFeedScreen extends GetWidget<NewsFeedController> {
       List<Widget> newsCards = news //
           .map(_buildNewsCard)
           .toList();
-      return ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: large3, vertical: large2),
-        itemBuilder: (_, position) => newsCards[position],
-        separatorBuilder: (_, __) => medium.toSpace(),
-        itemCount: news.length,
+      return RefreshIndicator(
+        onRefresh: controller.loadNews,
+        child: ListView.separated(
+          padding: const EdgeInsets.symmetric(horizontal: large1, vertical: large2),
+          itemBuilder: (_, position) => newsCards[position],
+          separatorBuilder: (_, __) => medium.toSpace(),
+          itemCount: news.length,
+        ),
       );
     });
   }

@@ -6,6 +6,7 @@ import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
+import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
@@ -34,7 +35,7 @@ class AllDoneScreen extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
         color: allDone,
         child: AnimatedContainer(
-          padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+          padding: const EdgeInsetsDirectional.only(top: large2,  start: large1, end: large1, bottom: small2),
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOutCubic,
           child: Column(
@@ -92,7 +93,7 @@ class AllDoneScreen extends StatelessWidget {
         minHeight: (explanationStyle.height ?? 0) * 5 * (explanationStyle.fontSize ?? 0),
         minWidth: double.maxFinite,
       ),
-      child: Text(
+      child: simpleHtmlText(
         StringKeys.allDoneScreenContent.tr,
         style: explanationStyle,
       ),
@@ -100,9 +101,15 @@ class AllDoneScreen extends StatelessWidget {
   }
 
   Widget _buildCloseButton() {
-    return createPrimaryCTA(
-      text: StringKeys.allDoneScreenCloseCTA.tr,
-      onTap: Get.back,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        createRobotoButton(
+          text: StringKeys.allDoneScreenCloseCTA.tr,
+          colour: coreBlue100,
+          onTap: Get.back,
+        ),
+      ],
     );
   }
 }

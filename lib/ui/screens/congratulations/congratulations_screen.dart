@@ -36,6 +36,7 @@ class CongratulationsScreen extends GetWidget<CongratulationsController> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildTitle(),
@@ -58,10 +59,9 @@ class CongratulationsScreen extends GetWidget<CongratulationsController> {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: setUpModalMinExplanationHeight,
-        minWidth: double.maxFinite,
       ),
       child: RichText(
-        textAlign: TextAlign.start,
+        textAlign: TextAlign.center,
         text: TextSpan(
           children: <TextSpan>[
             TextSpan(

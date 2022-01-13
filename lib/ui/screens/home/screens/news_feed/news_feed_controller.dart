@@ -15,11 +15,17 @@ class NewsFeedController extends GetxController {
   void onInit() {
     super.onInit();
 
+    loadNews();
+  }
+
+  Future<void> loadNews() {
     loading(true);
     _newsRepository
         .getNews()
         .then((news) => this.news(news))
         .catchError((error) => this.error.trigger(error))
         .whenComplete(() => loading(false));
+
+    return Future.value();
   }
 }

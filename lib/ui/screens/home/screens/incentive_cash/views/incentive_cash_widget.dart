@@ -13,24 +13,29 @@ import 'package:minimax/utils/extensions/object_extensions.dart';
 class IncentiveCashWidget extends StatelessWidget {
   final IncentiveCashModel? _model;
   final bool _loading;
+  final Future<void> Function() onRefresh;
 
-  const IncentiveCashWidget(this._model, this._loading);
+  const IncentiveCashWidget(this._model, this._loading, {required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
     return semiTransparentModal(
       child: Padding(
         padding: const EdgeInsets.all(medium),
-        child: Column(
-          children: [
-            _buildBalance(),
-            small1.toSpace(),
-            _buildPing(),
-            small1.toSpace(),
-            _buildExplanation(),
-            small1.toSpace(),
-            _buildStatus(),
-          ],
+        child: RefreshIndicator(
+          onRefresh: onRefresh,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              _buildBalance(),
+              small1.toSpace(),
+              _buildPing(),
+              small1.toSpace(),
+              _buildExplanation(),
+              small1.toSpace(),
+              _buildStatus(),
+            ],
+          ),
         ),
       ),
     );

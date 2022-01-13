@@ -48,10 +48,15 @@ class IncentiveCashController extends GetxController {
   void _updateNodeId() {
     _storage.getNodeId().then((value) => nodeId(value));
 
+    refreshBalance();
+  }
+
+  Future<void> refreshBalance() {
     loadingBalance(true);
     _incentiveCashRepository.getIncentiveCashInfo().then((value) {
       incentiveCashModel(value);
     }).whenComplete(() => loadingBalance(false));
+    return Future.value();
   }
 
   void selectTab(IncentiveCashTab tab) {
@@ -74,4 +79,5 @@ class IncentiveCashController extends GetxController {
   void toggleLock() {
     lockedEdition.toggle();
   }
+
 }

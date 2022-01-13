@@ -154,4 +154,9 @@ class StringKeys {
 
   // Decider
   static const String deciderMainContent = "deciderMainContent";
+
+  // Member get member explanation
+  static const String mgmExplanationMainContent = "mgmExplanationMainContent";
+  static const String mgmExplanationCta = "mgmExplanationCta";
+  static const String mgmExplanationTitle = "mgmExplanationTitle";
 }

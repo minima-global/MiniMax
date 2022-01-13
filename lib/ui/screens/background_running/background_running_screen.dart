@@ -112,7 +112,7 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
   }
 
   Widget _buildExplanation(BackgroundRunningState state) {
-    final TextStyle explanationStyle = lmBodyCopyMedium.copyWith(color: coreBlackContrast);
+    final TextStyle explanationStyle = lmBodyCopy.copyWith(color: coreBlackContrast, height: 1.4);
     return ConstrainedBox(
       // Min 5 lines
       constraints: BoxConstraints(

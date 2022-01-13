@@ -28,7 +28,7 @@ class IncentiveCashRepositoryImpl extends IncentiveCashRepository {
               return IncentiveCashModel.offline();
             } else {
               Map<String, dynamic> json = jsonDecode(value);
-              if (json.containsKey("status")) {
+              if (json.containsKey("status") && json.containsKey("response") && json["response"]["details"] != null) {
                 Map<String, dynamic> details = json['response']['details'];
                 Map<String, dynamic> rewards = details['rewards'];
                 return IncentiveCashModel(

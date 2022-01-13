@@ -6,6 +6,8 @@ import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
+import 'package:minimax/ui/screens/member_get_member_explanation/member_get_member_screen.dart';
+import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/utils/ui_constants.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
@@ -38,7 +40,7 @@ class IncentiveCashExplanationScreen extends StatelessWidget {
             children: [
               _buildTitle(),
               medium.toSpace(),
-              _buildBackupExplanation(),
+              _buildIncentiveCashExplanation(),
               large1.toSpace(),
               _buildContinueButton(),
             ],
@@ -52,17 +54,14 @@ class IncentiveCashExplanationScreen extends StatelessWidget {
     return Text(StringKeys.incentiveExplanationTitle.tr, style: lmH2.copyWith(color: coreBlue100));
   }
 
-  Widget _buildBackupExplanation() {
+  Widget _buildIncentiveCashExplanation() {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: setUpModalMinExplanationHeight,
         minWidth: double.maxFinite,
       ),
-      child: Text(
+      child: simpleHtmlText(
         StringKeys.incentiveExplanationText.tr,
-        style: lmBodyCopyMedium.copyWith(
-          color: coreBlackContrast,
-        ),
       ),
     );
   }
@@ -70,7 +69,7 @@ class IncentiveCashExplanationScreen extends StatelessWidget {
   Widget _buildContinueButton() {
     return createPrimaryCTA(
       text: StringKeys.incentiveCashExplanationCTA.tr,
-      onTap: () => Get.toNamed(CongratulationsScreen.routeName),
+      onTap: () => Get.toNamed(MemberGetMemberExplanationScreen.routeName),
     );
   }
 }

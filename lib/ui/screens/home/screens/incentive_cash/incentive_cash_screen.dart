@@ -84,6 +84,7 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
         (incentiveCashModel) => IncentiveCashWidget(
           incentiveCashModel,
           loading,
+          onRefresh: controller.refreshBalance,
         ),
       ),
     );

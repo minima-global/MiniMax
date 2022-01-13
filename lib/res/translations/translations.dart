@@ -13,7 +13,7 @@ class MiniMaxTranslations extends Translations {
         'homeCTATitle': 'Continue',
         'batterySettingsTitle': 'Battery Settings',
         'batterySettingsExplanation':
-            'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\n\nPlease grant permission by clicking allow.\n\nIf you do not wish to do this now, you can change this setting later by choosing Battery Optimisation from the Options menu in the app.',
+            'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.<p>Please grant permission by clicking allow.<p>If you do not wish to do this now, you can change this setting later by choosing Battery Optimisation from the Options menu in the app.',
         'batterySettingsConfirm': 'Confirm',
         'batterySettingsSkip': 'Skip',
         'backgroundRunningTitle': 'Minima',
@@ -36,7 +36,7 @@ class MiniMaxTranslations extends Translations {
         'backupExplanationCTA': 'Continue',
         'incentiveExplanationTitle': 'IncentiveCash',
         'incentiveExplanationText':
-            'Minima is currently in ‘Beta’ test net.\n\nWe are running an Incentive program for you to get Minima coins for running the app until we launch at main net.\n\nTo claim your existing rewards and to receive future daily rewards, be sure to set up your account on the IncentiveCash page.',
+            'Minima is currently in ‘Beta’ test net.<p>We are running an Incentive program for you to get Minima coins for running the app until we launch at main net.<p><b>To claim your existing rewards and to receive future daily rewards, be sure to set up your account on the IncentiveCash page.</b>',
         'incentiveCashExplanationCTA': 'Continue',
         'congratulationsTitle': 'Congratulations',
         'congratulationsExplanationSplit1': 'You are now ready to start using Minima.\n\n\n',
@@ -61,7 +61,7 @@ class MiniMaxTranslations extends Translations {
         'incentiveCashScreenSetUpTextFieldEnterUpdateLocked': 'Update (locked)',
         'incentiveCashScreenIncentiveCashProgramTitle': 'The IncentiveCash Program:',
         'incentiveCashScreenIncentiveCashProgramExplanation':
-            'The Minima IncentiveCash Program is designed to reward our users for running a Minima node. Users will receive one IncentiveCash token for every day your node pings us to let us know it is connected. IncentiveCash Tokens will be redeemable for Minima coins at mainnet launch on a one for one basis. In order to join the Minima IncentiveCash Program, you must enter your unique IncentiveCash NodeID in to the field below.  This can be found by logging in or registering to the IncentiveCash website. If you already have your IncentiveCash NodeID, please enter it below. If you do not have your IncentiveCash NodeID, Please use the button below to navigate to the IncentiveCash website.',
+            'The Minima IncentiveCash Program is designed to reward our users for running a Minima node. Users will receive one IncentiveCash token for every day your node pings us to let us know it is connected. IncentiveCash Tokens will be redeemable for Minima coins at mainnet launch on a one for one basis.<p>In order to join the Minima IncentiveCash Program, you must enter your unique IncentiveCash NodeID in to the field below.  This can be found by logging in or registering to the IncentiveCash website.<p>If you already have your IncentiveCash NodeID, please enter it below.<p>If you do not have your IncentiveCash NodeID,<p>Please use the button below to navigate to the IncentiveCash website.',
         'incentiveCashScreenIncentiveCashProgramCTA': 'IncentiveCash Website',
         'incentiveCashScreenIncentiveCashProgramCTAUrl': 'https://incentivecash.minima.global/',
         'incentiveCashScreenBalanceTitle': 'Incentive Cash Token Balance:',
@@ -105,20 +105,20 @@ class MiniMaxTranslations extends Translations {
         'terminalScreenTextFieldHint': 'Enter the command here…',
         'terminalScreenClearConsole': 'Clear console',
         'nodeStatusTitle': 'Node Status:',
-        'nodeStatusExplanation': 'You can check that your Minima node is connected to the Minima network via the status bar below. If your node is successfully connected, your status will be shown as ‘connected’ and a green light will be seen.\nIf your node Status is showing as ‘Offline’ along with a red light, your node is currently not connected to the Minima network. In the event that this occurs, please follow the instructions below the status bar to help you get reconnected.',
+        'nodeStatusExplanation': 'You can check that your Minima node is connected to the Minima network via the status bar below. If your node is successfully connected, your status will be shown as ‘connected’ and a green light will be seen.<p>If your node Status is showing as ‘Offline’ along with a red light, your node is currently not connected to the Minima network. In the event that this occurs, please follow the instructions below the status bar to help you get reconnected.</p>',
         'nodeStatusCardTitle': 'Node Status : ',
-        'nodeStatusCardInactiveActionRequired': 'Your node seems to be offline, here are some tips and tricks to help you get you back online. Please follow the instructions below.\nHere is an instruction.',
+        'nodeStatusCardInactiveActionRequired': 'Your node seems to be offline, here are some tips and tricks to help you get you back online. Please follow the instructions below.<p>Here is an instruction.',
         'incentiveCashCardTitle': 'IncentiveCash Status : ',
         'incentiveCashCardInactiveActionRequired': 'This node has no IncentiveCash account connected to it. To set this up, please go to the IncentiveCash page.',
         'statusCardActionRequiredTitle': 'Action required:',
         'apkCardTitle': 'APK Version : ',
-        'apkCardInactiveActionRequired': 'You are not running the latest version of the Minima app, you can find the latest version on our Get-Started page:<br><br><a href="https://minima.global/get-started">https://minima.global/get-started</a>',
+        'apkCardInactiveActionRequired': 'You are not running the latest version of the Minima app, you can find the latest version on our Get-Started page:<p><a href="https://minima.global/get-started">https://minima.global/get-started</a>',
         'apkCardStatusUpToDate': 'Up to date',
         'apkCardStatusOutOfDate': 'Out of date',
         'allDoneScreenCloseCTA': 'Close',
         'allDoneScreenTitle': 'Incentive Cash',
         'allDoneScreenBigTitle': 'All done!',
-        'allDoneScreenContent': 'Your node is now connected to your IncentiveCash account and it will ping us so we know your node is connected to the network.\nFor every day we receive a ping from your node, we will add one IncentiveCash Token to your Balance.\nIncentiveCash Tokens will be redeemable for Minima coins at mainnet on a one for one basis.',
+        'allDoneScreenContent': 'Your node is now connected to your IncentiveCash account and it will ping us so we know your node is connected to the network.<p>For every day we receive a ping from your node, we will add one IncentiveCash Token to your Balance.<p>IncentiveCash Tokens will be redeemable for Minima coins at mainnet on a one for one basis.',
         'batteryOptimisationCTA': 'Battery optimization settings',
         'batteryOptimisationTitle': 'Battery Optimisation:',
         'batteryOptimisationExplanation': 'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\n\nPlease use the button below to navigate to your phones battery optimisation settings and grant permission for Minima to run in the background.',
@@ -127,6 +127,9 @@ class MiniMaxTranslations extends Translations {
         'permissionsEnabledExplanation': 'Minima has now been granted permission to run in the background.',
         'permissionsEnabledCTA': 'Continue',
         'deciderMainContent': 'Empowering Freedom',
+        'mgmExplanationMainContent': 'The Minima Member get member program rewards users for<br><br><b>To claim your existing rewards and to receive future daily rewards, be sure to set up your account on the IncentiveCash page.</b>',
+        'mgmExplanationCta': 'Continue',
+        'mgmExplanationTitle': 'Member get member',
       }
     };
   }

@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:minimax/res/images/images.dart';
@@ -8,8 +7,7 @@ import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
-import 'package:minimax/utils/extensions/object_extensions.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:minimax/ui/utils/simple_html_text.dart';
 
 Widget buildStatusWidget({
   required String Function(Status) title,
@@ -67,15 +65,7 @@ Widget _buildActionRequired(String actionRequired) {
       small2.toSpace(),
       SizedBox(
         width: double.maxFinite,
-        child: Html(
-          data: actionRequired,
-          onLinkTap: (String? url, _, __, ___) => url?.let((url) => launch(url)),
-          tagsList: Html.tags..removeWhere((element) => ["img", "figure"].contains(element)),
-          style: {
-            "body": Style(margin: EdgeInsets.zero, padding: EdgeInsets.zero),
-            "html": Style.fromTextStyle(lmBodyCopyMedium.copyWith(color: coreBlackContrast)),
-          },
-        ),
+        child: simpleHtmlText(actionRequired),
       ),
     ],
   );
