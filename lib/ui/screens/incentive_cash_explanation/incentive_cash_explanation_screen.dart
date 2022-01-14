@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:minimax/data/dependencies/battery.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/dimensions.dart';
 import 'package:minimax/res/styles/margins.dart';
@@ -69,7 +70,7 @@ class IncentiveCashExplanationScreen extends StatelessWidget {
   Widget _buildContinueButton() {
     return createPrimaryCTA(
       text: StringKeys.incentiveCashExplanationCTA.tr,
-      onTap: () => Get.toNamed(MemberGetMemberExplanationScreen.routeName),
+      onTap: () => Get.toNamed(CongratulationsScreen.routeName),
     );
   }
 }

@@ -22,21 +22,17 @@ class BatteryOptimisationScreen extends GetWidget<NodeStatusController> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: semiTransparentModal(
-            child: Container(
-              color: white,
-              padding: const EdgeInsets.all(large1),
-              child: Column(
-                children: [
-                  _buildBatteryOptimisationTitle(),
-                  small1.toSpace(),
-                  _buildBatteryOptimisationExplanation(),
-                  medium.toSpace(),
-                  createPrimaryCTA(
-                    text: StringKeys.batteryOptimisationCTA.tr,
-                    onTap: _goToBatteryOptimisationSettings,
-                  )
-                ],
-              ),
+            child: Column(
+              children: [
+                _buildBatteryOptimisationTitle(),
+                small1.toSpace(),
+                _buildBatteryOptimisationExplanation(),
+                medium.toSpace(),
+                createPrimaryCTA(
+                  text: StringKeys.batteryOptimisationCTA.tr,
+                  onTap: _goToBatteryOptimisationSettings,
+                )
+              ],
             ),
           ),
         ),

@@ -23,8 +23,7 @@ fun Context.ignoreBatteryOptimization(): Boolean {
                 data = Uri.parse("package:$packageName")
             }
         )
-        return true
     }
 
-    return false
+    return ignoringBatteryOptimizations
 }

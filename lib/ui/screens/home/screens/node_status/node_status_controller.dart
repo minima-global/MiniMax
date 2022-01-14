@@ -25,7 +25,9 @@ class NodeStatusController extends GetxController {
   }
 
   void _refreshIncentiveCashStatus() {
-    _incentiveCashRepository.getIncentiveCashInfo().then(incentiveCashModel);
+    _incentiveCashRepository
+        .getIncentiveCashInfo()
+        .then(incentiveCashModel);
   }
 
   void _refreshNodeStatus() {

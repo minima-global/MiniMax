@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:minimax/data/dependencies/background.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_model.dart';
+import 'package:minimax/ui/utils/errors.dart';
 import 'package:minimax/ui/widgets/status.dart';
 
 // TODO test this class
@@ -18,7 +19,8 @@ class IncentiveCashRepositoryImpl extends IncentiveCashRepository {
 
   @override
   Future<IncentiveCashModel> getIncentiveCashInfo() {
-    return _storage.getNodeId().then(
+    return _storage.getNodeId() //
+        .then<IncentiveCashModel>(
       (nodeId) {
         if (nodeId == null) {
           return IncentiveCashModel.offline();
@@ -43,6 +45,6 @@ class IncentiveCashRepositoryImpl extends IncentiveCashRepository {
           });
         }
       },
-    );
+    ).retryOnMinimaNotStarted(getIncentiveCashInfo);
   }
 }
