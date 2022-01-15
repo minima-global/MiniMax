@@ -18,7 +18,6 @@ import 'package:minimax/ui/screens/home/screens/node_status/node_status_screen.d
 import 'package:minimax/ui/screens/home/screens/terminal/terminal_screen.dart';
 import 'package:minimax/ui/screens/home/ui/home_drawer_radio_widget.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
-import 'package:minimax/ui/widgets/buttons.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
 
 class HomeScreen extends GetWidget<HomeController> {
@@ -32,33 +31,37 @@ class HomeScreen extends GetWidget<HomeController> {
   @override
   Widget build(BuildContext context) {
     return withGlossyBackground(
-      child: Scaffold(
-        key: _scaffoldKey,
-        drawer: _buildDrawer(),
-        appBar: _buildAppBar(),
-        body: _buildBody(),
-      )
-    );
+        child: Scaffold(
+      key: _scaffoldKey,
+      drawer: _buildDrawer(),
+      appBar: _buildAppBar(),
+      body: _buildBody(),
+    ));
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: coreGrey5,
-      title: _buildAppBarTitle(),
-      leading: IconButton(
-        padding: const EdgeInsets.all(medium),
-        icon: const Icon(Icons.menu),
-        color: coreBlackContrast,
-        onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+  PreferredSize _buildAppBar() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(kToolbarHeight),
+      child: controller.darkMode.build(
+        (darkMode) => AppBar(
+          backgroundColor: darkMode ? coreBlackContrast : coreGrey5,
+          title: _buildAppBarTitle(darkMode),
+          leading: IconButton(
+            padding: const EdgeInsets.all(medium),
+            icon: const Icon(Icons.menu),
+            color: darkMode ? coreGrey5: coreBlackContrast,
+            onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+          ),
+        ),
       ),
     );
   }
 
-  Widget _buildAppBarTitle() {
+  Widget _buildAppBarTitle(bool darkMode) {
     return controller.pageSelected.build((pageSelected) {
       return Text(
         pageSelected.homeDrawerKey.tr,
-        style: lmH2.copyWith(color: coreBlackContrast),
+        style: lmH2.copyWith(color: darkMode ? coreGrey40 : coreBlackContrast),
       );
     });
   }

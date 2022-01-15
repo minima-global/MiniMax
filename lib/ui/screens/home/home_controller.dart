@@ -6,11 +6,17 @@ class HomeController extends GetxController {
   static const defaultPageSelected = HomePageModel.nodeStatus;
 
   final Rx<HomePageModel> pageSelected = Rx<HomePageModel>(defaultPageSelected);
+  final RxBool darkMode = RxBool(false);
   final RxString version;
 
   HomeController(PackageInfo packageInfo) : version = RxString(packageInfo.version);
 
   void selectPage(HomePageModel newPageSelected) {
     pageSelected(newPageSelected);
+    darkMode(newPageSelected.shouldEnableDarkMode);
   }
+}
+
+extension _HomePageModelExtensions on HomePageModel {
+  bool get shouldEnableDarkMode => this == HomePageModel.terminal;
 }

@@ -129,7 +129,6 @@ class StringKeys {
   // Terminal
   static const String terminalScreenTextFieldTitle = "terminalScreenTextFieldTitle";
   static const String terminalScreenTextFieldHint = "terminalScreenTextFieldHint";
-  static const String terminalScreenClearConsole = "terminalScreenClearConsole";
 
   // Node status
   static const String nodeStatusTitle = "nodeStatusTitle";

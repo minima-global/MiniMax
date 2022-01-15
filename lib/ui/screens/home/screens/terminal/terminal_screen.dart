@@ -19,95 +19,105 @@ class TerminalScreen extends GetWidget<TerminalController> {
 
   @override
   Widget build(BuildContext context) {
-    return withGlossyBackground(
-      child: KeyboardVisibilityBuilder(
-        builder: (_, isKeyboardVisible) {
-          return Scaffold(
-            body: _buildBody(isKeyboardVisible),
-            floatingActionButton: _buildFloatingActionButton(isKeyboardVisible),
-          );
-        },
-      ),
+    return KeyboardVisibilityBuilder(
+      builder: (_, isKeyboardVisible) {
+        return Scaffold(
+          backgroundColor: coreBlackDarkBlack,
+          body: _buildBody(isKeyboardVisible),
+        );
+      },
     );
   }
 
   Widget _buildBody(bool isKeyboardVisible) {
-    return ListView(
-      physics: isKeyboardVisible ? const AlwaysScrollableScrollPhysics() : const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: large1),
+    return Stack(
       children: [
-        _buildTerminal(),
-        medium.toSpace(),
-        _buildCommandInput(),
+        ListView(
+          physics: isKeyboardVisible ? const AlwaysScrollableScrollPhysics() : const NeverScrollableScrollPhysics(),
+          children: [
+            _buildTerminal(),
+            large2.toSpace(),
+            Container(
+              width: double.maxFinite,
+              height: 1,
+              color: coreGrey100,
+            ),
+            medium.toSpace(),
+            _buildCommandInput(),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(small1),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: _buildFloatingActionButton(),
+          ),
+        ),
       ],
     );
   }
 
   Widget _buildTerminal() {
     return Container(
-      padding: const EdgeInsetsDirectional.only(top: large2),
+      padding: const EdgeInsetsDirectional.only(top: large2, start: large1, end: large1),
       height: Get.height * 0.6,
-      child: semiTransparentModal(
-        child: const Padding(
-          padding: EdgeInsets.all(medium),
-          child: ConsolePlatformView(),
-        ),
-      ),
+      child: const ConsolePlatformView(),
     );
   }
 
   Widget _buildCommandInput() {
-    return semiTransparentModal(
-      child: Container(
-        width: double.maxFinite,
-        padding: const EdgeInsets.all(medium),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: large1),
-              child: Text(
-                StringKeys.terminalScreenTextFieldTitle.tr,
-                style: lmH2.copyWith(color: coreBlackContrast),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: large1),
+      child: semiTransparentModal(
+        colour: terminalInputBackground,
+        child: Container(
+          width: double.maxFinite,
+          padding: const EdgeInsets.all(medium),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: large1),
+                child: Text(
+                  StringKeys.terminalScreenTextFieldTitle.tr,
+                  style: lmH2.copyWith(color: textColourWhiteDM),
+                ),
               ),
-            ),
-            small2.toSpace(),
-            semiTransparentModal(
-              child: Padding(
-                padding: const EdgeInsets.all(medium),
-                child: TextFormField(
-                  focusNode: _runCommandFocusNode,
-                  controller: controller.runCommandController,
-                  keyboardType: TextInputType.visiblePassword,
-                  maxLines: 1,
-                  textInputAction: TextInputAction.send,
-                  style: lmH2.copyWith(color: coreBlackContrast),
-                  onEditingComplete: controller.runCommand,
-                  decoration: InputDecoration.collapsed(
-                    hintText: StringKeys.terminalScreenTextFieldHint.tr,
-                    hintStyle: lmH2.copyWith(color: coreGrey40),
+              small2.toSpace(),
+              semiTransparentModal(
+                colour: terminalInputBackground2,
+                child: Padding(
+                  padding: const EdgeInsets.all(medium),
+                  child: TextFormField(
+                    focusNode: _runCommandFocusNode,
+                    controller: controller.runCommandController,
+                    keyboardType: TextInputType.visiblePassword,
+                    maxLines: 1,
+                    textInputAction: TextInputAction.send,
+                    style: lmH2.copyWith(color: coreBlackContrast),
+                    onEditingComplete: controller.runCommand,
+                    decoration: InputDecoration.collapsed(
+                      hintText: StringKeys.terminalScreenTextFieldHint.tr,
+                      hintStyle: lmH2.copyWith(color: coreGrey40),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildFloatingActionButton(bool isKeyboardVisible) {
-    return Visibility(
-      visible: !isKeyboardVisible,
-      child: FloatingActionButton.extended(
-        onPressed: () {
-          controller.clearConsole();
-          hideKeyboard();
-        },
-        label: Text(
-          StringKeys.terminalScreenClearConsole.tr,
-        ),
-      ),
+  Widget _buildFloatingActionButton() {
+    return FloatingActionButton.small(
+      onPressed: () {
+        controller.clearConsole();
+        hideKeyboard();
+      },
+      child: const Icon(Icons.delete_outline, color: white),
     );
   }
 }
