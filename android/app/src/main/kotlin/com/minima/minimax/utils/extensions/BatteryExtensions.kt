@@ -12,7 +12,7 @@ import android.provider.Settings
  * @return if the request has been triggered
  */
 @SuppressLint("BatteryLife")
-fun Context.ignoreBatteryOptimization(): Boolean {
+fun Context.showIgnoreBatteryOptimizationModal() {
     val ignoringBatteryOptimizations = (getSystemService(Context.POWER_SERVICE) as? PowerManager)
         ?.isIgnoringBatteryOptimizations(packageName) == true
 
@@ -24,6 +24,10 @@ fun Context.ignoreBatteryOptimization(): Boolean {
             }
         )
     }
+}
 
-    return ignoringBatteryOptimizations
+@SuppressLint("BatteryLife")
+fun Context.isIgnoringBatteryOptimizationModal(): Boolean {
+    return (getSystemService(Context.POWER_SERVICE) as? PowerManager)
+        ?.isIgnoringBatteryOptimizations(packageName) == true
 }

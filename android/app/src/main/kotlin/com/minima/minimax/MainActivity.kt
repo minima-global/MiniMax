@@ -5,7 +5,8 @@ import android.content.ServiceConnection
 import android.os.IBinder
 import com.jraska.console.Console
 import com.minima.minimax.platformview.terminal.TerminalPlatformView
-import com.minima.minimax.utils.extensions.ignoreBatteryOptimization
+import com.minima.minimax.utils.extensions.isIgnoringBatteryOptimizationModal
+import com.minima.minimax.utils.extensions.showIgnoreBatteryOptimizationModal
 import com.minima.minimax.utils.extensions.runCommandFromArguments
 import com.minima.minimax.utils.extensions.startMinimaService
 import com.minima.service.MinimaService.MyBinder
@@ -34,7 +35,8 @@ class MainActivity : FlutterActivity(), ServiceConnection {
     private fun configureMethodHandler(flutterEngine: FlutterEngine) {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, mainChannel).setMethodCallHandler { call, result ->
             when (call.method) {
-                "ignoreBatteryOptimization" -> result.success(ignoreBatteryOptimization())
+                "ignoreBatteryOptimization" -> result.success(showIgnoreBatteryOptimizationModal())
+                "isIgnoringBatteryOptimization" -> result.success(isIgnoringBatteryOptimizationModal())
                 "startMinimaService" -> {
                     startMinimaService(call)
                     result.success(true)
