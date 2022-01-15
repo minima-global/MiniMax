@@ -1,29 +1,40 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
-import 'package:minimax/res/translations/string_keys.dart';
-import 'package:minimax/ui/screens/background_check_screen/background_check_screen.dart';
-import 'package:minimax/ui/screens/background_running/background_running_screen.dart';
-import 'package:minimax/ui/screens/battery_settings/battery_settings_controller.dart';
+import 'package:minimax/ui/screens/background_check_screen/background_check_controller.dart';
 import 'package:minimax/ui/screens/permissions_enabled/permissions_enabled_screen.dart';
-import 'package:minimax/ui/utils/simple_html_text.dart';
-import 'package:minimax/ui/utils/ui_constants.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
-class BatterySettingsScreen extends GetWidget<BatterySettingsController> {
-  static const String routeName = "/battery_settings";
+class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
+  static const String routeName = "/background_check";
 
-  const BatterySettingsScreen({Key? key}) : super(key: key);
-
+  BackgroundCheckScreen({Key? key}) : super(key: key);
+  StreamSubscription? subscriptionToBatteryOptimization;
   @override
   Widget build(BuildContext context) {
+    _listenWhenAllowed();
+
     return withGlossyBackground(
       child: Scaffold(
         body: _buildBody(),
       ),
+    );
+  }
+
+  void _listenWhenAllowed() {
+    subscriptionToBatteryOptimization = controller.isIgnoringBatteryOptimization.listen(
+      (isIgnoring) {
+        if (isIgnoring) {
+          Get.toNamed(PermissionsEnabledScreen.routeName);
+          controller.onClose();
+          subscriptionToBatteryOptimization?.cancel();
+        }
+      },
     );
   }
 
@@ -42,7 +53,9 @@ class BatterySettingsScreen extends GetWidget<BatterySettingsController> {
               _buildTitle(),
               medium.toSpace(),
               _buildBatterySettingsExplanation(),
-              large1.toSpace(),
+              medium.toSpace(),
+              const CircularProgressIndicator(),
+              medium.toSpace(),
               _buildConfirmButton(),
               medium.toSpace(),
               _buildSkipButton(),
@@ -54,39 +67,30 @@ class BatterySettingsScreen extends GetWidget<BatterySettingsController> {
   }
 
   Widget _buildTitle() {
-    return Text(StringKeys.batterySettingsTitle.tr, style: lmH2.copyWith(color: coreBlue100));
+    return Text("Background check", style: lmH2.copyWith(color: coreBlue100));
   }
 
   Widget _buildBatterySettingsExplanation() {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minHeight: setUpModalMinExplanationHeight,
-        minWidth: double.maxFinite,
-      ),
-      child: simpleHtmlText(StringKeys.batterySettingsExplanation.tr),
+    return Text(
+      "Waiting for your confirmation to accept to run Minima in the background…",
+      style: lmBodyCopyMedium.copyWith(color: coreBlue100),
     );
   }
 
   Widget _buildConfirmButton() {
     return createPrimaryCTA(
-      text: StringKeys.batterySettingsConfirm.tr,
-      onTap: _confirm,
+      text: "Show modal again",
+      onTap: controller.showModal,
     );
   }
 
   Widget _buildSkipButton() {
     return createSecondaryCTA(
-      text: StringKeys.batterySettingsSkip.tr,
-      onTap: _skip,
+      text: "Back to battery settings",
+      onTap: () {
+        subscriptionToBatteryOptimization?.cancel();
+        Get.back();
+      },
     );
-  }
-
-  void _confirm() {
-    controller.onConfirmedClicked();
-    Get.toNamed(BackgroundCheckScreen.routeName);
-  }
-
-  void _skip() {
-    Get.toNamed(BackgroundRunningWarningScreen.routeName);
   }
 }
