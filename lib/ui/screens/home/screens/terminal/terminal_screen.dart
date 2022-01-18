@@ -117,6 +117,7 @@ class TerminalScreen extends GetWidget<TerminalController> {
         controller.clearConsole();
         hideKeyboard();
       },
+      backgroundColor: coreBlue100,
       child: const Icon(Icons.delete_outline, color: white),
     );
   }
