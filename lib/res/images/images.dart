@@ -3,6 +3,7 @@ class ImageKeys {
 
   static const String minimaLogoLandscape = "assets/logos/logo_minima_landscape_1.svg";
   static const String minimaLogoSquared = "assets/logos/logo_minima_squared.svg";
+  static const String minimaLogoSquaredNoName = "assets/logos/logo_minima_squared_no_name.svg";
 
   static const String glossyBrightBackground = "assets/backgrounds/glossy_bright_background.png";
 
