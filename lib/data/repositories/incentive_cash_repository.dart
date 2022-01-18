@@ -45,6 +45,6 @@ class IncentiveCashRepositoryImpl extends IncentiveCashRepository {
           });
         }
       },
-    ).retryOnMinimaNotStarted(getIncentiveCashInfo);
+    );
   }
 }

@@ -8,7 +8,7 @@ import 'package:package_info/package_info.dart';
 
 // TODO test this class
 abstract class NodeStatusRepository {
-  Future<NodeStatusModel> getNodeStatus();
+  Future<NodeStatusModel> getNodeStatus({bool refresh = false});
 }
 
 class NodeStatusRepositoryImpl extends NodeStatusRepository {
@@ -18,8 +18,8 @@ class NodeStatusRepositoryImpl extends NodeStatusRepository {
   NodeStatusRepositoryImpl(this._backgroundService, this._packageInfo);
 
   @override
-  Future<NodeStatusModel> getNodeStatus() {
-    return _backgroundService.getNodeStatus().then((value) {
+  Future<NodeStatusModel> getNodeStatus({bool refresh = false}) {
+    Future<NodeStatusModel> future = _backgroundService.getNodeStatus().then((value) {
       if (value == null) {
         return NodeStatusModel.notConnectedYet();
       } else {
@@ -33,8 +33,13 @@ class NodeStatusRepositoryImpl extends NodeStatusRepository {
           return NodeStatusModel.notConnectedYet();
         }
       }
-    })
-      .retryOnMinimaNotStarted(getNodeStatus);
+    });
+    if (!refresh) {
+      return future;
+    } else {
+      return future
+          .retryOnMinimaNotStarted(getNodeStatus);
+    }
   }
 }
 

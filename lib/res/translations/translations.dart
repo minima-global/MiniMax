@@ -129,6 +129,7 @@ class MiniMaxTranslations extends Translations {
         'mgmExplanationMainContent': 'The Minima Member get member program rewards users for<br><br><b>To claim your existing rewards and to receive future daily rewards, be sure to set up your account on the IncentiveCash page.</b>',
         'mgmExplanationCta': 'Continue',
         'mgmExplanationTitle': 'Member get member',
+        'loaderScreenLoading': 'Connecting, please wait…',
       }
     };
   }

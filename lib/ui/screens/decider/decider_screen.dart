@@ -9,6 +9,7 @@ import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/decider/decider_controller.dart';
 import 'package:minimax/ui/screens/decider/model/decider_model.dart';
 import 'package:minimax/ui/screens/home/home_screen.dart';
+import 'package:minimax/ui/screens/loader/loader_screen.dart';
 import 'package:minimax/ui/screens/set_up/set_up_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
@@ -110,7 +111,7 @@ class DeciderScreen extends GetWidget<DeciderController> {
         Get.offNamed(SetUpScreen.routeName);
         break;
       case DeciderModel.goMain:
-        Get.offNamed(HomeScreen.routeName);
+        Get.offNamed(LoaderScreen.routeName);
         break;
     }
   }

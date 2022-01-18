@@ -9,12 +9,11 @@ class DeciderController extends GetxController {
   final RxString version;
 
   final MinimaStorage _minimaStorage;
-  final BackgroundService _backgroundService;
 
   final Duration introShowDuration = const Duration(milliseconds: 1500);
   final Duration delayAfterPresented = const Duration(milliseconds: 1000);
 
-  DeciderController(this._minimaStorage, this._backgroundService, PackageInfo _packageInfo)
+  DeciderController(this._minimaStorage, PackageInfo _packageInfo)
       : version = RxString("v${_packageInfo.version}") {
 
     Future.delayed(Duration(milliseconds: introShowDuration.inMilliseconds + delayAfterPresented.inMilliseconds))
@@ -29,16 +28,6 @@ class DeciderController extends GetxController {
           return decider(DeciderModel.goMain);
         case false:
           return decider(DeciderModel.setUp);
-      }
-    });
-
-    _minimaStorage.getUserConfiguredDeviceFirstTime().then((userHasConfiguredDeviceFirstTime) {
-      if (userHasConfiguredDeviceFirstTime) {
-        _minimaStorage.getUserWantsToKeepRunningTheService().then((value) {
-          if (value != null) {
-            _backgroundService.startBackgroundService(value);
-          }
-        });
       }
     });
   }

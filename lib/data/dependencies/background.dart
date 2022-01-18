@@ -5,9 +5,10 @@ class BackgroundService {
 
   BackgroundService(this._methodChannel);
 
-  void startBackgroundService(bool runInBackgroundEvenWhenKilled) {
+  void startBackgroundService(bool runInBackgroundEvenWhenKilled, {bool force = false}) {
     _methodChannel.invokeMethod("startMinimaService", {
       "runInBackgroundEvenWhenKilled": runInBackgroundEvenWhenKilled,
+      "force": force,
     });
   }
 

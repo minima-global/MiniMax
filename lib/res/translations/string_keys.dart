@@ -158,4 +158,8 @@ class StringKeys {
   static const String mgmExplanationMainContent = "mgmExplanationMainContent";
   static const String mgmExplanationCta = "mgmExplanationCta";
   static const String mgmExplanationTitle = "mgmExplanationTitle";
+
+  // Loader
+  static const String loaderScreenLoading = "loaderScreenLoading";
+
 }

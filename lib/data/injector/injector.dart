@@ -20,12 +20,13 @@ import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_co
 import 'package:minimax/ui/screens/home/screens/news_feed/news_feed_controller.dart';
 import 'package:minimax/ui/screens/home/screens/node_status/node_status_controller.dart';
 import 'package:minimax/ui/screens/home/screens/terminal/terminal_controller.dart';
+import 'package:minimax/ui/screens/loader/loader_controller.dart';
 import 'package:minimax/ui/screens/pdf_screen/pdf_controller.dart';
 import 'package:package_info/package_info.dart';
 
 Future inject() async {
   /// Controllers
-  Get.create(() => DeciderController(Get.find(), Get.find(), Get.find()), permanent: false);
+  Get.create(() => DeciderController(Get.find(), Get.find()), permanent: false);
   Get.create(() => HomeController(Get.find()), permanent: false);
   Get.create(() => BackgroundRunningWarningController(Get.find()), permanent: false);
   Get.create(() => CongratulationsController(Get.find()), permanent: false);
@@ -37,6 +38,7 @@ Future inject() async {
   Get.create(() => TerminalController(Get.find()), permanent: true);
   Get.create(() => BatterySettingsController(Get.find(), Get.find()), permanent: true);
   Get.create(() => BackgroundCheckController(Get.find()), permanent: true);
+  Get.create(() => LoaderController(Get.find(), Get.find(), Get.find()), permanent: true);
 
   /// Services and repositories
   Get.create<NewsService>(() => NewsServiceImpl(Get.find()));
