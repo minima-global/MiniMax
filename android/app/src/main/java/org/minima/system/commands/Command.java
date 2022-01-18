@@ -37,6 +37,7 @@ import org.minima.system.commands.all.tutorial;
 import org.minima.system.commands.all.txpow;
 import org.minima.system.commands.all.webhooks;
 import org.minima.utils.MinimaLogger;
+import org.minima.utils.NotReadyYetException;
 import org.minima.utils.json.JSONArray;
 import org.minima.utils.json.JSONObject;
 import org.minima.utils.json.parser.JSONParser;
@@ -160,6 +161,9 @@ public abstract class Command {
 			try {
 				result = cmd.runCommand();
 			}catch(Exception exc) {
+				if (exc instanceof NotReadyYetException) {
+					continue;
+				}
 				MinimaLogger.log(exc);
 				
 				result = cmd.getJSONReply();

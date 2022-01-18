@@ -23,6 +23,7 @@ import org.minima.system.params.GlobalParams;
 import org.minima.utils.Crypto;
 import org.minima.utils.MiniFile;
 import org.minima.utils.MiniFormat;
+import org.minima.utils.NotReadyYetException;
 import org.minima.utils.json.JSONObject;
 
 public class status extends Command {
@@ -49,7 +50,7 @@ public class status extends Command {
 
 		//Do we haver any blocks..
 		if(txptree.getTip() == null) {
-			throw new Exception("NO Blocks yet..");
+			throw new NotReadyYetException("NO Blocks yet..");
 		}
 
 
