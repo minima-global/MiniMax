@@ -27,17 +27,24 @@ class NodeStatusController extends GetxController {
   void _refreshIncentiveCashStatus() {
     _incentiveCashRepository
         .getIncentiveCashInfo()
-        .then(incentiveCashModel);
+        .then(incentiveCashModel)
+        .catchError((_) => Future.delayed(const Duration(seconds: 1), _refreshNodeStatus));
   }
 
   void _refreshNodeStatus() {
-    _nodeStatusRepository.getNodeStatus().then((nodeStatus) {
+    _nodeStatusRepository.getNodeStatus(refresh: false).then((nodeStatus) {
       if (!nodeStatus.infoAvailable) {
         /// Retry after 1 second if there are no blocks yet
         Future.delayed(const Duration(seconds: 1)).then((value) => _refreshNodeStatus());
       }
 
       nodeStatusActive(nodeStatus);
+    }).catchError((error) {
+      nodeStatusActive(NodeStatusModel.notConnectedYet());
+      return Future.delayed(const Duration(seconds: 1)).then((value) {
+        _refreshNodeStatus();
+        return null;
+      });
     });
   }
 }

@@ -14,7 +14,9 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
   static const String routeName = "/background_check";
 
   BackgroundCheckScreen({Key? key}) : super(key: key);
+
   StreamSubscription? subscriptionToBatteryOptimization;
+
   @override
   Widget build(BuildContext context) {
     _listenWhenAllowed();
@@ -56,11 +58,26 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
               medium.toSpace(),
               const CircularProgressIndicator(),
               medium.toSpace(),
-              _buildConfirmButton(),
-              medium.toSpace(),
-              _buildSkipButton(),
+              _buildActionButtons(),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return FutureBuilder<bool>(
+      initialData: false,
+      future: Future.delayed(const Duration(milliseconds: 1500)).then((_) => true),
+      builder: (_, s) => Visibility(
+        visible: s.data!,
+        child: Column(
+          children: [
+            _buildConfirmButton(),
+            medium.toSpace(),
+            _buildSkipButton(),
+          ],
         ),
       ),
     );

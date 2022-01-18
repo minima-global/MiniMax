@@ -18,6 +18,7 @@ class NodeStatusScreen extends GetWidget<NodeStatusController> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
         child: semiTransparentModal(

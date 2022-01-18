@@ -76,7 +76,6 @@ class HomeScreen extends GetWidget<HomeController> {
                 _nestedPages.firstWhereOrNull((element) => element.name == routeSettings.name)?.page() ?? Container());
       },
       key: _navigatorKey,
-      pages: _nestedPages,
     );
   }
 

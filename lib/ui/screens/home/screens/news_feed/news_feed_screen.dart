@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/ui/screens/home/screens/news_feed/cells/news_card.dart';
@@ -43,8 +44,12 @@ class NewsFeedScreen extends GetWidget<NewsFeedController> {
           .map(_buildNewsCard)
           .toList();
       return RefreshIndicator(
-        onRefresh: controller.loadNews,
+        onRefresh: () {
+          controller.loadNews();
+          return HapticFeedback.mediumImpact();
+        },
         child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: large1, vertical: large2),
           itemBuilder: (_, position) => newsCards[position],
           separatorBuilder: (_, __) => medium.toSpace(),

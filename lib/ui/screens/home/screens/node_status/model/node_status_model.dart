@@ -11,4 +11,9 @@ class NodeStatusModel {
   NodeStatusModel.connected({required this.apkUpToDate})
       : active = true,
         infoAvailable = true;
+
+  NodeStatusModel.connectionError()
+      : active = false,
+        infoAvailable = false,
+        apkUpToDate = false;
 }

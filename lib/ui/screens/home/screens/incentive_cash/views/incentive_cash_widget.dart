@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:intl/intl.dart';
 import 'package:minimax/res/styles/colours.dart';
@@ -23,18 +24,26 @@ class IncentiveCashWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(medium),
         child: RefreshIndicator(
-          onRefresh: onRefresh,
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              _buildBalance(),
-              small1.toSpace(),
-              _buildPing(),
-              small1.toSpace(),
-              _buildExplanation(),
-              small1.toSpace(),
-              _buildStatus(),
-            ],
+          onRefresh: () {
+            return onRefresh().then((_) => HapticFeedback.mediumImpact());
+          },
+          child: NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: (overscroll) {
+              overscroll.disallowIndicator();
+              return true;
+            },
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                _buildBalance(),
+                small1.toSpace(),
+                _buildPing(),
+                small1.toSpace(),
+                _buildExplanation(),
+                small1.toSpace(),
+                _buildStatus(),
+              ],
+            ),
           ),
         ),
       ),

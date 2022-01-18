@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
@@ -10,7 +11,6 @@ import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart
 import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
-import 'package:minimax/utils/device/vibration.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
 
 class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningController> {
@@ -106,7 +106,7 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
       case BackgroundRunningState.confirm:
         return StringKeys.backgroundRunningBigTitle.tr;
       case BackgroundRunningState.doubleConfirm:
-        hapticFeedback();
+        HapticFeedback.heavyImpact();
         return StringKeys.backgroundRunningBigTitleAreYouSure.tr;
     }
   }

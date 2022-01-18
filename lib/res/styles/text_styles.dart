@@ -19,6 +19,14 @@ TextStyle lmH2 = const TextStyle(
   letterSpacing: 0.2,
 );
 
+TextStyle lmH3 = const TextStyle(
+  fontFamily: _manrope,
+  fontSize: 16,
+  fontWeight: FontWeight.w700,
+  height: 1.5,
+  letterSpacing: 0.1,
+);
+
 TextStyle lmH1 = const TextStyle(
   fontFamily: _manrope,
   fontSize: 24,

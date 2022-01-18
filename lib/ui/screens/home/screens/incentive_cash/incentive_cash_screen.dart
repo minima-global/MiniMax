@@ -30,6 +30,7 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
   Widget _buildBody() {
     return controller.selectedTab.buildIgnoreNull((selectedTab) {
       return SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: large1, vertical: large2),
         child: Column(
           children: [

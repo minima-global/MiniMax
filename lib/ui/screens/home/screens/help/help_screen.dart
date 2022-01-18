@@ -28,6 +28,7 @@ class HelpScreen extends GetWidget<HelpController> {
   Widget _buildBody() {
     return controller.selectedTab.build((selectedTab) {
       return SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: large1, vertical: large2),
         child: Column(
           children: [
