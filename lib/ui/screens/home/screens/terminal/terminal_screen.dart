@@ -95,7 +95,7 @@ class TerminalScreen extends GetWidget<TerminalController> {
                     keyboardType: TextInputType.visiblePassword,
                     maxLines: 1,
                     textInputAction: TextInputAction.send,
-                    style: lmH2.copyWith(color: coreBlackContrast),
+                    style: lmH2.copyWith(color: coreGrey40),
                     onEditingComplete: controller.runCommand,
                     decoration: InputDecoration.collapsed(
                       hintText: StringKeys.terminalScreenTextFieldHint.tr,

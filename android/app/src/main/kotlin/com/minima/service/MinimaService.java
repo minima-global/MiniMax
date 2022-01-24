@@ -170,7 +170,7 @@ public class MinimaService extends Service {
         mNotification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(zText)
                 .setContentText("Minima Status Channel")
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentIntent(mPendingIntent)
                 .build();
 

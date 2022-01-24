@@ -19,6 +19,8 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
+        android:largeHeap="true"
+        android:allowBackup="false"
         android:label="minimax">
         <activity
             android:name=".MainActivity"
