@@ -42,7 +42,7 @@ class LoaderController extends GetxController {
     ) //
         .asyncMap((event) => event)
         .skipWhile((element) => !element.active)
-        .timeout(const Duration(seconds: 1), onTimeout: (e) {
+        .timeout(const Duration(seconds: 5), onTimeout: (e) {
       e.close();
       if (discardNextGo) {
         connectedTrigger.trigger(null);
