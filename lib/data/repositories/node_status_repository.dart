@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:minimax/data/dependencies/background.dart';
 import 'package:minimax/ui/screens/home/screens/node_status/model/node_status_model.dart';
 import 'package:minimax/ui/utils/errors.dart';
+import 'package:minimax/utils/extensions/map_extensions.dart';
+import 'package:minimax/utils/extensions/object_extensions.dart';
 import 'package:package_info/package_info.dart';
 
 // TODO test this class
@@ -23,9 +25,9 @@ class NodeStatusRepositoryImpl extends NodeStatusRepository {
       if (value == null) {
         return NodeStatusModel.notConnectedYet();
       } else {
-        dynamic json = jsonDecode(value);
-        bool status = json["status"] as bool;
-        if (status) {
+        Map<String, dynamic> json = jsonDecode(value);
+        bool connected = (cast<int>(json["response"]?["network"]?["connected"]) ?? 0) > 0;
+        if (connected) {
           return NodeStatusModel.connected(
             apkUpToDate: (json["response"]["version"] as String).compareToCurrentVersion(_packageInfo) >= 0,
           );
