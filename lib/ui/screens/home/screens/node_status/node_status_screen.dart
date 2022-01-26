@@ -40,7 +40,7 @@ class NodeStatusScreen extends GetWidget<NodeStatusController> {
         medium.toSpace(),
         _buildIncentiveCashStatus(),
         medium.toSpace(),
-        _buildAPKVersion(),
+        // _buildAPKVersion(), // TODO hide this right now, we will need it in the future when a proper version check is done
       ],
     );
   }
