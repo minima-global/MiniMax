@@ -61,7 +61,7 @@ class MiniMaxTranslations extends Translations {
         'incentiveCashScreenSetUpTextFieldEnterUpdateLocked': 'Update (locked)',
         'incentiveCashScreenIncentiveCashProgramTitle': 'The Incentive Program:',
         'incentiveCashScreenIncentiveCashProgramExplanation':
-            'The Minima Incentive Program is designed to reward our users for running a Minima node. Users will receive one Incentive token for every day your node pings us to let us know it is connected. Incentive tokens will be redeemable for Minima coins at mainnet launch on a one for one basis.<p>In order to join the Minima Incentive Program, you must enter your unique Incentive ID in to the field below.  This can be found by logging in or registering to the Incentive Program website.<p>If you already have your Incentive ID, please enter it below.<p>If you do not have your Incentive ID,<p>Please use the button below to navigate to the Incentive Program website.',
+            'The Minima Incentive Program is designed to reward our users for running a Minima node. Users will receive one Incentive token for every day your node pings us to let us know it is connected. Incentive tokens will be redeemable for Minima coins at mainnet launch on a one for one basis.<p>In order to join the Minima Incentive Program, you must enter your unique Incentive ID in to the field below.  This can be found by logging in or registering to the Incentive Program website.<p>If you already have your Incentive ID, please enter it below.<p>If you do not have your Incentive ID, please use the button below to navigate to the Incentive Program website.',
         'incentiveCashScreenIncentiveCashProgramCTA': 'Incentive Program Website',
         'incentiveCashScreenIncentiveCashProgramCTAUrl': 'https://incentivecash.minima.global/',
         'incentiveCashScreenBalanceTitle': 'Incentive Token Rewards:',
@@ -104,9 +104,10 @@ class MiniMaxTranslations extends Translations {
         'terminalScreenTextFieldTitle': 'Enter Minima Command:',
         'terminalScreenTextFieldHint': 'Enter command',
         'nodeStatusTitle': 'Node Status:',
-        'nodeStatusExplanation': 'You can check that your Minima node is connected to the Minima network via the status bar below. If your node is successfully connected, your status will be shown as ‘connected’ and a green light will be seen.<p>If your node Status is showing as ‘Offline’ along with a red light, your node is currently not connected to the Minima network. In the event that this occurs, please follow the instructions below the status bar to help you get reconnected.</p>',
+        'nodeStatusExplanation': 'You can check that your Minima node is connected to the Minima network via the status bar below. If your node is successfully connected, your status will be shown as ‘connected’ and a green light will be seen.<p>If your Node Status is showing as ‘Offline’ along with a red light, your node is currently not connected to the Minima network. In the event that this occurs, please follow the instructions below the status bar to help you get reconnected.</p>',
         'nodeStatusCardTitle': 'Node Status : ',
-        'nodeStatusCardInactiveActionRequired': 'Your node seems to be offline, here are some tips and tricks to help you get you back online. Please follow the instructions below.<p>Here is an instruction.',
+    'nodeStatusCardInactiveActionRequired': """<ol><li>Check your device is connected to the internet.</li><li>Check your device is running Android version 9 or above.</li><li>Check your battery settings are set to allow Minima to run in the background.</li><li>Check that you are running the latest version of the Minima app.</li><li>Try restarting your Node by quitting the app and and reopening it.</li></ol><p>If Minima still fails to work, please head to our Discord and create a ticket in the #support-request channel.</p>
+        """,
         'incentiveCashCardTitle': 'Incentive ID Status : ',
         'incentiveCashCardInactiveActionRequired': 'This node has no Incentive Program account connected to it. To set this up, please go to the Incentive Program page',
         'statusCardActionRequiredTitle': 'Action required:',
@@ -117,7 +118,7 @@ class MiniMaxTranslations extends Translations {
         'allDoneScreenCloseCTA': 'Close',
         'allDoneScreenTitle': 'Incentive Cash',
         'allDoneScreenBigTitle': 'All done!',
-        'allDoneScreenContent': 'Your node is now connected to your Incentive Program account and it will ping us so we know your node is connected to the network.<p>For every day we receive a ping from your node, we will add one Incentive token to your Balance.<p>Incentive tokens will be redeemable for Minima coins at mainnet on a one for one basis.',
+        'allDoneScreenContent': 'Your node is now connected to your Incentive Program account and it will ping us so we know your node is connected to the network.<p>For every day we receive a ping from your node, we will add one Incentive token to your Rewards.<p>Incentive tokens will be redeemable for Minima coins at mainnet on a one for one basis.',
         'batteryOptimisationCTA': 'Battery optimization settings',
         'batteryOptimisationTitle': 'Battery Optimization:',
         'batteryOptimisationExplanation': 'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\n\nPlease use the button below to navigate to your phones battery optimization settings and grant permission for Minima to run in the background.',

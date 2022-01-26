@@ -13,6 +13,10 @@ Widget simpleHtmlText(String text, {TextStyle? style}) {
     tagsList: Html.tags..removeWhere((element) => ["img", "figure"].contains(element)),
     style: {
       "body": Style(margin: EdgeInsets.zero, padding: EdgeInsets.zero),
+      "ol": Style.fromTextStyle(style ?? lmBodyCopyMedium.copyWith(color: coreBlackContrast)),
+      "li": Style.fromTextStyle(style ?? lmBodyCopyMedium.copyWith(color: coreBlackContrast)).copyWith(
+        padding: const EdgeInsets.only(top: 2.25, left: 5, right: 5),
+      ),
       "html": Style.fromTextStyle(style ?? lmBodyCopyMedium.copyWith(color: coreBlackContrast)),
       "p": Style(margin: EdgeInsets.zero, padding: const EdgeInsets.only(top: small2)),
       "b": Style.fromTextStyle(lmH4.copyWith(color: coreBlackContrast))
