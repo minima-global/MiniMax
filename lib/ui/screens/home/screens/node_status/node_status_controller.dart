@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:minimax/data/repositories/incentive_cash_repository.dart';
 import 'package:minimax/data/repositories/node_status_repository.dart';
@@ -15,6 +17,8 @@ class NodeStatusController extends GetxController {
     this._incentiveCashRepository,
     this._nodeStatusRepository,
   );
+
+  StreamSubscription? workingNodeSubscription;
 
   @override
   void onInit() {
@@ -35,7 +39,10 @@ class NodeStatusController extends GetxController {
     _nodeStatusRepository.getNodeStatus(refresh: false).then((nodeStatus) {
       if (!nodeStatus.infoAvailable) {
         /// Retry after 1 second if there are no blocks yet
-        Future.delayed(const Duration(seconds: 1)).then((value) => _refreshNodeStatus());
+        Future.delayed(const Duration(seconds: 1)).then((_) => _refreshNodeStatus());
+      } else {
+        // It's connected, to ensure connections, we're updating every 10 seconds
+        workingNodeSubscription ??= Stream.periodic(const Duration(seconds: 10)).listen((_) => _refreshNodeStatus());
       }
 
       nodeStatusActive(nodeStatus);
@@ -46,5 +53,11 @@ class NodeStatusController extends GetxController {
         return null;
       });
     });
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    workingNodeSubscription?.cancel().then((value) => workingNodeSubscription = null);
   }
 }
