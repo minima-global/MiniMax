@@ -15,7 +15,6 @@ class StringKeys {
   static const String apkCardStatusOutOfDate = "apkCardStatusOutOfDate";
 
   // Home
-  static const String homeWelcomeTitle = "homeWelcomeTitle";
   static const String homeSetUpYourPhone = "homeSetUpYourPhone";
   static const String homeCTATitle = "homeCTATitle";
 

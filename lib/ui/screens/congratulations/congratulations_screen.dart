@@ -29,7 +29,7 @@ class CongratulationsScreen extends GetWidget<CongratulationsController> {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: large7,
+        vertical: large8,
         horizontal: large1,
       ),
       child: semiTransparentModal(

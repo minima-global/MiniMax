@@ -43,7 +43,7 @@ class DeciderScreen extends GetWidget<DeciderController> {
             opacity: opacity,
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: large7,
+                vertical: large8,
                 horizontal: large1,
               ),
               child: semiTransparentModal(
@@ -53,7 +53,7 @@ class DeciderScreen extends GetWidget<DeciderController> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      large5.toSpace(),
+                      large6.toSpace(),
                       _buildMinimaLogo(),
                       large1.toSpace(),
                       _buildSetUpYourPhone(),
@@ -77,7 +77,7 @@ class DeciderScreen extends GetWidget<DeciderController> {
 
   Widget _buildSetUpYourPhone() {
     return SizedBox(
-      height: 70,
+      height: 72,
       child: Center(
         child: Text(
           StringKeys.deciderMainContent.tr,

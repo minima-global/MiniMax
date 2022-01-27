@@ -30,7 +30,7 @@ class BatterySettingsScreen extends GetWidget<BatterySettingsController> {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: large7,
+        vertical: large8,
         horizontal: large1,
       ),
       child: semiTransparentModal(
@@ -60,7 +60,6 @@ class BatterySettingsScreen extends GetWidget<BatterySettingsController> {
   Widget _buildBatterySettingsExplanation() {
     return ConstrainedBox(
       constraints: const BoxConstraints(
-        minHeight: setUpModalMinExplanationHeight,
         minWidth: double.maxFinite,
       ),
       child: simpleHtmlText(StringKeys.batterySettingsExplanation.tr),

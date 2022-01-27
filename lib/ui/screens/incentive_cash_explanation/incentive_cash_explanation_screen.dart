@@ -30,7 +30,7 @@ class IncentiveCashExplanationScreen extends StatelessWidget {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: large7,
+        vertical: large8,
         horizontal: large1,
       ),
       child: semiTransparentModal(

@@ -28,7 +28,7 @@ class AllDoneScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: large7,
+          vertical: large8,
           horizontal: large1,
         ),
         child: Material(

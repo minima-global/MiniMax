@@ -31,7 +31,7 @@ class LoaderScreen extends GetWidget<LoaderController> {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: large7,
+        vertical: large8,
         horizontal: large1,
       ),
       child: semiTransparentModal(
@@ -41,7 +41,7 @@ class LoaderScreen extends GetWidget<LoaderController> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              large5.toSpace(),
+              large6.toSpace(),
               _buildMinimaLogo(),
               large1.toSpace(),
               _buildLoading(),

@@ -33,7 +33,7 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
     return controller.state.build((state) {
       return Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: large7,
+          vertical: large8,
           horizontal: large1,
         ),
         child: semiTransparentModal(

@@ -27,7 +27,7 @@ class SetUpScreen extends StatelessWidget {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: large7,
+        vertical: large8,
         horizontal: large1,
       ),
       child: semiTransparentModal(
@@ -36,25 +36,15 @@ class SetUpScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildWelcomeTo(),
-              large1.toSpace(),
-              _buildMinimaLogo(),
               large2.toSpace(),
+              _buildMinimaLogo(),
+              large4.toSpace(),
               _buildSetUpYourPhone(),
               large2.toSpace(),
               _buildContinueButton(),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildWelcomeTo() {
-    return Text(
-      StringKeys.homeWelcomeTitle.tr,
-      style: lmBodyCopy.copyWith(
-        color: coreBlackContrast,
       ),
     );
   }

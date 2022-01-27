@@ -7,12 +7,10 @@ class MiniMaxTranslations extends Translations {
       'en': {
         'generalNetworkTitleError': 'Error',
         'generalNetworkMessageError': 'There\'s been an error, please try again later.',
-        'homeWelcomeTitle': 'Welcome to',
         'homeSetUpYourPhone': 'Let’s set up your phone',
         'homeCTATitle': 'Continue',
         'batterySettingsTitle': 'Battery Settings',
-        'batterySettingsExplanation':
-            'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.<p>Please grant permission by clicking confirm.<p>If you do not wish to do this now, you can change this setting later by choosing Battery Optimization from the Options menu in the app.',
+        'batterySettingsExplanation': """<b>For Minima to function properly, the app needs to run in the background on your device.</b><br><br>Please grant permission using the <b>Confirm</b> button below.""",
         'batterySettingsConfirm': 'Confirm',
         'batterySettingsSkip': 'Skip',
         'backgroundRunningTitle': 'Minima',
@@ -34,8 +32,7 @@ class MiniMaxTranslations extends Translations {
             ', please wait for your backup file to be created. Your phone will then ask you where to save it.',
         'backupExplanationCTA': 'Continue',
         'incentiveExplanationTitle': 'Incentive Program',
-        'incentiveExplanationText':
-            'Minima is currently in ‘Beta’ test net.<p>We are running an Incentive program for you to get Minima coins for running the app until we launch at main net.<p><b>To claim your existing rewards and to earn future daily rewards, be sure to set up your account on the Incentive Program page.</b>',
+        'incentiveExplanationText': """The Incentive Program is designed to reward you for running a Minima node.<p>You will receive one Reward every day your node pings us to let us know it is connected.<p><b>To claim your existing Rewards and to receive future Daily Rewards, be sure to set up your account on the Incentive Program page.</b>""",
         'incentiveCashExplanationCTA': 'Continue',
         'congratulationsTitle': 'Congratulations',
         'congratulationsExplanationSplit1': 'You are now ready to start using Minima.\n\n\n',
@@ -58,7 +55,7 @@ class MiniMaxTranslations extends Translations {
         'incentiveCashScreenSetUpTextFieldEnterUpdate': 'Update',
         'incentiveCashScreenSetUpTextFieldEnterUpdateLocked': 'Update (locked)',
         'incentiveCashScreenIncentiveCashProgramTitle': 'The Incentive Program:',
-        'incentiveCashScreenIncentiveCashProgramExplanation': """The Incentive Program is designed to reward you for running a Minima node.<p>You will receive one Reward every day your node pings us to let us know it is connected.<p>Rewards will be converted to Minima coins at Mainnet launch on a one for one basis.<p>To start receiving Rewards, you must enter your Incentive ID into the field below.<p>• If you know your Incentive ID, please enter it.<p>• If you do not know your Incentive ID, please register or login to the Incentive Program website using the button below.
+        'incentiveCashScreenIncentiveCashProgramExplanation': """The Incentive Program is designed to reward you for running a Minima node.<p>You will receive one Reward every day your node pings us to let us know it is connected.<p>Rewards will be converted to Minima coins at Mainnet launch on a one for one basis.<p>To start receiving Rewards, you must enter your Incentive ID into the field below.<ul><li>If you know your Incentive ID, please enter it.</li><br><li>If you do not know your Incentive ID, please register or login to the Incentive Program website using the button below.</li></ul>
         """,
         'incentiveCashScreenIncentiveCashProgramCTA': 'Incentive Program Website',
         'incentiveCashScreenIncentiveCashProgramCTAUrl': 'https://incentivecash.minima.global/',
@@ -104,10 +101,10 @@ class MiniMaxTranslations extends Translations {
         'nodeStatusTitle': 'Node Status:',
         'nodeStatusExplanation': 'You can check that your Minima node is connected to the Minima network via the status bar below. If your node is successfully connected, your status will be shown as ‘connected’ and a green light will be seen.<p>If your Node Status is showing as ‘Offline’ along with a red light, your node is currently not connected to the Minima network. In the event that this occurs, please follow the instructions below the status bar to help you get reconnected.</p>',
         'nodeStatusCardTitle': 'Node Status : ',
-    'nodeStatusCardInactiveActionRequired': """<ol><li>Check your device is connected to the internet.</li><li>Check your device is running Android version 9 or above.</li><li>Check your battery settings are set to allow Minima to run in the background.</li><li>Check that you are running the latest version of the Minima app.</li><li>Try restarting your Node by quitting the app and and reopening it.</li></ol><p>If Minima still fails to work, please head to our Discord and create a ticket in the #support-request channel.</p>
+    'nodeStatusCardInactiveActionRequired': """<ol><li>Check your device is connected to the internet.</li><li>Check your device is running Android version 9 or above.</li><li>Check your battery settings are set to allow Minima to run in the background.</li><li>Check that you are running the latest version of the Minima app.</li><li>Try restarting your node by quitting the app and and reopening it.</li></ol><p>If Minima still fails to work, please head to our Discord and create a ticket in the #support-request channel.</p>
         """,
         'incentiveCashCardTitle': 'Incentive ID : ',
-        'incentiveCashCardInactiveActionRequired': 'Your node has no Incentive ID connected to it. To set this up, navigate to the Incentive Program page',
+        'incentiveCashCardInactiveActionRequired': 'Your node has no Incentive ID connected to it. To set this up, navigate to the Incentive Program page.',
         'statusCardActionRequiredTitle': 'Action required:',
         'apkCardTitle': 'APK Version : ',
         'apkCardInactiveActionRequired': 'You are not running the latest version of the Minima app, you can find the latest version on our Get-Started page:<p><a href="https://minima.global/get-started">https://minima.global/get-started</a>',
@@ -116,7 +113,7 @@ class MiniMaxTranslations extends Translations {
         'allDoneScreenCloseCTA': 'Close',
         'allDoneScreenTitle': 'Incentive Program',
         'allDoneScreenBigTitle': 'All done!',
-        'allDoneScreenContent': 'You will Receive one reward every day your node pings us to let us know it is connected. <p>Rewards will be converted to Minima coins at mainnet launch on a one for one basis.',
+        'allDoneScreenContent': 'You will receive one Reward every day your node pings us to let us know it is connected. <p>Rewards will be converted to Minima coins at mainnet launch on a one for one basis.',
         'batteryOptimisationCTA': 'Battery optimization settings',
         'batteryOptimisationExplanation': 'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\n\nPlease use the button below to navigate to your phones battery optimization settings and grant permission for Minima to run in the background.',
         'permissionsEnabledTitle': 'Battery Permissions',
