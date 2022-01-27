@@ -25,32 +25,34 @@ class AllDoneScreen extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: large7,
-        horizontal: large1,
-      ),
-      child: Material(
-        elevation: mainModalElevation,
-        borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
-        color: allDone,
-        child: AnimatedContainer(
-          padding: const EdgeInsetsDirectional.only(top: large2,  start: large1, end: large1, bottom: small2),
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOutCubic,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildTitle(),
-              small1.toSpace(),
-              _buildSeparator(),
-              medium.toSpace(),
-              _buildMainTitle(),
-              small1.toSpace(),
-              _buildExplanation(),
-              large1.toSpace(),
-              _buildCloseButton(),
-            ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: large7,
+          horizontal: large1,
+        ),
+        child: Material(
+          elevation: mainModalElevation,
+          borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
+          color: allDone,
+          child: AnimatedContainer(
+            padding: const EdgeInsetsDirectional.only(top: large2,  start: large1, end: large1, bottom: small2),
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOutCubic,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildTitle(),
+                small1.toSpace(),
+                _buildSeparator(),
+                medium.toSpace(),
+                _buildMainTitle(),
+                small1.toSpace(),
+                _buildExplanation(),
+                large1.toSpace(),
+                _buildCloseButton(),
+              ],
+            ),
           ),
         ),
       ),

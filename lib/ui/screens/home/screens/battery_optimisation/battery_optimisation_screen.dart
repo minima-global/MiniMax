@@ -26,8 +26,6 @@ class BatteryOptimisationScreen extends GetWidget<NodeStatusController> {
               padding: const EdgeInsets.symmetric(vertical: large1, horizontal: medium),
               child: Column(
                 children: [
-                  _buildBatteryOptimisationTitle(),
-                  small1.toSpace(),
                   _buildBatteryOptimisationExplanation(),
                   medium.toSpace(),
                   createPrimaryCTA(
@@ -43,20 +41,10 @@ class BatteryOptimisationScreen extends GetWidget<NodeStatusController> {
     );
   }
 
-  Widget _buildBatteryOptimisationTitle() {
-    return SizedBox(
-      width: double.maxFinite,
-      child: Text(
-        StringKeys.batteryOptimisationTitle.tr,
-        style: lmH4Xtra.copyWith(color: coreBlue100),
-      ),
-    );
-  }
-
   Widget _buildBatteryOptimisationExplanation() {
     return Text(
       StringKeys.batteryOptimisationExplanation.tr,
-      style: lmBodyCopy.copyWith(color: coreBlackContrast),
+      style: lmBodyCopyMedium.copyWith(color: coreBlackContrast),
     );
   }
 

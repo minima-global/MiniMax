@@ -134,7 +134,7 @@ class HomeScreen extends GetWidget<HomeController> {
     }
     controller.selectPage(homePageModel);
 
-    _navigatorKey?.currentState?.pushNamed(homePageModel.routeName);
+    _navigatorKey?.currentState?.pushReplacementNamed(homePageModel.routeName);
   }
 
   Widget _buildHeaderTextDrawer() {
