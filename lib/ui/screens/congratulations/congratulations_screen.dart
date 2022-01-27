@@ -68,10 +68,6 @@ class CongratulationsScreen extends GetWidget<CongratulationsController> {
               text: StringKeys.congratulationsExplanationSplit1.tr,
               style: lmBodyCopy.copyWith(color: coreBlackContrast),
             ),
-            TextSpan(
-              text: StringKeys.congratulationsExplanationSplit2.tr,
-              style: lmH4Xtra.copyWith(color: coreBlackContrast),
-            ),
           ],
         ),
       ),

@@ -40,10 +40,8 @@ class SetUpScreen extends StatelessWidget {
               large1.toSpace(),
               _buildMinimaLogo(),
               large2.toSpace(),
-              _buildMinimaSentence(),
-              large2.toSpace(),
               _buildSetUpYourPhone(),
-              large5.toSpace(),
+              large2.toSpace(),
               _buildContinueButton(),
             ],
           ),
@@ -63,17 +61,8 @@ class SetUpScreen extends StatelessWidget {
 
   Widget _buildMinimaLogo() {
     return SvgPicture.asset(
-      ImageKeys.minimaLogoLandscape,
-      height: 51,
-    );
-  }
-
-  Widget _buildMinimaSentence() {
-    return Text(
-      StringKeys.homeMinimaSentence.tr,
-      style: lmBodyCopy.copyWith(
-        color: coreBlackContrast,
-      ),
+      ImageKeys.minimaLogoSquared,
+      height: 142,
     );
   }
 

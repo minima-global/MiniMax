@@ -16,7 +16,6 @@ class StringKeys {
 
   // Home
   static const String homeWelcomeTitle = "homeWelcomeTitle";
-  static const String homeMinimaSentence = "homeMinimaSentence";
   static const String homeSetUpYourPhone = "homeSetUpYourPhone";
   static const String homeCTATitle = "homeCTATitle";
 
@@ -54,7 +53,6 @@ class StringKeys {
   // Congratulations
   static const String congratulationsTitle = "congratulationsTitle";
   static const String congratulationsExplanationSplit1 = "congratulationsExplanationSplit1";
-  static const String congratulationsExplanationSplit2 = "congratulationsExplanationSplit2";
   static const String congratulationsCTA = "congratulationsCTA";
 
   // Sync screen
@@ -142,7 +140,6 @@ class StringKeys {
 
   // Battery optimisation
   static const String batteryOptimisationCTA = "batteryOptimisationCTA";
-  static const String batteryOptimisationTitle = "batteryOptimisationTitle";
   static const String batteryOptimisationExplanation = "batteryOptimisationExplanation";
 
   // Permissions enabled
