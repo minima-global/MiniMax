@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.minima.minimax">
+    package="global.org.minima">
 
     <!-- Background run -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -55,28 +55,28 @@
 
         <!-- SERVICES -->
         <service
-            android:name="com.minima.service.MinimaService"
+            android:name=".service.MinimaService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name="com.minima.service.MinimaStuckToAppService"
+            android:name=".service.MinimaStuckToAppService"
             android:enabled="true"
             android:exported="false"
             android:stopWithTask="true" />
         <service
-            android:name="com.minima.service.ServiceStarterJobService"
+            android:name=".service.ServiceStarterJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <!-- RECEIVERS -->
         <receiver
-            android:name="com.minima.boot.BootReceiver"
+            android:name=".boot.BootReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.minima.boot.Alarm" />
+        <receiver android:name=".boot.Alarm" />
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
