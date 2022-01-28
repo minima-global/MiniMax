@@ -238,8 +238,6 @@ public abstract class Command {
 				result.put("status", false);
 				result.put("error", cexc.getMessage());
 				
-			}catch(NotReadyYetException nrye) {
-				continue;
 			}catch(Exception exc) {
 				//Print the full error
 				MinimaLogger.log(exc);
