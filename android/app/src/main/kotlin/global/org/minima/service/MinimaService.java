@@ -35,6 +35,9 @@ import global.org.minima.boot.Alarm;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.minima.utils.json.JSONObject;
+import org.minima.system.network.webhooks.NotifyManager;
+
 /** Foreground Service for the Minima Node
  *
  *  Elias Nemr
@@ -69,7 +72,8 @@ public class MinimaService extends Service {
     PendingIntent mPendingIntent;
 
     //Information for the Notification
-    TxPoW mTxPow = null;
+    //TxPoW mTxPow = null;
+    JSONObject mTxPowJSON = null;
 
     public static final String CHANNEL_ID = "MinimaServiceChannel";
 
@@ -119,20 +123,32 @@ public class MinimaService extends Service {
         Main.setMinimaListener(new MessageListener() {
             @Override
             public void processMessage(Message zMessage) {
+
                 if(zMessage.getMessageType().equals(MinimaLogger.MINIMA_LOG)){
                     Console.writeLine(zMessage.getString("log"));
 
-                }else if(zMessage.getMessageType().equals(Main.MAIN_NEWBLOCK)){
-                    //Get the TxPoW
-                    mTxPow = (TxPoW) zMessage.getObject("txpow");
+                }else if(zMessage.getMessageType().equals(NotifyManager.NOTIFY_POST)) {
+                    //Get the JSON..
+                    JSONObject notify = (JSONObject) zMessage.getObject("notify");
 
-                    //Show a notification
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            startForeground(1, createNotification("Block "+mTxPow.getBlockNumber()+" @ "+new Date(mTxPow.getTimeMilli().getAsLong())));
-                        }
-                    });
+                    //What is the Event..
+                    String event = (String) notify.get("event");
+                    JSONObject data = (JSONObject) notify.get("data");
+
+                    if (event.equals("NEWBLOCK")) {
+
+                        //Get the TxPoW
+                        mTxPowJSON = (JSONObject) data.get("txpow");
+
+                        //Show a notification
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Set status Bar notification
+                                setMinimaNotification();
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -189,13 +205,24 @@ public class MinimaService extends Service {
             mAlarm.setAlarm(this);
         }
         //Set the default message
-        if(mTxPow == null){
-            startForeground(1, createNotification("Starting up.. please wait.."));
-        }else{
-            startForeground(1, createNotification("Block "+mTxPow.getBlockNumber()+" @ "+new Date(mTxPow.getTimeMilli().getAsLong())));
-        }
+        setMinimaNotification();
 
         return START_STICKY;
+    }
+
+    private void setMinimaNotification(){
+        //Set the default message
+        if(mTxPowJSON == null){
+            startForeground(1, createNotification("Starting up.. please wait.."));
+
+        }else{
+            JSONObject header = (JSONObject)mTxPowJSON.get("header");
+
+            String block    = (String) header.get("block");
+            String date     = (String) header.get("date");
+
+            startForeground(1, createNotification("Block " + block + " @ " + date));
+        }
     }
 
     @Override
@@ -238,4 +265,3 @@ public class MinimaService extends Service {
     }
 
 }
-

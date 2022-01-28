@@ -433,7 +433,7 @@ public class Main extends MessageProcessor {
 			data.put("txpow", txpow.toJSON());
 			
 			//And Post it..
-			PostNotifyEvent("NEWBLOCK", data);
+			PostNotifyEvent(Main.MAIN_NEWBLOCK, data);
 			
 		}else if(zMessage.getMessageType().equals(MAIN_BALANCE)) {
 			
