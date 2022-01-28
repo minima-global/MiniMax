@@ -13,6 +13,7 @@ import global.org.minima.service.MinimaService.MyBinder
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
+import org.minima.Minima
 
 class MainActivity : FlutterActivity(), ServiceConnection {
     private var minima: Minima? = null
@@ -41,7 +42,6 @@ class MainActivity : FlutterActivity(), ServiceConnection {
                     result.success(true)
                 }
                 "runCommand" -> {
-
                     minima?.let {
                         Thread {
                             result.success(it.runCommandFromArguments(call))

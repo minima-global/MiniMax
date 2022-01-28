@@ -21,16 +21,16 @@ import androidx.core.app.NotificationCompat;
 
 import com.jraska.console.Console;
 
+import org.minima.Minima;
+import org.minima.objects.TxPoW;
+import org.minima.system.Main;
+import org.minima.utils.MinimaLogger;
+import org.minima.utils.messages.Message;
+import org.minima.utils.messages.MessageListener;
+
 import global.org.minima.MainActivity;
 import global.org.minima.R;
 import global.org.minima.boot.Alarm;
-
-import global.org.minima.Minima;
-import global.org.minima.objects.TxPoW;
-import global.org.minima.system.Main;
-import global.org.minima.utils.MinimaLogger;
-import global.org.minima.utils.messages.Message;
-import global.org.minima.utils.messages.MessageListener;
 
 import java.util.ArrayList;
 import java.util.Date;

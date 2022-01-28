@@ -2,7 +2,7 @@ package global.org.minima.extensions
 
 import com.jraska.console.Console
 import io.flutter.plugin.common.MethodCall
-import global.org.minima.Minima
+import org.minima.Minima
 
 fun Minima.runCommandFromArguments(call: MethodCall): String {
     val command: String? = call.argument("command")
