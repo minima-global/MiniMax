@@ -63,6 +63,11 @@ class MainActivity : FlutterActivity(), ServiceConnection {
     override fun onServiceDisconnected(componentName: ComponentName?) {
         minima = null
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unbindService(this)
+    }
 }
 
 private const val mainChannel = "com.minima/main"
