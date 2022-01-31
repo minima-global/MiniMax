@@ -31,28 +31,28 @@ public class status extends Command {
 	public status() {
 		super("status","(clean:true) - Show general status for Minima and clean RAM");
 	}
-	
+
 	@Override
 	public JSONObject runCommand() throws Exception{
 		JSONObject ret = getJSONReply();
-		
+
 		//Are we clearing memory
 		if(existsParam("clean")){
 			System.gc();
 		}
 
 		//The Database
-		TxPoWDB txpdb 		= MinimaDB.getDB().getTxPoWDB();
 		TxPowTree txptree 	= MinimaDB.getDB().getTxPoWTree();
-		Cascade	cascade		= MinimaDB.getDB().getCascade();
-		ArchiveManager arch = MinimaDB.getDB().getArchive(); 
-		Wallet wallet 		= MinimaDB.getDB().getWallet();
 
 		//Do we haver any blocks..
 		if(txptree.getTip() == null) {
 			throw new CommandException("NO Blocks yet..");
 		}
 
+		TxPoWDB txpdb 		= MinimaDB.getDB().getTxPoWDB();
+		Cascade	cascade		= MinimaDB.getDB().getCascade();
+		ArchiveManager arch = MinimaDB.getDB().getArchive();
+		Wallet wallet 		= MinimaDB.getDB().getWallet();
 
 		JSONObject details = new JSONObject();
 		details.put("version", GlobalParams.MINIMA_VERSION);
@@ -78,17 +78,17 @@ public class status extends Command {
 		BigInteger cascweight 	= MinimaDB.getDB().getCascade().getTotalWeight().toBigInteger();
 
 		details.put("weight", chainweight.add(cascweight).toString());
-		
+
 		//Total Minima..
 		MiniNumber minima = MinimaDB.getDB().getTxPoWTree().getTip().getTxPoW().getMMRTotal();
 		details.put("minima", minima.toString());
-		
+
 		//How many coins..
 		BigDecimal coins = MinimaDB.getDB().getTxPoWTree().getTip().getMMR().getEntryNumber().getBigDecimal();
 		details.put("coins", coins.toString());
-		
+
 		details.put("data", GeneralParams.DATA_FOLDER);
-		
+
 		JSONObject files = new JSONObject();
 
 		//RAM usage
@@ -108,18 +108,18 @@ public class status extends Command {
 		database.put("wallet", MiniFormat.formatSize(wallet.getSQLFile().length()));
 		database.put("userdb", MiniFormat.formatSize(MinimaDB.getDB().getUserDBFileSize()));
 		database.put("p2pdb", MiniFormat.formatSize(MinimaDB.getDB().getP2PFileSize()));
-		
+
 		files.put("files", database);
 
 		details.put("memory", files);
-		
+
 		//The main Chain
 		JSONObject tree = new JSONObject();
 		if(txptree.getRoot() != null) {
 			tree.put("block", txptree.getTip().getTxPoW().getBlockNumber().getAsLong());
 			tree.put("time", new Date(txptree.getTip().getTxPoW().getTimeMilli().getAsLong()).toString());
 			tree.put("hash", txptree.getTip().getTxPoW().getTxPoWID());
-			
+
 			//Speed..
 			if(txptree.getTip().getTxPoW().getBlockNumber().isLessEqual(MiniNumber.TWO)){
 				tree.put("speed", 1);
@@ -130,22 +130,22 @@ public class status extends Command {
 				}
 				tree.put("speed", TxPoWGenerator.getChainSpeed(txptree.getTip(),blocksback).setSignificantDigits(5));
 			}
-			
+
 			MiniData difficulty = new MiniData(txptree.getTip().getTxPoW().getBlockDifficulty().getBytes(),32);
 			tree.put("difficulty", difficulty.to0xString());
 
 			tree.put("size", txptree.getSize());
 			tree.put("length", txptree.getHeaviestBranchLength());
 			tree.put("branches", txptree.getSize() - txptree.getHeaviestBranchLength());
-			
+
 			//Total weight..
 			BigDecimal weighttree = txptree.getRoot().getTotalWeight();
 			tree.put("weight", chainweight.toString());
-			
+
 		}else {
 			tree.put("root", "0x00");
 		}
-		
+
 		//The Cascade
 		JSONObject casc = new JSONObject();
 		if(cascade.getTip() != null) {
@@ -169,16 +169,16 @@ public class status extends Command {
 
 		//Add ther adatabse
 		details.put("txpow", database);
-		
+
 		//Network..
 		NetworkManager netmanager = Main.getInstance().getNetworkManager();
 		if(netmanager!=null) {
 			details.put("network", netmanager.getStatus());
 		}
-		
+
 		//Add all the details
 		ret.put("response", details);
-		
+
 		return ret;
 	}
 
