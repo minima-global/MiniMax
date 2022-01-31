@@ -250,9 +250,9 @@ public class MinimaService extends Service {
         mWakeLock.release();
         mWifiLock.release();
 
-        if (mAlarm != null) {
-            mAlarm.cancelAlarm(this);
-        }
+//        if (mAlarm != null) {
+//            mAlarm.cancelAlarm(this);
+//        }
     }
 
     @Override
