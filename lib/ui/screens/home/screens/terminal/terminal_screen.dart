@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:minimax/res/images/images.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
@@ -60,48 +62,43 @@ class TerminalScreen extends GetWidget<TerminalController> {
   Widget _buildTerminal() {
     return Container(
       padding: const EdgeInsetsDirectional.only(top: large2, start: large1, end: large1),
-      height: Get.height * 0.6,
+      height: Get.height * 0.69,
       child: const ConsolePlatformView(),
     );
   }
 
   Widget _buildCommandInput() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: large1),
+    return Container(
+      width: double.maxFinite,
+      padding: const EdgeInsets.all(medium),
       child: semiTransparentModal(
-        colour: terminalInputBackground,
-        child: Container(
-          width: double.maxFinite,
+        colour: terminalInputBackground2,
+        child: Padding(
           padding: const EdgeInsets.all(medium),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: large1),
-                child: Text(
-                  StringKeys.terminalScreenTextFieldTitle.tr,
-                  style: lmH2.copyWith(color: textColourWhiteDM),
+              Expanded(
+                child: TextFormField(
+                  focusNode: _runCommandFocusNode,
+                  controller: controller.runCommandController,
+                  keyboardType: TextInputType.visiblePassword,
+                  maxLines: 1,
+                  textInputAction: TextInputAction.send,
+                  style: lmH2.copyWith(color: coreGrey40),
+                  onEditingComplete: controller.runCommand,
+                  decoration: InputDecoration.collapsed(
+                    hintText: StringKeys.terminalScreenTextFieldHint.tr,
+                    hintStyle: lmH2.copyWith(color: coreGrey40),
+                  ),
                 ),
               ),
               small2.toSpace(),
-              semiTransparentModal(
-                colour: terminalInputBackground2,
-                child: Padding(
-                  padding: const EdgeInsets.all(medium),
-                  child: TextFormField(
-                    focusNode: _runCommandFocusNode,
-                    controller: controller.runCommandController,
-                    keyboardType: TextInputType.visiblePassword,
-                    maxLines: 1,
-                    textInputAction: TextInputAction.send,
-                    style: lmH2.copyWith(color: coreGrey40),
-                    onEditingComplete: controller.runCommand,
-                    decoration: InputDecoration.collapsed(
-                      hintText: StringKeys.terminalScreenTextFieldHint.tr,
-                      hintStyle: lmH2.copyWith(color: coreGrey40),
-                    ),
-                  ),
+              InkWell(
+                onTap: () => hideKeyboard().then((_) => controller.runCommand()),
+                child: SvgPicture.asset(
+                  ImageKeys.icTerminalSend,
+                  width: 32,
+                  height: 32,
                 ),
               ),
             ],
