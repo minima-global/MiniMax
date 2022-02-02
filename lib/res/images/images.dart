@@ -18,5 +18,6 @@ class ImageKeys {
   static const String icYoutube = "assets/icons/ic_youtube.svg";
 
   static const String icLockOpen = "assets/icons/ic_lock_open.svg";
+  static const String icTerminalSend = "assets/icons/ic_terminal_send.svg";
 
 }

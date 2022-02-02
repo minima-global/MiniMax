@@ -55,7 +55,7 @@ class MiniMaxTranslations extends Translations {
         'incentiveCashScreenSetUpTextFieldEnterUpdate': 'Update',
         'incentiveCashScreenSetUpTextFieldEnterUpdateLocked': 'Update (locked)',
         'incentiveCashScreenIncentiveCashProgramTitle': 'The Incentive Program:',
-        'incentiveCashScreenIncentiveCashProgramExplanation': """The Incentive Program is designed to reward you for running a Minima node.<p>You will receive one Reward every day your node pings us to let us know it is connected.<p>Rewards will be converted to Minima coins at Mainnet launch on a one for one basis.<p>To start receiving Rewards, you must enter your Incentive ID into the field below.<ul><li>If you know your Incentive ID, please enter it.</li><br><li>If you do not know your Incentive ID, please register or login to the Incentive Program website using the button below.</li></ul>
+        'incentiveCashScreenIncentiveCashProgramExplanation': """The Incentive Program is designed to reward you for running a Minima node.<p>You will receive one Reward every day your node pings us to let us know it is connected.<p>Rewards will be converted to Minima coins at Mainnet launch on a one for one basis.<p>To start receiving Rewards, you must enter your Incentive ID into the field below.<ul><li>If you know your Incentive ID, please enter it in the field provided on this page.</li><br><li>If you do not know your Incentive ID, please register or login to the Incentive Program website using the button below.</li></ul>
         """,
         'incentiveCashScreenIncentiveCashProgramCTA': 'Incentive Program Website',
         'incentiveCashScreenIncentiveCashProgramCTAUrl': 'https://incentivecash.minima.global/',
@@ -66,7 +66,7 @@ class MiniMaxTranslations extends Translations {
         'incentiveCashScreenBalanceExplanation':
             'A ping is sent to the Minima network once a day at random. Please check that it is up to date.',
         'incentiveCashScreenBalanceStatusConnected': 'Connected',
-        'incentiveCashScreenBalanceStatusNotConnected': 'Not Connected',
+        'incentiveCashScreenBalanceStatusNotConnected': 'Not connected',
         'incentiveCashScreenBalanceStatusOffline': 'Offline',
         'helpScreenCommunityTab': 'Community',
         'helpScreenCommunityDev': 'Dev',
@@ -96,10 +96,9 @@ class MiniMaxTranslations extends Translations {
         'helpScreenLinkProtocolLayers': 'https://cdn.minima.global/media/2021/07/02/Protocol_Layers_.pdf',
         'pdfReaderPagesOfD': 'of %d',
         'pdfReaderCantLoadPdfError': 'Can\'t load the Pdf',
-        'terminalScreenTextFieldTitle': 'Enter Minima Command:',
         'terminalScreenTextFieldHint': 'Enter command',
         'nodeStatusTitle': 'Node Status:',
-        'nodeStatusExplanation': 'You can check that your Minima node is connected to the Minima network via the status bar below. If your node is successfully connected, your status will be shown as ‘connected’ and a green light will be seen.<p>If your Node Status is showing as ‘Offline’ along with a red light, your node is currently not connected to the Minima network. In the event that this occurs, please follow the instructions below the status bar to help you get reconnected.</p>',
+        'nodeStatusExplanation': 'You can check that your Minima node is connected to the Minima network via the status bar below. If your node is successfully connected, your status will be shown as ‘Connected’ and a green light will be seen.<p>If your Node Status is showing as ‘Offline’ along with a red light, your node is currently not connected to the Minima network. In the event that this occurs, please follow the instructions below the status bar to help you get reconnected.</p>',
         'nodeStatusCardTitle': 'Node Status : ',
     'nodeStatusCardInactiveActionRequired': """<ol><li>Check your device is connected to the internet.</li><li>Check your device is running Android version 9 or above.</li><li>Check your battery settings are set to allow Minima to run in the background.</li><li>Check that you are running the latest version of the Minima app.</li><li>Try restarting your node by quitting the app and and reopening it.</li></ol><p>If Minima still fails to work, please head to our Discord and create a ticket in the #support-request channel.</p>
         """,
