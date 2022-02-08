@@ -9,6 +9,9 @@ class MiniMaxTranslations extends Translations {
         'generalNetworkMessageError': 'There\'s been an error, please try again later.',
         'homeSetUpYourPhone': 'Let’s set up your phone',
         'homeCTATitle': 'Continue',
+        'backgroundCheckTitle': 'Battery Permissions',
+        'backgroundCheckExplanation': 'Waiting for your confirmation to accept to run Minima in the background…',
+        'backgroundCheckBackToBatterySettingsCTA': 'Back to battery settings',
         'batterySettingsTitle': 'Battery Settings',
         'batterySettingsExplanation': """<b>For Minima to function properly, the app needs to run in the background on your device.</b><br><br>Please grant permission using the <b>Confirm</b> button below.""",
         'batterySettingsConfirm': 'Confirm',
@@ -18,7 +21,7 @@ class MiniMaxTranslations extends Translations {
         'backgroundRunningBigTitleAreYouSure': 'Are you sure?',
         'backgroundRunningExplanation2': 'Are you sure you want to skip this stage?',
         'backgroundRunningExplanation3':
-            'For Minima to function as expected, it must be allowed to run in the background. You can change this setting later by choosing Battery Optimization from the side navigation menu in the app.',
+            'For Minima to function as expected, it must be allowed to run in the background.<p>You can change this setting later by choosing Battery Optimization from the side navigation menu in the app.',
         'backgroundRunningCTAYes': 'Yes',
         'backgroundRunningCTANo': 'No',
         'backupExplanationTitle': 'Backup',
@@ -117,7 +120,7 @@ class MiniMaxTranslations extends Translations {
         'batteryOptimisationExplanation': 'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\n\nPlease use the button below to navigate to your phones battery optimization settings and grant permission for Minima to run in the background.',
         'permissionsEnabledTitle': 'Battery Permissions',
         'permissionsEnabledMainTitle': 'Permissions enabled',
-        'permissionsEnabledExplanation': 'Minima will now run in the background.',
+        'permissionsEnabledExplanation': 'Thanks!<p>Minima will now run in the background.',
         'permissionsEnabledCTA': 'Continue',
         'deciderMainContent': 'Empowering Freedom',
         'mgmExplanationMainContent': 'The Minima Member get member program rewards users for<br><br><b>To claim your existing rewards and to earn future daily rewards, be sure to set up your account on the Incentive Program page.</b>',

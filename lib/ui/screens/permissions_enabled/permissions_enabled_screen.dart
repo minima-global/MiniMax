@@ -5,7 +5,9 @@ import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
+import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
 import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
+import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
@@ -35,7 +37,7 @@ class PermissionsEnabledScreen extends StatelessWidget {
       child: semiTransparentModal(
         child: AnimatedContainer(
           color: allDone,
-          padding: const EdgeInsetsDirectional.only(top: large2,  start: large1, end: large1, bottom: small2),
+          padding: const EdgeInsetsDirectional.only(top: large2, start: large1, end: large1, bottom: small2),
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOutCubic,
           child: Column(
@@ -93,7 +95,7 @@ class PermissionsEnabledScreen extends StatelessWidget {
         minHeight: (explanationStyle.height ?? 0) * 5 * (explanationStyle.fontSize ?? 0),
         minWidth: double.maxFinite,
       ),
-      child: Text(
+      child: simpleHtmlText(
         StringKeys.permissionsEnabledExplanation.tr,
         style: explanationStyle,
       ),
@@ -115,7 +117,7 @@ class PermissionsEnabledScreen extends StatelessWidget {
 
   void _continue() {
     Get.offNamedUntil(
-        IncentiveCashExplanationScreen.routeName, (route) => route.settings.name == BatterySettingsScreen.routeName);
+        CongratulationsScreen.routeName, (route) => route.settings.name == BatterySettingsScreen.routeName);
   }
 
 }

@@ -18,6 +18,11 @@ class StringKeys {
   static const String homeSetUpYourPhone = "homeSetUpYourPhone";
   static const String homeCTATitle = "homeCTATitle";
 
+  // Background check
+  static const String backgroundCheckTitle = "backgroundCheckTitle";
+  static const String backgroundCheckExplanation = "backgroundCheckExplanation";
+  static const String backgroundCheckBackToBatterySettingsCTA = "backgroundCheckBackToBatterySettingsCTA";
+
   // Battery Settings
   static const String batterySettingsTitle = "batterySettingsTitle";
   static const String batterySettingsExplanation = "batterySettingsExplanation";

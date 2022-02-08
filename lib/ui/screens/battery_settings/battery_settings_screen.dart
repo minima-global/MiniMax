@@ -7,9 +7,7 @@ import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/background_check_screen/background_check_screen.dart';
 import 'package:minimax/ui/screens/background_running/background_running_screen.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_controller.dart';
-import 'package:minimax/ui/screens/permissions_enabled/permissions_enabled_screen.dart';
 import 'package:minimax/ui/utils/simple_html_text.dart';
-import 'package:minimax/ui/utils/ui_constants.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
@@ -35,6 +33,7 @@ class BatterySettingsScreen extends GetWidget<BatterySettingsController> {
       ),
       child: semiTransparentModal(
         child: Container(
+          constraints: const BoxConstraints(minHeight: 350),
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -58,12 +57,7 @@ class BatterySettingsScreen extends GetWidget<BatterySettingsController> {
   }
 
   Widget _buildBatterySettingsExplanation() {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minWidth: double.maxFinite,
-      ),
-      child: simpleHtmlText(StringKeys.batterySettingsExplanation.tr),
-    );
+    return simpleHtmlText(StringKeys.batterySettingsExplanation.tr);
   }
 
   Widget _buildConfirmButton() {

@@ -8,7 +8,8 @@ import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/background_running/background_running_controller.dart';
 import 'package:minimax/ui/screens/background_running/enum/background_running_state_model.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
-import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
+import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
+import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
@@ -33,7 +34,7 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
     return controller.state.build((state) {
       return Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: large8,
+          vertical: large7,
           horizontal: large1,
         ),
         child: semiTransparentModal(
@@ -116,10 +117,10 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
     return ConstrainedBox(
       // Min 5 lines
       constraints: BoxConstraints(
-        minHeight: (explanationStyle.height ?? 0) * 5 * (explanationStyle.fontSize ?? 0),
+        minHeight: (explanationStyle.height ?? 0) * 6 * (explanationStyle.fontSize ?? 0),
         minWidth: double.maxFinite,
       ),
-      child: Text(
+      child: simpleHtmlText(
         _createExplanation(state),
         style: explanationStyle,
       ),
@@ -169,8 +170,8 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
 
   void _next(_) {
     Get.offNamedUntil(
-      IncentiveCashExplanationScreen.routeName,
-      (route) => route.settings.name == BatterySettingsScreen.routeName,
+      CongratulationsScreen.routeName,
+          (route) => route.settings.name == BatterySettingsScreen.routeName,
     );
   }
 

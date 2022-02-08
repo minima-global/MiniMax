@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,8 @@ class LoaderScreen extends GetWidget<LoaderController> {
   @override
   Widget build(BuildContext context) {
     controller.connectedTrigger.listen(_onConnected);
+    controller.connect(Get.arguments == true);
+
     return WillPopScope(
       onWillPop: () async => false,
       child: withGlossyBackground(
@@ -36,18 +39,16 @@ class LoaderScreen extends GetWidget<LoaderController> {
       ),
       child: semiTransparentModal(
         child: Container(
+          height: 350,
           width: double.maxFinite,
-          padding: const EdgeInsets.symmetric(horizontal: large1),
+          padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              large6.toSpace(),
               _buildMinimaLogo(),
-              large1.toSpace(),
               _buildLoading(),
-              large1.toSpace(),
               _buildLoader(),
-              large3.toSpace(),
             ],
           ),
         ),
@@ -77,9 +78,7 @@ class LoaderScreen extends GetWidget<LoaderController> {
   }
 
   Widget _buildLoader() {
-    return const LinearProgressIndicator(
-      color: coreBlue100,
-    );
+    return const CupertinoActivityIndicator();
   }
 
   void _onConnected(_) {

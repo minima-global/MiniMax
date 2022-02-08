@@ -8,7 +8,6 @@ import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/congratulations/congratulations_controller.dart';
 import 'package:minimax/ui/screens/decider/decider_screen.dart';
 import 'package:minimax/ui/screens/home/home_screen.dart';
-import 'package:minimax/ui/utils/ui_constants.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
@@ -29,20 +28,20 @@ class CongratulationsScreen extends GetWidget<CongratulationsController> {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: large8,
+        vertical: large7,
         horizontal: large1,
       ),
       child: semiTransparentModal(
         child: Container(
+          height: 350,
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildTitle(),
-              medium.toSpace(),
-              _buildBackupExplanation(),
               large1.toSpace(),
+              _buildBackupExplanation(),
+              const Spacer(),
               _buildContinueButton(),
             ],
           ),
@@ -56,21 +55,10 @@ class CongratulationsScreen extends GetWidget<CongratulationsController> {
   }
 
   Widget _buildBackupExplanation() {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minHeight: setUpModalMinExplanationHeight,
-      ),
-      child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-          children: <TextSpan>[
-            TextSpan(
-              text: StringKeys.congratulationsExplanationSplit1.tr,
-              style: lmBodyCopy.copyWith(color: coreBlackContrast),
-            ),
-          ],
-        ),
-      ),
+    return Text(
+      StringKeys.congratulationsExplanationSplit1.tr,
+      textAlign: TextAlign.center,
+      style: lmBodyCopyMedium.copyWith(color: coreBlackContrast),
     );
   }
 

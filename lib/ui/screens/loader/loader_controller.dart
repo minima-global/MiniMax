@@ -27,8 +27,8 @@ class LoaderController extends GetxController {
     _storage //
         .getUserWantsToKeepRunningTheService()
         .then((keepRunning) => this.keepRunning = keepRunning == true)
-        .then((_) => _backgroundService.startBackgroundService(keepRunning, force: true))
-        .then((_) => _listen(false));
+        .then((_) => _backgroundService.startBackgroundService(keepRunning))
+        .then((_) => _listen(true));
   }
 
   void _listen(bool discardNextGo) {
@@ -42,7 +42,7 @@ class LoaderController extends GetxController {
     ) //
         .asyncMap((event) => event)
         .skipWhile((element) => !element.active)
-        .timeout(const Duration(seconds: 5), onTimeout: (e) {
+        .timeout(const Duration(seconds: 10), onTimeout: (e) {
       e.close();
       if (discardNextGo) {
         connectedTrigger.trigger(null);
