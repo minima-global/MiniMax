@@ -6,7 +6,6 @@ import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
 import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
-import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
 import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';

@@ -11,10 +11,10 @@ import 'package:minimax/ui/screens/home/home_screen.dart';
 import 'package:minimax/ui/screens/loader/loader_controller.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 
-class LoaderScreen extends GetWidget<LoaderController> {
-  static const String routeName = "/loader";
+class RewardsScreen extends GetWidget<LoaderController> {
+  static const String routeName = "/rewards";
 
-  const LoaderScreen({Key? key}) : super(key: key);
+  const RewardsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,20 +33,22 @@ class LoaderScreen extends GetWidget<LoaderController> {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: large8,
+        vertical: large7,
         horizontal: large1,
       ),
       child: semiTransparentModal(
         child: Container(
-          height: 350,
+          constraints: const BoxConstraints(minHeight: 350),
           width: double.maxFinite,
-          padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+          padding: const EdgeInsets.symmetric(horizontal: large1),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              large5.toSpace(),
               _buildMinimaLogo(),
+              large1.toSpace(),
               _buildLoading(),
+              large2.toSpace(),
               _buildLoader(),
             ],
           ),
@@ -77,7 +79,9 @@ class LoaderScreen extends GetWidget<LoaderController> {
   }
 
   Widget _buildLoader() {
-    return const CupertinoActivityIndicator();
+    return const CupertinoActivityIndicator(
+
+    );
   }
 
   void _onConnected(_) {

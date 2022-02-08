@@ -6,10 +6,14 @@ import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/utils/extensions/object_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Widget simpleHtmlText(String text, {TextStyle? style}) {
+Widget simpleHtmlText(
+  String text, {
+  TextStyle? style,
+  Function(String?)? onLinkTap,
+}) {
   return Html(
     data: text,
-    onLinkTap: (String? url, _, __, ___) => url?.let((url) => launch(url)),
+    onLinkTap: (String? url, _, __, ___) => onLinkTap != null ? onLinkTap(url) : url?.let((url) => launch(url)),
     tagsList: Html.tags..removeWhere((element) => ["img", "figure"].contains(element)),
     style: {
       "body": Style(margin: EdgeInsets.zero, padding: EdgeInsets.zero),
@@ -19,7 +23,10 @@ Widget simpleHtmlText(String text, {TextStyle? style}) {
       ),
       "html": Style.fromTextStyle(style ?? lmBodyCopyMedium.copyWith(color: coreBlackContrast)),
       "p": Style(margin: EdgeInsets.zero, padding: const EdgeInsets.only(top: small2)),
-      "b": Style.fromTextStyle(lmH4.copyWith(color: coreBlackContrast))
+      "b": Style.fromTextStyle(lmH4.copyWith(color: coreBlackContrast)),
+      "a": Style.fromTextStyle(style ?? lmBodyCopyMedium.copyWith(color: coreBlue100)).copyWith(
+        textDecoration: TextDecoration.none,
+      ),
     },
   );
 }

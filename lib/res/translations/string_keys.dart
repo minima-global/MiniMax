@@ -8,8 +8,11 @@ class StringKeys {
   static const String nodeStatusCardInactiveActionRequired = "nodeStatusCardInactiveActionRequired";
   static const String statusCardActionRequiredTitle = "statusCardActionRequiredTitle";
   static const String incentiveCashCardTitle = "incentiveCashCardTitle";
+  static const String batteryOptimisationCardTitle = "batteryOptimisationCardTitle";
+  static const String batteryOptimisationCardActionRequired = "batteryOptimisationCardActionRequired";
   static const String incentiveCashCardInactiveActionRequired = "incentiveCashCardInactiveActionRequired";
   static const String apkCardTitle = "apkCardTitle";
+  static const String nodeStatusLoading = "nodeStatusLoading";
   static const String apkCardInactiveActionRequired = "apkCardInactiveActionRequired";
   static const String apkCardStatusUpToDate = "apkCardStatusUpToDate";
   static const String apkCardStatusOutOfDate = "apkCardStatusOutOfDate";
@@ -68,14 +71,15 @@ class StringKeys {
   static const String homeScreenDrawerHeaderVersion = "homeScreenDrawerHeaderVersion";
   static const String homeScreenDrawerTitleNodeStatus = "homeScreenDrawerTitleNodeStatus";
   static const String homeScreenDrawerTitleIncentiveCash = "homeScreenDrawerTitleIncentiveCash";
+  static const String homeScreenDrawerTitleRewards = "homeScreenDrawerTitleRewards";
   static const String homeScreenDrawerTitleNewsFeed = "homeScreenDrawerTitleNewsFeed";
   static const String homeScreenDrawerTitleBatteryOptimisation = "homeScreenDrawerTitleBatteryOptimisation";
   static const String homeScreenDrawerTitleTerminal = "homeScreenDrawerTitleTerminal";
   static const String homeScreenDrawerTitleHelp = "homeScreenDrawerTitleHelp";
 
   // Incentive cash
-  static const String incentiveCashScreenSetUpTab = "incentiveCashScreenSetUpTab";
-  static const String incentiveCashScreenBalanceTab = "incentiveCashScreenBalanceTab";
+  static const String incentiveCashScreenIncentiveProgramTab = "incentiveCashScreenIncentiveProgramTab";
+  static const String incentiveCashScreenInviteCodeTab = "incentiveCashScreenInviteCodeTab";
   static const String incentiveCashScreenSetUpTextFieldTitle = "incentiveCashScreenSetUpTextFieldTitle";
   static const String incentiveCashScreenSetUpTextFieldEnterFirstTime =
       "incentiveCashScreenSetUpTextFieldEnterFirstTime";
@@ -162,5 +166,10 @@ class StringKeys {
 
   // Loader
   static const String loaderScreenLoading = "loaderScreenLoading";
+
+  // Incentive cash first screen
+  static const String incentiveCashFirstScreenTitle = "incentiveCashFirstScreenTitle";
+  static const String incentiveCashFirstScreenExplanation = "incentiveCashFirstScreenExplanation";
+  static const String incentiveCashFirstScreenContinueCTA = "incentiveCashFirstScreenContinueCTA";
 
 }

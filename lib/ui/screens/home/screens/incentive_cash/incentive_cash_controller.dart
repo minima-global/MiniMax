@@ -7,20 +7,21 @@ import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_c
 import 'package:minimax/utils/extensions/rxn_extensions.dart';
 
 // TODO test this class
-class IncentiveCashController extends GetxController {
+class IncentiveProgramController extends GetxController with GetSingleTickerProviderStateMixin {
   final MinimaStorage _storage;
   final IncentiveCashRepository _incentiveCashRepository;
 
-  final Rxn<IncentiveCashTab> selectedTab = Rxn();
+  final Rxn<IncentiveProgramTab> selectedTab = Rxn();
   final Rxn<String> nodeId = Rxn<String>();
   final RxBool loadingBalance = RxBool(false);
-  final Rxn<IncentiveCashModel> incentiveCashModel = Rxn();
+  final Rxn<IncentiveProgramModel> incentiveCashModel = Rxn();
   final Rxn showAllDoneTrigger = Rxn();
   final RxBool lockedEdition = RxBool(true);
+  final RxDouble inviteCodeOpacity = RxDouble(0.0);
 
   final TextEditingController nodeIdController = TextEditingController();
 
-  IncentiveCashController(this._storage, this._incentiveCashRepository);
+  IncentiveProgramController(this._storage, this._incentiveCashRepository);
 
   @override
   void onInit() {
@@ -38,9 +39,9 @@ class IncentiveCashController extends GetxController {
   void _selectFirstTab() {
     _storage.getNodeId().then((value) {
       if (value == null) {
-        selectedTab(IncentiveCashTab.setUpInstructions);
+        selectedTab(IncentiveProgramTab.incentiveProgram);
       } else {
-        selectedTab(IncentiveCashTab.balance);
+        selectedTab(IncentiveProgramTab.inviteCode);
       }
     });
   }
@@ -59,7 +60,7 @@ class IncentiveCashController extends GetxController {
     return Future.value();
   }
 
-  void selectTab(IncentiveCashTab tab) {
+  void selectTab(IncentiveProgramTab tab) {
     selectedTab(tab);
   }
 
@@ -78,6 +79,10 @@ class IncentiveCashController extends GetxController {
 
   void toggleLock() {
     lockedEdition.toggle();
+  }
+
+  void restartOpacity() {
+    inviteCodeOpacity((inviteCodeOpacity.value-1).abs());
   }
 
 }

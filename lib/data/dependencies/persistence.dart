@@ -5,6 +5,9 @@ class MinimaStorage {
 
   MinimaStorage(this._storage);
 
+  ///
+  ///
+  ///
   static const _userConfiguredDeviceFirstTimeKey = "_userConfiguredDeviceFirstTimeKey";
 
   Future<bool> getUserConfiguredDeviceFirstTime() =>
@@ -14,6 +17,9 @@ class MinimaStorage {
     _storage.write(key: _userConfiguredDeviceFirstTimeKey, value: userConfiguredDeviceFirstTime.toString());
   }
 
+  ///
+  ///
+  ///
   static const _nodeIdSavedKey = "_nodeIdSavedKey";
 
   Future<String?> getNodeId() {
@@ -24,6 +30,9 @@ class MinimaStorage {
     return _storage.write(key: _nodeIdSavedKey, value: nodeId);
   }
 
+  ///
+  ///
+  ///
   static const _userWantsToKeepRunningTheService = "_userWantsToKeepRunningTheService";
 
   Future<bool?> getUserWantsToKeepRunningTheService() =>
@@ -37,5 +46,17 @@ class MinimaStorage {
 
   void setUserWantsToKeepRunningTheService(bool userWantsToKeepRunningTheService) {
     _storage.write(key: _userWantsToKeepRunningTheService, value: userWantsToKeepRunningTheService.toString());
+  }
+
+  ///
+  ///
+  ///
+  static const _userSeenIncentiveProgramAtLeastOnce = "_userSeenIncentiveProgramAtLeastOnce";
+
+  Future<bool> getUserSeenIncentiveProgramAtLeastOnce() =>
+      _storage.read(key: _userSeenIncentiveProgramAtLeastOnce).then((value) => value == true.toString());
+
+  void setUserSeenIncentiveProgramAtLeastOnce(bool userSeenIncentiveProgramAtLeastOnce) {
+    _storage.write(key: _userSeenIncentiveProgramAtLeastOnce, value: userSeenIncentiveProgramAtLeastOnce.toString());
   }
 }

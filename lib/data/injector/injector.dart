@@ -20,6 +20,7 @@ import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_co
 import 'package:minimax/ui/screens/home/screens/news_feed/news_feed_controller.dart';
 import 'package:minimax/ui/screens/home/screens/node_status/node_status_controller.dart';
 import 'package:minimax/ui/screens/home/screens/terminal/terminal_controller.dart';
+import 'package:minimax/ui/screens/incentive_program_first_screen/incentive_program_first_controller.dart';
 import 'package:minimax/ui/screens/loader/loader_controller.dart';
 import 'package:minimax/ui/screens/pdf_screen/pdf_controller.dart';
 import 'package:package_info/package_info.dart';
@@ -31,8 +32,16 @@ Future inject() async {
   Get.create(() => BackgroundRunningWarningController(Get.find()), permanent: false);
   Get.create(() => CongratulationsController(Get.find()), permanent: false);
   Get.create(() => NewsFeedController(Get.find()), permanent: true);
-  Get.create(() => NodeStatusController(Get.find(), Get.find()), permanent: true);
-  Get.create(() => IncentiveCashController(Get.find(), Get.find()), permanent: true);
+  Get.create(
+    () => NodeStatusController(
+      Get.find(),
+      Get.find(),
+      Get.find(),
+    ),
+    permanent: true,
+  );
+  Get.create(() => IncentiveProgramController(Get.find(), Get.find()), permanent: true);
+  Get.create(() => IncentiveProgramFirstController(Get.find()), permanent: true);
   Get.create(() => HelpController(), permanent: true);
   Get.create(() => PDFController(), permanent: true);
   Get.create(() => TerminalController(Get.find()), permanent: true);

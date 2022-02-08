@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
@@ -7,12 +8,13 @@ import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_model.dart';
+import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/status.dart';
 import 'package:minimax/utils/extensions/object_extensions.dart';
 
 class IncentiveCashWidget extends StatelessWidget {
-  final IncentiveCashModel? _model;
+  final IncentiveProgramModel? _model;
   final bool _loading;
   final Future<void> Function() onRefresh;
 
@@ -25,7 +27,7 @@ class IncentiveCashWidget extends StatelessWidget {
         padding: const EdgeInsets.all(medium),
         child: RefreshIndicator(
           onRefresh: () {
-            return onRefresh().then((_) => HapticFeedback.mediumImpact());
+            return onRefresh().then((_) => HapticFeedback.heavyImpact());
           },
           child: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (overscroll) {
@@ -54,9 +56,14 @@ class IncentiveCashWidget extends StatelessWidget {
     return semiTransparentModal(
       child: buildStatusWidget(
         title: (_) => StringKeys.nodeStatusCardTitle.tr,
-        text: (Status status) => status.statusText,
+        textWidget: AutoSizeText(
+          _status().statusText,
+          style: lmBodyCopyMedium.copyWith(color: coreBlackContrast),
+          maxLines: 1,
+          minFontSize: 0,
+        ),
         status: _status(),
-        actionRequiredIfInactive: StringKeys.nodeStatusCardInactiveActionRequired.tr,
+        actionRequiredIfInactive: simpleHtmlText(StringKeys.nodeStatusCardInactiveActionRequired.tr),
       ),
     );
   }

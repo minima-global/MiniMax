@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
@@ -7,13 +6,13 @@ import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
-import 'package:minimax/ui/utils/simple_html_text.dart';
 
 Widget buildStatusWidget({
   required String Function(Status) title,
-  required String Function(Status) text,
+  required Widget textWidget,
   required Status status,
-  required String actionRequiredIfInactive,
+  required Widget actionRequiredIfInactive,
+  bool initiallyLoading = false,
 }) {
   return Padding(
     padding: const EdgeInsets.all(medium),
@@ -25,30 +24,24 @@ Widget buildStatusWidget({
               title(status),
               style: lmH4Xtra.copyWith(color: coreBlackContrast),
             ),
-            Expanded(
-              child: AutoSizeText(
-                text(status),
-                style: lmBodyCopyMedium.copyWith(color: coreBlackContrast),
-                maxLines: 1,
-                minFontSize: 0,
-              ),
-            ),
+            Expanded(child: textWidget),
             small2.toSpace(),
-            SvgPicture.asset(
-              ImageKeys.icRadialSelected,
-              width: 24,
-              height: 24,
-              color: _colourForIcon(status),
-            ),
+            if (!initiallyLoading || status == Status.active)
+              SvgPicture.asset(
+                ImageKeys.icRadialSelected,
+                width: 24,
+                height: 24,
+                color: _colourForIcon(status),
+              ),
           ],
         ),
-        if (status == Status.inactive) _buildActionRequired(actionRequiredIfInactive),
+        if (status == Status.inactive && !initiallyLoading) _buildActionRequired(actionRequiredIfInactive),
       ],
     ),
   );
 }
 
-Widget _buildActionRequired(String actionRequired) {
+Widget _buildActionRequired(Widget actionRequired) {
   return Column(
     children: [
       medium.toSpace(),
@@ -65,7 +58,7 @@ Widget _buildActionRequired(String actionRequired) {
       small2.toSpace(),
       SizedBox(
         width: double.maxFinite,
-        child: simpleHtmlText(actionRequired),
+        child: actionRequired,
       ),
     ],
   );
@@ -101,6 +94,17 @@ extension StatusExtensions on Status {
   }
 
   String get connectionText {
+    switch (this) {
+      case Status.active:
+        return StringKeys.incentiveCashScreenBalanceStatusConnected.tr;
+      case Status.inactive:
+        return StringKeys.incentiveCashScreenBalanceStatusNotConnected.tr;
+      case Status.unknown:
+        return "";
+    }
+  }
+
+  String get allowedText {
     switch (this) {
       case Status.active:
         return StringKeys.incentiveCashScreenBalanceStatusConnected.tr;

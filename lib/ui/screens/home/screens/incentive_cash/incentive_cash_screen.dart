@@ -9,19 +9,31 @@ import 'package:minimax/ui/screens/home/screens/all_done/all_done_screen.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_controller.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_tab.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/views/incentive_cash_widget.dart';
-import 'package:minimax/ui/screens/home/screens/incentive_cash/views/set_up_instructions_widget.dart';
+import 'package:minimax/ui/screens/home/screens/incentive_cash/views/incentive_program_first_tab_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
 import 'package:minimax/utils/extensions/rxn_extensions.dart';
 
-class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
+class IncentiveCashScreen extends GetWidget<IncentiveProgramController> {
   static const String routeName = "/home/incentive_cash";
 
-  const IncentiveCashScreen({Key? key}) : super(key: key);
+  IncentiveCashScreen({Key? key}) : super(key: key);
 
+  late AnimationController _animationController;
   @override
   Widget build(BuildContext context) {
     controller.showAllDoneTrigger.listen(_showAllDoneTrigger);
+
+    _animationController = AnimationController(
+        vsync: controller,
+        duration: const Duration(milliseconds: 500)
+    );
+    Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_animationController);
+    _animationController.repeat(reverse: true);
+
     return SafeArea(
       child: _buildBody(),
     );
@@ -43,12 +55,12 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
     });
   }
 
-  Widget _buildTabs(IncentiveCashTab selectedTab) {
+  Widget _buildTabs(IncentiveProgramTab selectedTab) {
     return semiTransparentModal(
       child: Padding(
         padding: const EdgeInsets.all(small3),
         child: Row(
-          children: IncentiveCashTab.values
+          children: IncentiveProgramTab.values
               .map(
                 (tab) => _buildTab(
                   tab,
@@ -61,18 +73,18 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
     );
   }
 
-  Widget _buildTabContent(IncentiveCashTab selectedTab) {
+  Widget _buildTabContent(IncentiveProgramTab selectedTab) {
     switch (selectedTab) {
-      case IncentiveCashTab.setUpInstructions:
+      case IncentiveProgramTab.incentiveProgram:
         return _buildSetUpInstructions();
-      case IncentiveCashTab.balance:
+      case IncentiveProgramTab.inviteCode:
         return _buildBalance();
     }
   }
 
   Widget _buildSetUpInstructions() {
     return controller.nodeId.build(
-      (nodeId) => SetUpInstructionsWidget(
+      (nodeId) => IncentiveProgramFirstTabScreen(
         nodeId,
         controller,
       ),
@@ -91,7 +103,7 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
     );
   }
 
-  Widget _buildTab(IncentiveCashTab tab, {required bool selected}) {
+  Widget _buildTab(IncentiveProgramTab tab, {required bool selected}) {
     return Expanded(
       child: InkWell(
         onTap: () => controller.selectTab(tab),
@@ -101,11 +113,16 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
             color: selected ? coreBlue100 : Colors.transparent,
             height: 38,
             child: Center(
-              child: AutoSizeText(
-                tab.tabName,
-                maxLines: 1,
-                minFontSize: 0,
-                style: lmH4Xtra.copyWith(color: selected ? white : coreBlackContrast),
+              child: controller.inviteCodeOpacity.build(
+                (opacity) => FadeTransition(
+                  opacity: _animationController,
+                  child: AutoSizeText(
+                    tab.tabName,
+                    maxLines: 1,
+                    minFontSize: 0,
+                    style: lmH4Xtra.copyWith(color: selected ? white : coreBlackContrast),
+                  ),
+                ),
               ),
             ),
           ),
@@ -119,13 +136,13 @@ class IncentiveCashScreen extends GetWidget<IncentiveCashController> {
   }
 }
 
-extension _IncentiveCashTabExtensions on IncentiveCashTab {
+extension _IncentiveCashTabExtensions on IncentiveProgramTab {
   String get tabName {
     switch (this) {
-      case IncentiveCashTab.setUpInstructions:
-        return StringKeys.incentiveCashScreenSetUpTab.tr;
-      case IncentiveCashTab.balance:
-        return StringKeys.incentiveCashScreenBalanceTab.tr;
+      case IncentiveProgramTab.incentiveProgram:
+        return StringKeys.incentiveCashScreenIncentiveProgramTab.tr;
+      case IncentiveProgramTab.inviteCode:
+        return StringKeys.incentiveCashScreenInviteCodeTab.tr;
     }
   }
 }

@@ -8,13 +8,13 @@ extension WidgetRxExtensions<T, R> on Rx<T> {
     }, this);
   }
 
-  ObxValue buildMapped(
+  ObxValue buildMapped<T, R>(
     R Function(T) transform,
     Widget Function(R) builder,
   ) {
     return ObxValue<Rx<T>>((Rx<T> a) {
       return builder(transform(a.value));
-    }, this);
+    }, this as Rx<T>);
   }
 }
 
