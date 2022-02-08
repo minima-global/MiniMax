@@ -20,13 +20,13 @@ class IncentiveProgramController extends GetxController with GetSingleTickerProv
   final RxDouble inviteCodeOpacity = RxDouble(0.0);
 
   final TextEditingController nodeIdController = TextEditingController();
-
+  late final AnimationController animationController;
   IncentiveProgramController(this._storage, this._incentiveCashRepository);
 
   @override
   void onInit() {
     super.onInit();
-
+    _startAnimation();
     _updateNodeId();
 
     nodeId.listenWhenNotNull((nodeId) {
@@ -34,6 +34,18 @@ class IncentiveProgramController extends GetxController with GetSingleTickerProv
     });
 
     _selectFirstTab();
+  }
+
+  void _startAnimation() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+
+    );
+    CurveTween(
+        curve: Curves.bounceInOut
+    ).animate(animationController);
+    animationController.repeat(reverse: true, period: const Duration(seconds: 1));
   }
 
   void _selectFirstTab() {

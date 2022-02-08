@@ -19,20 +19,9 @@ class IncentiveCashScreen extends GetWidget<IncentiveProgramController> {
 
   IncentiveCashScreen({Key? key}) : super(key: key);
 
-  late AnimationController _animationController;
   @override
   Widget build(BuildContext context) {
     controller.showAllDoneTrigger.listen(_showAllDoneTrigger);
-
-    _animationController = AnimationController(
-        vsync: controller,
-        duration: const Duration(milliseconds: 500)
-    );
-    Tween(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(_animationController);
-    _animationController.repeat(reverse: true);
 
     return SafeArea(
       child: _buildBody(),
@@ -114,8 +103,8 @@ class IncentiveCashScreen extends GetWidget<IncentiveProgramController> {
             height: 38,
             child: Center(
               child: controller.inviteCodeOpacity.build(
-                (opacity) => FadeTransition(
-                  opacity: _animationController,
+                (opacity) => wrapInFadeTransitionIfNeeded(
+                  wrapInFadeTransition: tab == IncentiveProgramTab.inviteCode && !selected,
                   child: AutoSizeText(
                     tab.tabName,
                     maxLines: 1,
@@ -129,6 +118,24 @@ class IncentiveCashScreen extends GetWidget<IncentiveProgramController> {
         ),
       ),
     );
+  }
+
+  Widget _buildFadeTransitionWrapper(Widget widget) {
+    return FadeTransition(
+      opacity: controller.animationController,
+      child: widget,
+    );
+  }
+
+  Widget wrapInFadeTransitionIfNeeded({
+    required bool wrapInFadeTransition,
+    required Widget child,
+  }) {
+    if (wrapInFadeTransition) {
+      return _buildFadeTransitionWrapper(child);
+    } else {
+      return child;
+    }
   }
 
   void _showAllDoneTrigger(_) {
