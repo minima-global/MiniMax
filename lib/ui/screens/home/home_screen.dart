@@ -6,8 +6,8 @@ import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
+import 'package:minimax/ui/screens/home/screens/rewards/rewards_cash_screen.dart';
 import 'package:minimax/ui/screens/incentive_program_first_screen/incentive_program_first_screen.dart';
-import 'package:minimax/ui/screens/rewards/rewards_screen.dart';
 import 'package:minimax/utils/extensions/object_extensions.dart';
 import 'package:minimax/ui/screens/home/home_controller.dart';
 import 'package:minimax/ui/screens/home/model/home_page_model.dart';
@@ -175,7 +175,7 @@ class HomeScreen extends GetWidget<HomeController> {
 
 Map<String, Widget Function()> _nestedPages = {
   NodeStatusScreen.routeName: () => const NodeStatusScreen(),
-  IncentiveCashScreen.routeName: () => IncentiveCashScreen(),
+  IncentiveCashScreen.routeName: () => const IncentiveCashScreen(),
   IncentiveProgramFirstScreen.routeName: () => const IncentiveProgramFirstScreen(),
   RewardsScreen.routeName: () => const RewardsScreen(),
   NewsFeedScreen.routeName: () => const NewsFeedScreen(),

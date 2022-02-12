@@ -1,0 +1,4 @@
+enum RewardsTab {
+  rewards,
+  rewardsInfo,
+}

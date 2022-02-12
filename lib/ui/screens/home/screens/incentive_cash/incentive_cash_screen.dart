@@ -8,7 +8,7 @@ import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/home/screens/all_done/all_done_screen.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_controller.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_tab.dart';
-import 'package:minimax/ui/screens/home/screens/incentive_cash/views/incentive_cash_widget.dart';
+import 'package:minimax/ui/screens/home/screens/incentive_cash/views/invite_code_widget/invite_code_widget.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/views/incentive_program_first_tab_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
@@ -17,7 +17,7 @@ import 'package:minimax/utils/extensions/rxn_extensions.dart';
 class IncentiveCashScreen extends GetWidget<IncentiveProgramController> {
   static const String routeName = "/home/incentive_cash";
 
-  IncentiveCashScreen({Key? key}) : super(key: key);
+  const IncentiveCashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +83,9 @@ class IncentiveCashScreen extends GetWidget<IncentiveProgramController> {
   Widget _buildBalance() {
     return controller.loadingBalance.build(
       (loading) => controller.incentiveCashModel.build(
-        (incentiveCashModel) => IncentiveCashWidget(
+        (incentiveCashModel) => InviteCodeWidget(
           incentiveCashModel,
           loading,
-          onRefresh: controller.refreshBalance,
         ),
       ),
     );

@@ -37,7 +37,7 @@ class MiniMaxTranslations extends Translations {
         'backupExplanationCTA': 'Continue',
         'incentiveExplanationTitle': 'Incentive Program',
         'incentiveExplanationText':
-            """The Incentive Program is designed to reward you for running a Minima node.<p>You will receive one Reward every day your node pings us to let us know it is connected.<p><b>To claim your existing Rewards and to receive future Daily Rewards, be sure to set up your account on the Incentive Program page.</b>""",
+        """The Incentive Program is designed to reward you for running a Minima node.<p>You will receive one Reward every day your node pings us to let us know it is connected.<p><b>To claim your existing Rewards and to receive future Daily Rewards, be sure to set up your account on the Incentive Program page.</b>""",
         'incentiveCashExplanationCTA': 'Continue',
         'congratulationsTitle': 'Congratulations',
         'congratulationsExplanationSplit1': 'You are now ready to start using Minima.\n\n\n',
@@ -66,12 +66,16 @@ class MiniMaxTranslations extends Translations {
         'incentiveCashScreenIncentiveCashProgramExplanation': """To start receiving Rewards, you must enter your Incentive ID into the field below.<p><p><ul> <li>If you know your Incentive ID, please enter it.</li><li>If you do not know your Incentive ID, please register or login to the Incentive Program website using the button below.</li></ul>""",
         'incentiveCashScreenIncentiveCashProgramCTA': 'Incentive Program Website',
         'incentiveCashScreenIncentiveCashProgramCTAUrl': 'https://incentivecash.minima.global/',
-        'incentiveCashScreenBalanceTitle': 'Total Rewards:',
+        'inviteCodeExplanation': '<b>Your Invite Code enables you to earn additional Rewards for inviting others to run a node and join the Incentive Program.</b><p>Once the Minima network reaches one million nodes, Invite Codes will no longer be active.<p>In order to receive your Invite Code, you must connect your Incentive ID to your node using the Incentive Program tab above.',
+        'inviteCodeHint': 'Join Incentive Program to get Invite Code',
+        'inviteCodeShareCTA': 'Share Invite Code',
+        'inviteCodeTextFormTitle': 'Invite Code',
+        'inviteCodeCopiedSnackbarTitle': 'Invite code',
+        'inviteCodeCopiedSnackbarMessage': 'Code copied to your clipboard',
+        'inviteCodeMessageToCopyToClipboard': 'Join me in running a Minima node and earn Rewards until Mainnet launch.\nBe sure to use my %s during registration on incentive.minima.global\nOnce you\'re set up, join the community and say hello 😊.  https://discord.gg/minima\nhttps://t.me/Minima_Global"',
         'incentiveCashScreenBalancePingTitle': 'Last Ping:',
         'incentiveCashScreenBalancePingDateFormat1': "EEE dd MMM yyyy '/'",
         'incentiveCashScreenBalancePingDateFormat2': " HH:mm:ss '%s'",
-        'incentiveCashScreenBalanceExplanation':
-            'A ping is sent to the Minima network once a day at random. Please check that it is up to date.',
         'incentiveCashScreenBalanceStatusConnected': 'Connected',
         'incentiveCashScreenBalanceStatusNotConnected': 'Not connected',
         'incentiveCashScreenBalanceStatusOffline': 'Offline',
@@ -99,7 +103,7 @@ class MiniMaxTranslations extends Translations {
         'helpScreenLinkGithub': 'https://github.com/minima-global',
         'helpScreenLinkMinimaWhitePaper': 'https://cdn.minima.global/media/2021/07/02/Minima_Whitepaper_v9.pdf',
         'helpScreenLinkTokenomicsPaper':
-            'https://cdn.minima.global/media/2021/11/16/Minima_Token_Economics_Aug2021-1.pdf',
+        'https://cdn.minima.global/media/2021/11/16/Minima_Token_Economics_Aug2021-1.pdf',
         'helpScreenLinkProtocolLayers': 'https://cdn.minima.global/media/2021/07/02/Protocol_Layers_.pdf',
         'pdfReaderPagesOfD': 'of %d',
         'pdfReaderCantLoadPdfError': 'Can\'t load the Pdf',
@@ -108,22 +112,22 @@ class MiniMaxTranslations extends Translations {
         'terminalScreenTextFieldHint': 'Enter command',
         'nodeStatusTitle': 'Node Status:',
         'nodeStatusExplanation':
-            'You can check that your Minima node is connected to the Minima network via the status bar below. If your node is successfully connected, your status will be shown as ‘Connected’ and a green light will be seen.<p>If your Node Status is showing as ‘Offline’ along with a red light, your node is currently not connected to the Minima network. In the event that this occurs, please follow the instructions below the status bar to help you get reconnected.</p>',
+        'You can check that your Minima node is connected to the Minima network via the status bar below. If your node is successfully connected, your status will be shown as ‘Connected’ and a green light will be seen.<p>If your Node Status is showing as ‘Offline’ along with a red light, your node is currently not connected to the Minima network. In the event that this occurs, please follow the instructions below the status bar to help you get reconnected.</p>',
         'nodeStatusCardTitle': 'Node Status : ',
         'nodeStatusCardInactiveActionRequired':
-            """<ol><li>Check your device is connected to the internet.</li><li>Check your device is running Android version 9 or above.</li><li>Check your battery settings are set to allow Minima to run in the background.</li><li>Check that you are running the latest version of the Minima app.</li><li>Try restarting your node by quitting the app and and reopening it.</li></ol><p>If Minima still fails to work, please head to our Discord and create a ticket in the #support-request channel.</p>
+        """<ol><li>Check your device is connected to the internet.</li><li>Check your device is running Android version 9 or above.</li><li>Check your battery settings are set to allow Minima to run in the background.</li><li>Check that you are running the latest version of the Minima app.</li><li>Try restarting your node by quitting the app and and reopening it.</li></ol><p>If Minima still fails to work, please head to our Discord and create a ticket in the #support-request channel.</p>
         """,
         'incentiveCashCardTitle': 'Incentive ID : ',
         'batteryOptimisationCardTitle': 'Battery Optimisation : ',
         'batteryOptimisationCardActionRequired':
         """To fully validate and secure the Minima blockchain, the protocol needs to run in the background. Use the link below to change your device settings.<p><a href="">Battery Optimisation</a>""",
         'incentiveCashCardInactiveActionRequired':
-            'Your node has no Incentive ID connected to it. To set this up, navigate to the Incentive Program page.',
+        'Your node has no Incentive ID connected to it. To set this up, navigate to the Incentive Program page.',
         'statusCardActionRequiredTitle': 'Action required:',
         'apkCardTitle': 'APK Version : ',
         'nodeStatusLoading': 'Connecting…',
         'apkCardInactiveActionRequired':
-            'You are not running the latest version of the Minima app, you can find the latest version on our Get-Started page:<p><a href="https://minima.global/get-started">https://minima.global/get-started</a>',
+        'You are not running the latest version of the Minima app, you can find the latest version on our Get-Started page:<p><a href="https://minima.global/get-started">https://minima.global/get-started</a>',
         'apkCardStatusUpToDate': 'Up to date',
         'apkCardStatusOutOfDate': 'Out of date',
         'allDoneScreenCloseCTA': 'Close',
@@ -140,7 +144,7 @@ class MiniMaxTranslations extends Translations {
         'permissionsEnabledCTA': 'Continue',
         'deciderMainContent': 'Empowering Freedom',
         'mgmExplanationMainContent':
-            'The Minima Member get member program rewards users for<br><br><b>To claim your existing rewards and to earn future daily rewards, be sure to set up your account on the Incentive Program page.</b>',
+        'The Minima Member get member program rewards users for<br><br><b>To claim your existing rewards and to earn future daily rewards, be sure to set up your account on the Incentive Program page.</b>',
         'mgmExplanationCta': 'Continue',
         'mgmExplanationTitle': 'Member get member',
         'loaderScreenLoading': 'Connecting, please wait…',
@@ -152,6 +156,22 @@ class MiniMaxTranslations extends Translations {
       <p>Press continue to set up your Incentive Program account.</p>
       """,
         'incentiveCashFirstScreenContinueCTA': 'Continue',
+        'rewardsTab': 'Rewards',
+        'rewardsInfoTab': 'Rewards Info',
+        'rewardsTabTotalRewardsTitle': 'Total Rewards',
+        'rewardsTabBreakdownOfRewards': 'Breakdown of Rewards',
+        'rewardsTabDailyNodeRewardsTitle': 'Total Daily Node Rewards',
+        'rewardsTabInviteRewardsTitle': 'Total Invite Rewards',
+        'rewardsTabAdditionalRewardsTitle': 'Total Additional Rewards',
+        'rewardsInfoDailyRewardsTitle': 'Daily Node Rewards',
+        'rewardsInfoDailyRewardsExplanation': 'You will earn 1 reward each day for keeping your node successfully connected to the network. Any rewards earned before the December 2021 Hard Fork are included in this total',
+        'rewardsInfoInviteRewardTitle': 'Invite Rewards',
+        'rewardsInfoInviteRewardExplanation': 'For every person who registers using your invite code, you will earn an additional 0.1 of a Reward each day their node is running and successfully connected to the network.<p>Your Invite Code will remain active until we reach 1 million nodes. Whilst active, there is no cap on the number of times your Invite Code can be used.<p><b>Example Rewards based on a 30 day period:</b>',
+        'rewardsInfoAdditionalRewardsTitle': 'Additional Rewards',
+        'rewardsInfoAdditionalRewardsExplanation': 'Breakdown of Rewards for your help within the Minima community, which includes the following:<p><ul><li>Bug Reports</li><li>Bounty Rewards</li><li>Strategic Grants</li><li>Developer Grants</li><li>Prizes</li>',
+        'rewardsInfoSPeople': '%s people = ',
+        'rewardsInfoSRewards': '%s Rewards',
+
       }
     };
   }

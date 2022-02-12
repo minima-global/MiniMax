@@ -92,11 +92,16 @@ class StringKeys {
       "incentiveCashScreenIncentiveCashProgramExplanation";
   static const String incentiveCashScreenIncentiveCashProgramCTA = "incentiveCashScreenIncentiveCashProgramCTA";
   static const String incentiveCashScreenIncentiveCashProgramCTAUrl = "incentiveCashScreenIncentiveCashProgramCTAUrl";
-  static const String incentiveCashScreenBalanceTitle = "incentiveCashScreenBalanceTitle";
+  static const String inviteCodeExplanation = "inviteCodeExplanation";
+  static const String inviteCodeHint = "inviteCodeHint";
+  static const String inviteCodeTextFormTitle = "inviteCodeTextFormTitle";
+  static const String inviteCodeShareCTA = "inviteCodeShareCTA";
+  static const String inviteCodeCopiedSnackbarTitle = "inviteCodeCopiedSnackbarTitle";
+  static const String inviteCodeCopiedSnackbarMessage = "inviteCodeCopiedSnackbarMessage";
+  static const String inviteCodeMessageToCopyToClipboard = "inviteCodeMessageToCopyToClipboard";
   static const String incentiveCashScreenBalancePingTitle = "incentiveCashScreenBalancePingTitle";
   static const String incentiveCashScreenBalancePingDateFormat1 = "incentiveCashScreenBalancePingDateFormat1";
   static const String incentiveCashScreenBalancePingDateFormat2 = "incentiveCashScreenBalancePingDateFormat2";
-  static const String incentiveCashScreenBalanceExplanation = "incentiveCashScreenBalanceExplanation";
   static const String incentiveCashScreenBalanceStatusConnected = "incentiveCashScreenBalanceStatusConnected";
   static const String incentiveCashScreenBalanceStatusNotConnected = "incentiveCashScreenBalanceStatusNotConnected";
   static const String incentiveCashScreenBalanceStatusOffline = "incentiveCashScreenBalanceStatusOffline";
@@ -173,5 +178,24 @@ class StringKeys {
   static const String incentiveCashFirstScreenTitle = "incentiveCashFirstScreenTitle";
   static const String incentiveCashFirstScreenExplanation = "incentiveCashFirstScreenExplanation";
   static const String incentiveCashFirstScreenContinueCTA = "incentiveCashFirstScreenContinueCTA";
+
+  // Rewards
+  static const String rewardsTab = "rewardsTab";
+  static const String rewardsInfoTab = "rewardsInfoTab";
+  static const String rewardsTabTotalRewardsTitle = "rewardsTabTotalRewardsTitle";
+  static const String rewardsTabBreakdownOfRewards = "rewardsTabBreakdownOfRewards";
+  static const String rewardsTabDailyNodeRewardsTitle = "rewardsTabDailyNodeRewardsTitle";
+  static const String rewardsTabInviteRewardsTitle = "rewardsTabInviteRewardsTitle";
+  static const String rewardsTabAdditionalRewardsTitle = "rewardsTabAdditionalRewardsTitle";
+
+  // Rewards info
+  static const rewardsInfoDailyRewardsTitle = 'rewardsInfoDailyRewardsTitle';
+  static const rewardsInfoDailyRewardsExplanation = 'rewardsInfoDailyRewardsExplanation';
+  static const rewardsInfoInviteRewardTitle = 'rewardsInfoInviteRewardTitle';
+  static const rewardsInfoInviteRewardExplanation = 'rewardsInfoInviteRewardExplanation';
+  static const rewardsInfoAdditionalRewardsTitle = 'rewardsInfoAdditionalRewardsTitle';
+  static const rewardsInfoAdditionalRewardsExplanation = 'rewardsInfoAdditionalRewardsExplanation';
+  static const rewardsInfoSPeople = 'rewardsInfoSPeople';
+  static const rewardsInfoSRewards = 'rewardsInfoSRewards';
 
 }

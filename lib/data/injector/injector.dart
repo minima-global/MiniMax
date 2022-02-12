@@ -15,10 +15,13 @@ import 'package:minimax/ui/screens/battery_settings/battery_settings_controller.
 import 'package:minimax/ui/screens/congratulations/congratulations_controller.dart';
 import 'package:minimax/ui/screens/decider/decider_controller.dart';
 import 'package:minimax/ui/screens/home/home_controller.dart';
+import 'package:minimax/ui/screens/home/screens/battery_optimisation/battery_optimisation_controller.dart';
 import 'package:minimax/ui/screens/home/screens/help/help_controller.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_controller.dart';
+import 'package:minimax/ui/screens/home/screens/incentive_cash/views/invite_code_widget/invite_code_controller.dart';
 import 'package:minimax/ui/screens/home/screens/news_feed/news_feed_controller.dart';
 import 'package:minimax/ui/screens/home/screens/node_status/node_status_controller.dart';
+import 'package:minimax/ui/screens/home/screens/rewards/rewards_controller.dart';
 import 'package:minimax/ui/screens/home/screens/terminal/terminal_controller.dart';
 import 'package:minimax/ui/screens/incentive_program_first_screen/incentive_program_first_controller.dart';
 import 'package:minimax/ui/screens/loader/loader_controller.dart';
@@ -48,6 +51,8 @@ Future inject() async {
   Get.create(() => BatterySettingsController(Get.find()), permanent: true);
   Get.create(() => BackgroundCheckController(Get.find()), permanent: true);
   Get.create(() => LoaderController(Get.find(), Get.find(), Get.find()), permanent: true);
+  Get.create(() => InviteCodeController(), permanent: true);
+  Get.create(() => RewardsController(), permanent: true);
   Get.create(() => BatteryOptimisationController(Get.find()), permanent: true);
 
   /// Services and repositories
