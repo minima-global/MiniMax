@@ -10,6 +10,8 @@ class BackgroundCheckController extends GetxController {
           (_) async {
             return await _batteryProvider.isIgnoringBatteryOptimizationMethodName();
           },
-        )
-      .asyncMap((event) async => await event);
+        ).asyncMap((event) async => await event) {
+
+    _batteryProvider.ignoreBatteryOptimization(); // Fire and forget
+  }
 }

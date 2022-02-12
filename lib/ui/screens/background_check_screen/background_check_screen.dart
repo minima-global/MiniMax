@@ -1,12 +1,17 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
+import 'package:minimax/ui/screens/background_check_screen/background_check_args.dart';
 import 'package:minimax/ui/screens/background_check_screen/background_check_controller.dart';
+import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
+import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
+import 'package:minimax/ui/screens/permissions_enabled/permission_enabled_args.dart';
 import 'package:minimax/ui/screens/permissions_enabled/permissions_enabled_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
@@ -17,6 +22,8 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
   BackgroundCheckScreen({Key? key}) : super(key: key);
 
   StreamSubscription? subscriptionToBatteryOptimization;
+
+  BackgroundCheckArgs get _args => Get.arguments as BackgroundCheckArgs;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,7 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
     subscriptionToBatteryOptimization = controller.isIgnoringBatteryOptimization.listen(
       (isIgnoring) {
         if (isIgnoring) {
-          Get.toNamed(PermissionsEnabledScreen.routeName);
+          _args.onAllowed();
           controller.onClose();
           subscriptionToBatteryOptimization?.cancel();
         }
@@ -57,7 +64,7 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
               medium.toSpace(),
               _buildBatterySettingsExplanation(),
               medium.toSpace(),
-              const CircularProgressIndicator(),
+              const CupertinoActivityIndicator(),
               medium.toSpace(),
               _buildActionButtons(),
             ],

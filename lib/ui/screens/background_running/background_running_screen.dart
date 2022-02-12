@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
@@ -40,7 +41,7 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
         child: semiTransparentModal(
           colour: _cardColour(state),
           child: AnimatedContainer(
-            padding: const EdgeInsetsDirectional.only(top: large2,  start: large1, end: large1, bottom: small2),
+            padding: const EdgeInsetsDirectional.only(top: large2, start: large1, end: large1, bottom: small2),
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOutCubic,
             child: Column(
@@ -122,7 +123,10 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
       ),
       child: simpleHtmlText(
         _createExplanation(state),
-        style: explanationStyle,
+        overridingStyles: (styles) => styles
+          ..addEntries(
+            [MapEntry("html", Style.fromTextStyle(explanationStyle))],
+          ),
       ),
     );
   }
@@ -171,7 +175,7 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
   void _next(_) {
     Get.offNamedUntil(
       CongratulationsScreen.routeName,
-          (route) => route.settings.name == BatterySettingsScreen.routeName,
+      (route) => route.settings.name == BatterySettingsScreen.routeName,
     );
   }
 

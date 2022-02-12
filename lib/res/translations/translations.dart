@@ -14,7 +14,7 @@ class MiniMaxTranslations extends Translations {
         'backgroundCheckBackToBatterySettingsCTA': 'Back to battery settings',
         'batterySettingsTitle': 'Battery Settings',
         'batterySettingsExplanation':
-            """<b>For Minima to function properly, the app needs to run in the background on your device.</b><br><br>Please grant permission using the <b>Confirm</b> button below.""",
+        """<b>For Minima to function properly, the app needs to run in the background on your device.</b><br><br>Please grant permission using the <b>Confirm</b> button below.""",
         'batterySettingsConfirm': 'Confirm',
         'batterySettingsSkip': 'Skip',
         'backgroundRunningTitle': 'Minima',
@@ -22,7 +22,7 @@ class MiniMaxTranslations extends Translations {
         'backgroundRunningBigTitleAreYouSure': 'Are you sure?',
         'backgroundRunningExplanation2': 'Are you sure you want to skip this stage?',
         'backgroundRunningExplanation3':
-            'For Minima to function as expected, it must be allowed to run in the background.<p>You can change this setting later by choosing Battery Optimization from the side navigation menu in the app.',
+        'For Minima to function as expected, it must be allowed to run in the background.<p>You can change this setting later by choosing Battery Optimization from the side navigation menu in the app.',
         'backgroundRunningCTAYes': 'Yes',
         'backgroundRunningCTANo': 'No',
         'backupExplanationTitle': 'Backup',
@@ -33,7 +33,7 @@ class MiniMaxTranslations extends Translations {
         'backupExplanationTextSplit5': ' your backup from the Options menu as well.\n\nAfter clicking ',
         'backupExplanationTextSplit6': 'BACKUP',
         'backupExplanationTextSplit7':
-            ', please wait for your backup file to be created. Your phone will then ask you where to save it.',
+        ', please wait for your backup file to be created. Your phone will then ask you where to save it.',
         'backupExplanationCTA': 'Continue',
         'incentiveExplanationTitle': 'Incentive Program',
         'incentiveExplanationText':
@@ -116,7 +116,7 @@ class MiniMaxTranslations extends Translations {
         'incentiveCashCardTitle': 'Incentive ID : ',
         'batteryOptimisationCardTitle': 'Battery Optimisation : ',
         'batteryOptimisationCardActionRequired':
-            """To fully validate and secure the Minima blockchain, the protocol needs to run in the background. Use the link below to change your device settings.<p><a href="">Battery Optimisation</a>""",
+        """To fully validate and secure the Minima blockchain, the protocol needs to run in the background. Use the link below to change your device settings.<p><a href="">Battery Optimisation</a>""",
         'incentiveCashCardInactiveActionRequired':
             'Your node has no Incentive ID connected to it. To set this up, navigate to the Incentive Program page.',
         'statusCardActionRequiredTitle': 'Action required:',
@@ -130,10 +130,10 @@ class MiniMaxTranslations extends Translations {
         'allDoneScreenTitle': 'Incentive Program',
         'allDoneScreenBigTitle': 'All done!',
         'allDoneScreenContent':
-            'You will receive one Reward every day your node pings us to let us know it is connected. <p>Rewards will be converted to Minima coins at mainnet launch on a one for one basis.',
+        'You will receive one Reward every day your node pings us to let us know it is connected. <p>Rewards will be converted to Minima coins at mainnet launch on a one for one basis.',
         'batteryOptimisationCTA': 'Battery optimization settings',
         'batteryOptimisationExplanation':
-            'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\n\nPlease use the button below to navigate to your phones battery optimization settings and grant permission for Minima to run in the background.',
+        'To fully validate and secure the Minima blockchain, the Minima protocol needs to run in the background.\n\nPlease use the button below to navigate to your phones battery optimization settings and grant permission for Minima to run in the background.',
         'permissionsEnabledTitle': 'Battery Permissions',
         'permissionsEnabledMainTitle': 'Permissions enabled',
         'permissionsEnabledExplanation': 'Thanks!<p>Minima will now run in the background.',

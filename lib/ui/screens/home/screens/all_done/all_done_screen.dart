@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/dimensions.dart';
@@ -95,7 +96,10 @@ class AllDoneScreen extends StatelessWidget {
       ),
       child: simpleHtmlText(
         StringKeys.allDoneScreenContent.tr,
-        style: explanationStyle,
+        overridingStyles: (styles) => styles
+          ..addEntries(
+            [MapEntry("html", Style.fromTextStyle(explanationStyle))],
+          ),
       ),
     );
   }

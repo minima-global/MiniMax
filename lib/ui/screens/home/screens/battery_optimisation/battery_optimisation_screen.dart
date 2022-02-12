@@ -5,18 +5,23 @@ import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
-import 'package:minimax/ui/screens/home/screens/node_status/node_status_controller.dart';
+import 'package:minimax/ui/screens/background_check_screen/background_check_args.dart';
+import 'package:minimax/ui/screens/background_check_screen/background_check_screen.dart';
+import 'package:minimax/ui/screens/home/screens/battery_optimisation/battery_optimisation_controller.dart';
+import 'package:minimax/ui/screens/permissions_enabled/permission_enabled_args.dart';
+import 'package:minimax/ui/screens/permissions_enabled/permissions_enabled_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:minimax/utils/extensions/rxn_extensions.dart';
 
-class BatteryOptimisationScreen extends GetWidget<NodeStatusController> {
+class BatteryOptimisationScreen extends GetWidget<BatteryOptimisationController> {
   static const String routeName = "/home/battery_optimisation";
 
   const BatteryOptimisationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    controller.batteryOptimisationPreviouslyAcceptedTrigger.listenWhenNotNull(_onTapped);
     return Column(
       children: [
         Padding(
@@ -30,7 +35,7 @@ class BatteryOptimisationScreen extends GetWidget<NodeStatusController> {
                   medium.toSpace(),
                   createPrimaryCTA(
                     text: StringKeys.batteryOptimisationCTA.tr,
-                    onTap: _goToBatteryOptimisationSettings,
+                    onTap: controller.onTapped,
                   )
                 ],
               ),
@@ -48,7 +53,21 @@ class BatteryOptimisationScreen extends GetWidget<NodeStatusController> {
     );
   }
 
-  void _goToBatteryOptimisationSettings() {
-    AppSettings.openBatteryOptimizationSettings(asAnotherTask: true);
+  void _onTapped(bool previouslyAccepted) {
+    if (previouslyAccepted) {
+      AppSettings.openBatteryOptimizationSettings(asAnotherTask: true);
+    } else {
+      Get.toNamed(
+        BackgroundCheckScreen.routeName,
+        arguments: BackgroundCheckArgs(
+          onAllowed: () => Get.offNamed(
+            PermissionsEnabledScreen.routeName,
+            arguments: PermissionEnabledArgs(
+              onContinueTapped: () => Get.back(),
+            ),
+          ),
+        ),
+      );
+    }
   }
 }
