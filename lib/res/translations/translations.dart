@@ -103,6 +103,8 @@ class MiniMaxTranslations extends Translations {
         'helpScreenLinkProtocolLayers': 'https://cdn.minima.global/media/2021/07/02/Protocol_Layers_.pdf',
         'pdfReaderPagesOfD': 'of %d',
         'pdfReaderCantLoadPdfError': 'Can\'t load the Pdf',
+        'terminalScreenContinueWarningCTA': 'Continue',
+        'terminalScreenWarning': '<b>Please do not copy and paste your logs into the Minima’s public channels, this is not a productive way for us to be able to help you.</b><p>If you need help, please head to #support-request on our Discord so we can help you independently.<p>Thanks for your cooperation. 🙏',
         'terminalScreenTextFieldHint': 'Enter command',
         'nodeStatusTitle': 'Node Status:',
         'nodeStatusExplanation':

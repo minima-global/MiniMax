@@ -133,6 +133,8 @@ class StringKeys {
   static const String pdfReaderCantLoadPdfError = 'pdfReaderCantLoadPdfError';
 
   // Terminal
+  static const String terminalScreenContinueWarningCTA = "terminalScreenContinueWarningCTA";
+  static const String terminalScreenWarning = "terminalScreenWarning";
   static const String terminalScreenTextFieldTitle = "terminalScreenTextFieldTitle";
   static const String terminalScreenTextFieldHint = "terminalScreenTextFieldHint";
 

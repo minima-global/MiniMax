@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,10 @@ import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/platform_views/console_platform_view.dart';
 import 'package:minimax/ui/screens/home/screens/terminal/terminal_controller.dart';
+import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
+import 'package:minimax/ui/widgets/buttons.dart';
+import 'package:minimax/utils/extensions/rxn_extensions.dart';
 import 'package:minimax/utils/keyboard.dart';
 
 class TerminalScreen extends GetWidget<TerminalController> {
@@ -32,6 +36,43 @@ class TerminalScreen extends GetWidget<TerminalController> {
   }
 
   Widget _buildBody(bool isKeyboardVisible) {
+    return controller.userHasSeenTerminalWarningAlready.buildIgnoreNull(
+      (userHasSeenTerminalWarningAlready) =>
+          userHasSeenTerminalWarningAlready ? _buildMainTerminal(isKeyboardVisible) : _buildWarningCopyPasteTerminal(),
+    );
+  }
+
+  Widget _buildWarningCopyPasteTerminal() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+      child: semiTransparentModal(
+        colour: terminalInputBackground2,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: large1, horizontal: medium),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              simpleHtmlText(
+                StringKeys.terminalScreenWarning.tr,
+                overridingStyles: (styles) => styles
+                  ..addEntries(
+                    [
+                      MapEntry("html", Style.fromTextStyle(lmBodyCopyMedium.copyWith(color: coreGrey20))),
+                      MapEntry("b", Style.fromTextStyle(lmH4.copyWith(color: coreGrey20))),
+                    ],
+                  ),
+              ),
+              large2.toSpace(),
+              createPrimaryCTA(
+                  text: StringKeys.terminalScreenContinueWarningCTA.tr, onTap: controller.warningUnderstood),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMainTerminal(bool isKeyboardVisible) {
     return Stack(
       children: [
         ListView(

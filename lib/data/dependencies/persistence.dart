@@ -59,4 +59,16 @@ class MinimaStorage {
   void setUserSeenIncentiveProgramAtLeastOnce(bool userSeenIncentiveProgramAtLeastOnce) {
     _storage.write(key: _userSeenIncentiveProgramAtLeastOnce, value: userSeenIncentiveProgramAtLeastOnce.toString());
   }
+
+  ///
+  ///
+  ///
+  static const _userSeenTerminalCopyPasteAtLeastOnce = "_userSeenTerminalCopyPasteAtLeastOnce";
+
+  Future<bool> getUserSeenTerminalCopyPasteAtLeastOnce() =>
+      _storage.read(key: _userSeenTerminalCopyPasteAtLeastOnce).then((value) => value == true.toString());
+
+  Future setUserSeenTerminalCopyPasteAtLeastOnce(bool userSeenTerminalCopyPasteAtLeastOnce) {
+    return _storage.write(key: _userSeenTerminalCopyPasteAtLeastOnce, value: userSeenTerminalCopyPasteAtLeastOnce.toString());
+  }
 }
