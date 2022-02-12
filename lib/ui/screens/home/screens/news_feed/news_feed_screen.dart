@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:minimax/ui/screens/home/screens/news_feed/cells/news_card.dart';
 import 'package:minimax/ui/screens/home/screens/news_feed/model/news_model.dart';
 import 'package:minimax/ui/screens/home/screens/news_feed/news_feed_controller.dart';
 import 'package:minimax/ui/utils/errors.dart';
+import 'package:minimax/ui/utils/separated_column.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
 import 'package:minimax/utils/extensions/rxn_extensions.dart';
 
@@ -34,7 +36,7 @@ class NewsFeedScreen extends GetWidget<NewsFeedController> {
 
   Widget _buildLoader() {
     return const Center(
-      child: CircularProgressIndicator(),
+      child: CupertinoActivityIndicator(),
     );
   }
 
@@ -43,18 +45,22 @@ class NewsFeedScreen extends GetWidget<NewsFeedController> {
       List<Widget> newsCards = news //
           .map(_buildNewsCard)
           .toList();
-      return RefreshIndicator(
-        onRefresh: () {
-          controller.loadNews();
-          return HapticFeedback.mediumImpact();
-        },
-        child: ListView.separated(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: large1, vertical: large2),
-          itemBuilder: (_, position) => newsCards[position],
-          separatorBuilder: (_, __) => medium.toSpace(),
-          itemCount: news.length,
-        ),
+
+      return CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        slivers: [
+          CupertinoSliverRefreshControl(onRefresh: () {
+            controller.loadNews(isRefreshing: true);
+            return HapticFeedback.mediumImpact();
+          }),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                SeparatedColumn.withSeparation(children: newsCards, separator: medium.toSpace()),
+              ],
+            ),
+          ),
+        ],
       );
     });
   }

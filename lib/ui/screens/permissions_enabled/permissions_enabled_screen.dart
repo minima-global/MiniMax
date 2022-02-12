@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
@@ -6,6 +7,7 @@ import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
 import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
+import 'package:minimax/ui/screens/permissions_enabled/permission_enabled_args.dart';
 import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
@@ -14,6 +16,8 @@ class PermissionsEnabledScreen extends StatelessWidget {
   static const String routeName = "/background_running/permissions_enabled";
 
   const PermissionsEnabledScreen({Key? key}) : super(key: key);
+
+  PermissionEnabledArgs get _args => Get.arguments as PermissionEnabledArgs;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +91,7 @@ class PermissionsEnabledScreen extends StatelessWidget {
   }
 
   Widget _buildExplanation() {
-    final TextStyle explanationStyle = lmBodyCopy.copyWith(color: coreBlackContrast, height: 1.4);
+    final TextStyle explanationStyle = lmBodyCopyMedium.copyWith(color: coreBlackContrast, height: 1.4);
     return ConstrainedBox(
       // Min 5 lines
       constraints: BoxConstraints(
@@ -96,7 +100,10 @@ class PermissionsEnabledScreen extends StatelessWidget {
       ),
       child: simpleHtmlText(
         StringKeys.permissionsEnabledExplanation.tr,
-        style: explanationStyle,
+        overridingStyles: (styles) => styles
+          ..addEntries(
+            [MapEntry("html", Style.fromTextStyle(explanationStyle))],
+          ),
       ),
     );
   }
@@ -108,15 +115,10 @@ class PermissionsEnabledScreen extends StatelessWidget {
         createRobotoButton(
           text: StringKeys.permissionsEnabledCTA.tr,
           colour: coreBlue100,
-          onTap: _continue,
+          onTap: _args.onContinueTapped,
         ),
       ],
     );
-  }
-
-  void _continue() {
-    Get.offNamedUntil(
-        CongratulationsScreen.routeName, (route) => route.settings.name == BatterySettingsScreen.routeName);
   }
 
 }

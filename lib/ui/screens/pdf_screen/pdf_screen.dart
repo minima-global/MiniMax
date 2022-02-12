@@ -116,7 +116,7 @@ class PDFScreen extends GetWidget<PDFController> {
           onPageChanged: controller.pageChanged,
         );
       },
-      defaultIfNull: const Center(child: CircularProgressIndicator()),
+      defaultIfNull: const Center(child: CupertinoActivityIndicator()),
     );
   }
 

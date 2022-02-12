@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -26,22 +27,26 @@ class NodeStatusScreen extends GetWidget<NodeStatusController> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () => controller.refreshState().whenComplete(HapticFeedback.heavyImpact),
-      child: ListView(
-        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
-            child: semiTransparentModal(
-              child: Padding(
-                padding: const EdgeInsets.all(medium),
-                child: _buildMainInfo(),
+    return CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+      slivers: [
+        CupertinoSliverRefreshControl(
+          onRefresh: () => controller.refreshState().whenComplete(HapticFeedback.heavyImpact),
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+              child: semiTransparentModal(
+                child: Padding(
+                  padding: const EdgeInsets.all(medium),
+                  child: _buildMainInfo(),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ]),
+        )
+      ],
     );
   }
 
