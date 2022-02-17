@@ -97,4 +97,8 @@ class IncentiveProgramController extends GetxController with GetSingleTickerProv
     inviteCodeOpacity((inviteCodeOpacity.value-1).abs());
   }
 
+  void closeLock() {
+    lockedEdition(true);
+  }
+
 }

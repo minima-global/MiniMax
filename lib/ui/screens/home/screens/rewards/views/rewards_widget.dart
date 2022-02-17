@@ -43,17 +43,17 @@ class RewardsWidget extends StatelessWidget {
             small3.toSpace(),
             _buildRewardTile(
               StringKeys.rewardsTabDailyNodeRewardsTitle.tr,
-              rewardsUIModel.dailyNodeRewards.toString(),
+              rewardsUIModel.dailyNodeRewards,
             ),
             medium.toSpace(),
             _buildRewardTile(
               StringKeys.rewardsTabInviteRewardsTitle.tr,
-              rewardsUIModel.inviteRewards.toString(),
+              rewardsUIModel.inviteRewards,
             ),
             medium.toSpace(),
             _buildRewardTile(
               StringKeys.rewardsTabAdditionalRewardsTitle.tr,
-              rewardsUIModel.additionalRewards.toString(),
+              rewardsUIModel.additionalRewards,
             ),
           ],
         ),
@@ -64,7 +64,7 @@ class RewardsWidget extends StatelessWidget {
   Widget _buildTotalRewards() {
     return _buildRewardTile(
       StringKeys.rewardsTabTotalRewardsTitle.tr,
-      rewardsUIModel.rewards.toString(),
+      rewardsUIModel.totalRewards,
     );
   }
 

@@ -22,6 +22,8 @@ class RewardsScreen extends GetWidget<RewardsController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.refreshRewards();
+    
     return SafeArea(
       child: _buildBody(),
     );
@@ -86,16 +88,13 @@ class RewardsScreen extends GetWidget<RewardsController> {
   Widget _buildTabContent(RewardsTab selectedTab) {
     switch (selectedTab) {
       case RewardsTab.rewards:
-        return RewardsWidget(
-          rewardsUIModel: RewardsUIModel(
-            additionalRewards: 22,
-            rewards: 21,
-            dailyNodeRewards: 25,
-            inviteRewards: 234,
+        return controller.rewards.build(
+          (rewardsUIModel) => RewardsWidget(
+            rewardsUIModel: rewardsUIModel ?? NotValidRewardsUIModel(),
           ),
         );
       case RewardsTab.rewardsInfo:
-        return RewardsInfoWidget();
+        return const RewardsInfoWidget();
     }
   }
 

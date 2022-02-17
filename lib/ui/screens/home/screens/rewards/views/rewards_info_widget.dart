@@ -45,19 +45,17 @@ class RewardsInfoWidget extends StatelessWidget {
         width: double.maxFinite,
         child: Padding(
           padding: const EdgeInsets.all(medium),
-          child: Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: lmH4Xtra.copyWith(color: coreBlue100),
-                ),
-                simpleHtmlText(text),
-                small3.toSpace(),
-                extraWidget ?? Container(),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: lmH4Xtra.copyWith(color: coreBlue100),
+              ),
+              simpleHtmlText(text),
+              small3.toSpace(),
+              extraWidget ?? Container(),
+            ],
           ),
         ),
       ),

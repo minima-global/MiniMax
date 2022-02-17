@@ -106,8 +106,8 @@ class IncentiveProgramFirstTabScreen extends StatelessWidget {
                     ? null
                     : () {
                   controller.saveNodeId();
-                  hideKeyboard();
                   _nodeIdFocusNode.unfocus();
+                  hideKeyboard().then((_) => controller.closeLock());
                 },
                 colour: primaryCTAColour.withOpacity(locked ? 0.2 : 1),
               )

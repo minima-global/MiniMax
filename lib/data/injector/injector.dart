@@ -8,7 +8,9 @@ import 'package:minimax/data/dependencies/persistence.dart';
 import 'package:minimax/data/repositories/incentive_cash_repository.dart';
 import 'package:minimax/data/repositories/news_repository.dart';
 import 'package:minimax/data/repositories/node_status_repository.dart';
+import 'package:minimax/data/repositories/ping_repository.dart';
 import 'package:minimax/data/services/news_service.dart';
+import 'package:minimax/data/services/ping/ping_service.dart';
 import 'package:minimax/ui/screens/background_check_screen/background_check_controller.dart';
 import 'package:minimax/ui/screens/background_running/background_running_controller.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_controller.dart';
@@ -51,12 +53,24 @@ Future inject() async {
   Get.create(() => BatterySettingsController(Get.find()), permanent: true);
   Get.create(() => BackgroundCheckController(Get.find()), permanent: true);
   Get.create(() => LoaderController(Get.find(), Get.find(), Get.find()), permanent: true);
-  Get.create(() => InviteCodeController(), permanent: true);
-  Get.create(() => RewardsController(), permanent: true);
+  Get.create(() => InviteCodeController(
+    Get.find(),
+    Get.find(),
+  ), permanent: true,);
+  Get.create(
+    () => RewardsController(
+      Get.find(),
+      Get.find(),
+    ),
+    permanent: true,
+  );
   Get.create(() => BatteryOptimisationController(Get.find()), permanent: true);
 
   /// Services and repositories
   Get.create<NewsService>(() => NewsServiceImpl(Get.find()));
+  Get.create<PingService>(() => PingServiceImpl(Get.find()));
+
+  Get.create<PingRepository>(() => PingRepositoryImpl(Get.find()));
   Get.create<NewsRepository>(() => NewsRepositoryImpl(Get.find()));
   Get.create<IncentiveCashRepository>(() => IncentiveCashRepositoryImpl(Get.find(), Get.find()));
   Get.create<NodeStatusRepository>(() => NodeStatusRepositoryImpl(Get.find(), Get.find()));
