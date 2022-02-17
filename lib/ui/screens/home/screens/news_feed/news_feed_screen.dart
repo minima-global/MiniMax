@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/ui/screens/home/screens/news_feed/cells/news_card.dart';
@@ -53,11 +54,14 @@ class NewsFeedScreen extends GetWidget<NewsFeedController> {
             controller.loadNews(isRefreshing: true);
             return HapticFeedback.mediumImpact();
           }),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                SeparatedColumn.withSeparation(children: newsCards, separator: medium.toSpace()),
-              ],
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  SeparatedColumn.withSeparation(children: newsCards, separator: medium.toSpace()),
+                ],
+              ),
             ),
           ),
         ],
