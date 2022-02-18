@@ -85,7 +85,7 @@ dependencies {
 
     /// Own Android libs needed for the Service
     // Console for terminal
-    implementation('com.jraska:console:1.1.0')
+    implementation('com.jraska:console:1.2.0')
 
     // SSH Tunnel
     implementation('com.jcraft:jsch:0.1.55')
