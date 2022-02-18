@@ -65,7 +65,7 @@ class MiniMaxTranslations extends Translations {
         'incentiveCashScreenIncentiveCashProgramTitle': 'Set-Up Instructions',
         'incentiveCashScreenIncentiveCashProgramExplanation': """To start receiving Rewards, you must enter your Incentive ID into the field below.<p><p><ul> <li>If you know your Incentive ID, please enter it.</li><li>If you do not know your Incentive ID, please register or login to the Incentive Program website using the button below.</li></ul>""",
         'incentiveCashScreenIncentiveCashProgramCTA': 'Incentive Program Website',
-        'incentiveCashScreenIncentiveCashProgramCTAUrl': 'https://incentivecash.minima.global/',
+        'incentiveCashScreenIncentiveCashProgramCTAUrl': 'https://incentivecash.minima.global:8443/',
         'inviteCodeExplanation': '<b>Your Invite Code enables you to earn additional Rewards for inviting others to run a node and join the Incentive Program.</b><p>Once the Minima network reaches one million nodes, Invite Codes will no longer be active.<p>In order to receive your Invite Code, you must connect your Incentive ID to your node using the Incentive Program tab above.',
         'inviteCodeHint': 'Join Incentive Program to get Invite Code',
         'inviteCodeShareCTA': 'Share Invite Code',
