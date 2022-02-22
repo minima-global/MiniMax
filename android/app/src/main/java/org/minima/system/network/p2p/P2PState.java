@@ -38,9 +38,9 @@ public class P2PState {
     private Set<InetSocketAddress> knownPeers = new HashSet<>();
 
     /**
-     * The hosts Minima Address
+     * The hosts Minima Address - set a default
      */
-    private InetSocketAddress myMinimaAddress = null;
+    private InetSocketAddress myMinimaAddress = new InetSocketAddress(9001);
 
     /**
      * A secret to send with the ip request message
@@ -204,6 +204,7 @@ public class P2PState {
         json.put("knownPeers", addressListToJSONArray(new ArrayList<>(knownPeers)));
         json.put("is_accepting_connections", isAcceptingInLinks);
         json.put("all_links_count", allLinks.size());
+        json.put("deviceHashRate", getDeviceHashRate());
         //Block details..
         TxPoWTreeNode topnode 	= MinimaDB.getDB().getTxPoWTree().getTip();
         MiniNumber topblock 	= topnode.getBlockNumber();
