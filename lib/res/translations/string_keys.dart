@@ -99,6 +99,7 @@ class StringKeys {
   static const String inviteCodeCopiedSnackbarTitle = "inviteCodeCopiedSnackbarTitle";
   static const String inviteCodeCopiedSnackbarMessage = "inviteCodeCopiedSnackbarMessage";
   static const String inviteCodeMessageToCopyToClipboard = "inviteCodeMessageToCopyToClipboard";
+  static const String inviteCodeShareTitle = "inviteCodeShareTitle";
   static const String incentiveCashScreenBalancePingTitle = "incentiveCashScreenBalancePingTitle";
   static const String incentiveCashScreenBalancePingDateFormat1 = "incentiveCashScreenBalancePingDateFormat1";
   static const String incentiveCashScreenBalancePingDateFormat2 = "incentiveCashScreenBalancePingDateFormat2";

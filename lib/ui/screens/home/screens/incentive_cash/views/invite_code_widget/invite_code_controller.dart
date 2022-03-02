@@ -1,5 +1,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
 import 'package:minimax/data/repositories/ping_repository.dart';
@@ -20,9 +21,9 @@ class InviteCodeController extends GetxController {
     loadInviteCode();
   }
 
-  void copyInviteCodeToClipboard(String textToCopy) {
+  void copyInviteCodeToClipboard() {
     FlutterClipboard //
-            .copy(textToCopy)
+            .copy(inviteCodeController.text)
         .then((_) => copiedTrigger.trigger(null));
   }
 
@@ -35,5 +36,9 @@ class InviteCodeController extends GetxController {
       this.inviteCode(inviteCode);
       inviteCodeController.text = inviteCode;
     });
+  }
+
+  void shareLink({required String shareTitle, required String placeholder}) {
+    FlutterShare.share(title: shareTitle, text: placeholder.trArgs([inviteCodeController.text]));
   }
 }

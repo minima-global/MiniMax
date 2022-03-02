@@ -74,9 +74,7 @@ class InviteCodeWidget extends GetWidget<InviteCodeController> {
                     ),
                     controller.inviteCode.build(
                       (inviteCode) => InkWell(
-                        onTap: () => controller.copyInviteCodeToClipboard(
-                          StringKeys.inviteCodeMessageToCopyToClipboard.trArgs([controller.inviteCodeController.text]),
-                        ),
+                        onTap: () => controller.copyInviteCodeToClipboard(),
                         child: const Padding(
                           padding: EdgeInsetsDirectional.only(start: small1),
                           child: Icon(
@@ -93,7 +91,7 @@ class InviteCodeWidget extends GetWidget<InviteCodeController> {
             medium.toSpace(),
             createPrimaryCTA(
               text: StringKeys.inviteCodeShareCTA.tr,
-              onTap: () {},
+              onTap: () => controller.shareLink(shareTitle: StringKeys.inviteCodeShareTitle.tr,placeholder: StringKeys.inviteCodeMessageToCopyToClipboard),
             )
           ],
         ),
