@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-const String _baseUrl = "https://incentivecash.minima.global:8443";
+const String _baseUrl = "https://incentivecash.minima.global";
 
 class DioClient {
   late Dio dio;
