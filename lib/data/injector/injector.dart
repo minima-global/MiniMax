@@ -21,6 +21,7 @@ import 'package:minimax/ui/screens/home/screens/battery_optimisation/battery_opt
 import 'package:minimax/ui/screens/home/screens/help/help_controller.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/incentive_cash_controller.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/views/invite_code_widget/invite_code_controller.dart';
+import 'package:minimax/ui/screens/home/screens/news_feed/cells/news_card_controller.dart';
 import 'package:minimax/ui/screens/home/screens/news_feed/news_feed_controller.dart';
 import 'package:minimax/ui/screens/home/screens/node_status/node_status_controller.dart';
 import 'package:minimax/ui/screens/home/screens/rewards/rewards_controller.dart';
@@ -65,6 +66,7 @@ Future inject() async {
     permanent: true,
   );
   Get.create(() => BatteryOptimisationController(Get.find()), permanent: true);
+  Get.create(() => NewsCardController(), permanent: false);
 
   /// Services and repositories
   Get.create<NewsService>(() => NewsServiceImpl(Get.find()));

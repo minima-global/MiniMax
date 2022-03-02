@@ -77,6 +77,10 @@ class StringKeys {
   static const String homeScreenDrawerTitleTerminal = "homeScreenDrawerTitleTerminal";
   static const String homeScreenDrawerTitleHelp = "homeScreenDrawerTitleHelp";
 
+  // News
+  static const String newsCardReadLess = "newsCardReadLess";
+  static const String newsCardReadMore = "newsCardReadMore";
+
   // Incentive cash
   static const String incentiveCashScreenIncentiveProgramTab = "incentiveCashScreenIncentiveProgramTab";
   static const String incentiveCashScreenInviteCodeTab = "incentiveCashScreenInviteCodeTab";

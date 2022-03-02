@@ -53,6 +53,8 @@ class MiniMaxTranslations extends Translations {
         'homeScreenDrawerTitleBatteryOptimisation': 'Battery Optimization',
         'homeScreenDrawerTitleTerminal': 'Terminal',
         'homeScreenDrawerTitleHelp': 'Help',
+        'newsCardReadLess': 'Show Less…',
+        'newsCardReadMore': 'Show More…',
         'incentiveCashScreenIncentiveProgramTab': 'Incentive Program',
         'incentiveCashScreenInviteCodeTab': 'Invite Code',
         'incentiveCashScreenSetUpTab': 'Set-up instructions',
