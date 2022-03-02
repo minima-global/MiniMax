@@ -13,7 +13,7 @@ class NewsServiceImpl extends NewsService {
   @override
   Future<RssFeed> getNews() {
     return _dioClient.dio
-        .get("https://medium.com/feed/minimacommunity")
+        .get("https://medium.com/feed/minima-global/tagged/community")
         .then((value) => RssFeed.parse(value.data as String));
   }
 }
