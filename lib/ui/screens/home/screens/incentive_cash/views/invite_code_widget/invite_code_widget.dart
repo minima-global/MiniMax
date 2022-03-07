@@ -91,7 +91,10 @@ class InviteCodeWidget extends GetWidget<InviteCodeController> {
             medium.toSpace(),
             createPrimaryCTA(
               text: StringKeys.inviteCodeShareCTA.tr,
-              onTap: () => controller.shareLink(shareTitle: StringKeys.inviteCodeShareTitle.tr,placeholder: StringKeys.inviteCodeMessageToCopyToClipboard),
+              onTap: () => controller.shareLink(
+                shareTitle: StringKeys.inviteCodeShareTitle.tr,
+                placeholder: StringKeys.inviteCodeMessageToCopyToClipboard,
+              ),
             )
           ],
         ),
