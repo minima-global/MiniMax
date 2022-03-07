@@ -100,7 +100,7 @@ class RewardsInfoWidget extends StatelessWidget {
 
     return ListView.separated(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: widgets.length,
       itemBuilder: (_, position) => widgets[position],
       separatorBuilder: (_, __) => medium.toSpace(),

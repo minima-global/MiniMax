@@ -105,9 +105,8 @@ class MiniMaxTranslations extends Translations {
         'helpScreenLinkYoutube': 'https://www.youtube.com/channel/UCDe2j57uQrUVtVizFbDpsoQ/videos',
         'helpScreenLinkGithub': 'https://github.com/minima-global',
         'helpScreenLinkMinimaWhitePaper': 'https://cdn.minima.global/media/2021/07/02/Minima_Whitepaper_v9.pdf',
-        'helpScreenLinkTokenomicsPaper':
-        'https://cdn.minima.global/media/2021/11/16/Minima_Token_Economics_Aug2021-1.pdf',
-        'helpScreenLinkProtocolLayers': 'https://cdn.minima.global/media/2021/07/02/Protocol_Layers_.pdf',
+        'helpScreenLinkTokenomicsPaper': 'https://cdn.minima.global/media/2022/03/04/Minima_Token_Economics_2022.pdf',
+        'helpScreenLinkProtocolLayers': 'https://cdn.minima.global/media/2022/03/04/Protocol_Layers_2022.pdf',
         'pdfReaderPagesOfD': 'of %d',
         'pdfReaderCantLoadPdfError': 'Can\'t load the Pdf',
         'terminalScreenContinueWarningCTA': 'Continue',
