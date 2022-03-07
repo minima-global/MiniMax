@@ -13,6 +13,7 @@ import 'package:minimax/ui/screens/home/screens/news_feed/cells/news_card_contro
 import 'package:minimax/ui/screens/home/screens/news_feed/model/news_model.dart';
 import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/utils/extensions/rxn_extensions.dart';
+import 'package:minimax/utils/extensions/string_extensions.dart';
 
 class NewsCard extends GetWidget<NewsCardController> {
   final NewsModel _newsModel;
@@ -66,6 +67,17 @@ class NewsCard extends GetWidget<NewsCardController> {
   }
 
   Widget _buildTitle() {
+    final int titleLength = _newsModel.title.length;
+    if (_newsModel.content
+        .replaceAllWeirdCharacters()
+        .substring(0, titleLength * 2)
+        .contains(_newsModel.title.replaceAllWeirdCharacters())) {
+      // What a nightmare checking if the beginning of the article has the title included.
+      return Container();
+    }
+
+    _newsModel.content.substring(0, titleLength * 2).contains(RegExp(_newsModel.title, caseSensitive: false));
+
     return SizedBox(
       width: double.maxFinite,
       child: Text(
