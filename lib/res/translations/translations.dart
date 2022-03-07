@@ -169,12 +169,12 @@ class MiniMaxTranslations extends Translations {
         'rewardsInfoDailyRewardsTitle': 'Daily Node Rewards',
         'rewardsInfoDailyRewardsExplanation': 'You will earn 1 reward each day for keeping your node successfully connected to the network. Any rewards earned before the December 2021 Hard Fork are included in this total',
         'rewardsInfoInviteRewardTitle': 'Invite Rewards',
-        'rewardsInfoInviteRewardExplanation': 'For every person who registers using your invite code, you will earn an additional 0.1 of a Reward each day their node is running and successfully connected to the network.<p>Your Invite Code will remain active until we reach 1 million nodes. Whilst active, there is no cap on the number of times your Invite Code can be used.<p><b>Example Rewards based on a 30 day period:</b>',
+        'rewardsInfoInviteRewardExplanation': 'For every person who registers using your invite code, you will earn an additional 0.1 of a Reward each day their node is running and successfully connected to the network.<p>So if we assume that each of your invited people run their nodes for a 100 day period, <b>you could earn:</b>',
         'rewardsInfoAdditionalRewardsTitle': 'Additional Rewards',
         'rewardsInfoAdditionalRewardsExplanation': 'Breakdown of Rewards for your help within the Minima community, which includes the following:<p><ul><li>Bug Reports</li><li>Bounty Rewards</li><li>Strategic Grants</li><li>Developer Grants</li><li>Prizes</li>',
-        'rewardsInfoSPeople': '%s people = ',
+        'rewardsInfoSPeople': '%s people invited',
         'rewardsInfoSRewards': '%s Rewards',
-
+        'rewardsInfoInviteRewardsFooter': 'Your Invite Code will remain active until we reach 1 million nodes. Whilst active, there is no cap on the number of times your Invite Code can be used.',
       }
     };
   }

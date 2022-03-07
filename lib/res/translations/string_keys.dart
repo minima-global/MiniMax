@@ -202,5 +202,6 @@ class StringKeys {
   static const rewardsInfoAdditionalRewardsExplanation = 'rewardsInfoAdditionalRewardsExplanation';
   static const rewardsInfoSPeople = 'rewardsInfoSPeople';
   static const rewardsInfoSRewards = 'rewardsInfoSRewards';
+  static const rewardsInfoInviteRewardsFooter = 'rewardsInfoInviteRewardsFooter';
 
 }

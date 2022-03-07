@@ -64,36 +64,43 @@ class RewardsInfoWidget extends StatelessWidget {
 
   Widget _buildExtraRewardsExplanation() {
     final Map<int, num> peopleToRewardsList = {
-      5: 15,
-      10: 30,
-      15: 45,
-      20: 60,
+      5: 50,
+      10: 100,
+      15: 150,
+      20: 200,
     };
 
-    List<Widget> widgets = peopleToRewardsList.entries
-        .map(
-          (e) => semiTransparentModal(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: small1, horizontal: small2),
-              child: Row(
-                children: [
-                  Text(
-                    StringKeys.rewardsInfoSPeople.trArgs([e.key.toString()]),
-                    style: lmBodyCopyMedium.copyWith(color: coreBlackContrast),
-                  ),
-                  Text(
-                    StringKeys.rewardsInfoSRewards.trArgs([e.value.toString()]),
-                    style: lmBodyCopyMedium.copyWith(color: coreBlue100),
-                  )
-                ],
+    List<Widget> widgets = [];
+    widgets.add(small2.toSpace());
+
+    widgets.addAll(peopleToRewardsList.entries.map(
+      (e) => semiTransparentModal(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: small1, horizontal: small2),
+          child: Wrap(
+            direction: Axis.horizontal,
+            alignment: WrapAlignment.spaceBetween,
+            children: [
+              Text(
+                StringKeys.rewardsInfoSPeople.trArgs([e.key.toString()]),
+                style: lmBodyCopyMedium.copyWith(color: coreBlackContrast),
               ),
-            ),
+              Text(
+                StringKeys.rewardsInfoSRewards.trArgs([e.value.toString()]),
+                style: lmH4.copyWith(color: coreBlue100),
+              ),
+            ],
           ),
-        )
-        .toList();
+        ),
+      ),
+    ));
+
+    // Footer
+    widgets.add(simpleHtmlText(StringKeys.rewardsInfoInviteRewardsFooter.tr));
 
     return ListView.separated(
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: widgets.length,
       itemBuilder: (_, position) => widgets[position],
       separatorBuilder: (_, __) => medium.toSpace(),
