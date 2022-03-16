@@ -27,14 +27,14 @@ import org.minima.system.commands.Command;
 import org.minima.system.commands.CommandException;
 import org.minima.system.params.GlobalParams;
 import org.minima.utils.Crypto;
-import org.minima.utils.json.JSONArray;
+import org.minima.utils.MinimaLogger;
 import org.minima.utils.json.JSONObject;
 
 public class send extends Command {
 
 	
 	public send() {
-		super("send","[address:] [amount:] (tokenid:) - Send Minima or Tokens to an address");
+		super("send","[address:] [amount:] (floating:) (tokenid:) (state:{}) - Send Minima or Tokens to an address");
 	}
 	
 	@Override
@@ -47,6 +47,14 @@ public class send extends Command {
 		
 		if(address==null || amount==null) {
 			throw new CommandException("MUST specify adress and amount");
+		}
+		
+		//Is the coin floating 
+		boolean floating = getBooleanParam("floating",false);
+		
+		JSONObject state = new JSONObject();
+		if(existsParam("state")) {
+			state = getJSONObjectParam("state");
 		}
 		
 		//How much are we sending..
@@ -206,11 +214,26 @@ public class send extends Command {
 		
 		//Now make the sendamount correct
 		if(!tokenid.equals("0x00")) {
-			sendamount = token.getScaledMinimaAmount(sendamount);
+			
+			//Convert back and forward to make sure is a valid amount
+			MiniNumber tokenamount 	= token.getScaledMinimaAmount(sendamount); 
+			MiniNumber prectest 	= token.getScaledTokenAmount(tokenamount);
+			
+			if(!prectest.isEqual(sendamount)) {
+				throw new CommandException("Invalid Token amount to send.. "+amount);
+			}
+			
+			sendamount = tokenamount;
+					
+		}else {
+			//Check valid - for Minima..
+			if(!sendamount.isValidMinimaValue()) {
+				throw new CommandException("Invalid Minima amount to send.. "+amount);
+			}
 		}
 		
 		//Create the output
-		Coin recipient = new Coin(Coin.COINID_OUTPUT, sendaddress, sendamount, Token.TOKENID_MINIMA);
+		Coin recipient = new Coin(Coin.COINID_OUTPUT, sendaddress, sendamount, Token.TOKENID_MINIMA, floating, true);
 		
 		//Do we need to add the Token..
 		if(!tokenid.equals("0x00")) {
@@ -246,24 +269,22 @@ public class send extends Command {
 		}
 		
 		//Are there any State Variables
-		if(existsParam("state")) {
+		for(Object key : state.keySet()) {
 			
-			//Get the state JSONArray
-			JSONArray state = getJSONArrayParam("state");
-			for(Object st : state) {
-				
-				//They are JSONObjects
-				JSONObject json = (JSONObject)st;
-				
-				int port 		= Integer.parseInt(""+json.get("port"));
-				String data 	= (String)json.get("data");
+			//The Key is a String
+			String portstr = (String)key; 
 			
-				//Create a StateVariable
-				StateVariable sv = new StateVariable(port, data);
-				
-				//Add it..
-				transaction.addStateVariable(sv);
-			}
+			//The port
+			int port = Integer.parseInt(portstr);
+			
+			//Get the state var..
+			String var = (String) state.get(key);
+
+			//Create a state variable..
+			StateVariable sv = new StateVariable(port, var);
+			
+			//Add to the transaction..
+			transaction.addStateVariable(sv);
 		}
 		
 		//Calculate the TransactionID..

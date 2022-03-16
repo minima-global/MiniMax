@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:minimax/data/dependencies/battery.dart';
 import 'package:minimax/data/repositories/incentive_cash_repository.dart';
 import 'package:minimax/data/repositories/node_status_repository.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_model.dart';
@@ -9,13 +10,17 @@ import 'package:minimax/ui/screens/home/screens/node_status/model/node_status_mo
 class NodeStatusController extends GetxController {
   final IncentiveCashRepository _incentiveCashRepository;
   final NodeStatusRepository _nodeStatusRepository;
+  final BatteryProvider _batteryProvider;
 
-  final Rxn<IncentiveCashModel> incentiveCashModel = Rxn();
+  final Rxn<IncentiveProgramModel> incentiveCashModel = Rxn();
+  final Rxn<bool> batteryOptimisation = Rxn();
   final Rxn<NodeStatusModel> nodeStatusActive = Rxn();
+  final RxBool initiallyLoading = RxBool(true);
 
   NodeStatusController(
     this._incentiveCashRepository,
     this._nodeStatusRepository,
+    this._batteryProvider,
   );
 
   StreamSubscription? workingNodeSubscription;
@@ -26,6 +31,9 @@ class NodeStatusController extends GetxController {
 
     _refreshIncentiveCashStatus();
     _refreshNodeStatus();
+    _refreshBatteryOptimisation();
+
+    Future.delayed(const Duration(seconds: 5)).then((_) => initiallyLoading(false));
   }
 
   void _refreshIncentiveCashStatus() {
@@ -36,7 +44,7 @@ class NodeStatusController extends GetxController {
   }
 
   void _refreshNodeStatus() {
-    _nodeStatusRepository.getNodeStatus(refresh: false).then((nodeStatus) {
+    _nodeStatusRepository.getNodeStatus().then((nodeStatus) {
       if (!nodeStatus.infoAvailable) {
         /// Retry after 1 second if there are no blocks yet
         Future.delayed(const Duration(seconds: 1)).then((_) => _refreshNodeStatus());
@@ -53,6 +61,21 @@ class NodeStatusController extends GetxController {
         return null;
       });
     });
+  }
+
+  void _refreshBatteryOptimisation() {
+    _batteryProvider //
+        .isIgnoringBatteryOptimizationMethodName()
+        .then(batteryOptimisation);
+  }
+
+  Future refreshState() {
+    final List<Future> futures = [
+      _nodeStatusRepository.getNodeStatus().then(nodeStatusActive),
+      _incentiveCashRepository.getIncentiveCashInfo().then(incentiveCashModel),
+    ];
+
+    return Future.wait(futures);
   }
 
   @override

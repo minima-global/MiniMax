@@ -28,6 +28,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -74,6 +75,10 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
 }
 
 flutter {
@@ -83,13 +88,15 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    /// Own Android libs needed for the Service
-    // Console for terminal
-    implementation('com.jraska:console:1.1.0')
-
     // SSH Tunnel
     implementation('com.jcraft:jsch:0.1.55')
 
     implementation('org.bouncycastle:bcpkix-jdk15on:1.70')
     implementation('com.h2database:h2:1.4.200')
+
+    // Push notifications
+    implementation platform('com.google.firebase:firebase-bom:29.2.0')
+    implementation('com.google.firebase:firebase-messaging')
+    implementation('com.google.firebase:firebase-analytics')
+
 }

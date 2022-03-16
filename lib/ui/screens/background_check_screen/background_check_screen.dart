@@ -1,11 +1,17 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
+import 'package:minimax/res/translations/string_keys.dart';
+import 'package:minimax/ui/screens/background_check_screen/background_check_args.dart';
 import 'package:minimax/ui/screens/background_check_screen/background_check_controller.dart';
+import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
+import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
+import 'package:minimax/ui/screens/permissions_enabled/permission_enabled_args.dart';
 import 'package:minimax/ui/screens/permissions_enabled/permissions_enabled_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
@@ -16,6 +22,8 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
   BackgroundCheckScreen({Key? key}) : super(key: key);
 
   StreamSubscription? subscriptionToBatteryOptimization;
+
+  BackgroundCheckArgs get _args => Get.arguments as BackgroundCheckArgs;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,7 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
     subscriptionToBatteryOptimization = controller.isIgnoringBatteryOptimization.listen(
       (isIgnoring) {
         if (isIgnoring) {
-          Get.toNamed(PermissionsEnabledScreen.routeName);
+          _args.onAllowed();
           controller.onClose();
           subscriptionToBatteryOptimization?.cancel();
         }
@@ -56,7 +64,7 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
               medium.toSpace(),
               _buildBatterySettingsExplanation(),
               medium.toSpace(),
-              const CircularProgressIndicator(),
+              const CupertinoActivityIndicator(),
               medium.toSpace(),
               _buildActionButtons(),
             ],
@@ -70,13 +78,11 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
     return FutureBuilder<bool>(
       initialData: false,
       future: Future.delayed(const Duration(milliseconds: 1500)).then((_) => true),
-      builder: (_, s) => Visibility(
-        visible: s.data!,
+      builder: (_, s) => Opacity(
+        opacity: s.data! ? 1 : 0,
         child: Column(
           children: [
-            _buildConfirmButton(),
-            medium.toSpace(),
-            _buildSkipButton(),
+            _buildSkipButton(s.data!),
           ],
         ),
       ),
@@ -84,30 +90,28 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
   }
 
   Widget _buildTitle() {
-    return Text("Background check", style: lmH2.copyWith(color: coreBlue100));
+    return Text(
+      StringKeys.backgroundCheckTitle.tr,
+      style: lmH2.copyWith(color: coreBlue100),
+    );
   }
 
   Widget _buildBatterySettingsExplanation() {
     return Text(
-      "Waiting for your confirmation to accept to run Minima in the background…",
+      StringKeys.backgroundCheckExplanation.tr,
       style: lmBodyCopyMedium.copyWith(color: coreBlue100),
     );
   }
 
-  Widget _buildConfirmButton() {
-    return createPrimaryCTA(
-      text: "Show modal again",
-      onTap: controller.showModal,
-    );
-  }
-
-  Widget _buildSkipButton() {
+  Widget _buildSkipButton(bool enabled) {
     return createSecondaryCTA(
-      text: "Back to battery settings",
-      onTap: () {
-        subscriptionToBatteryOptimization?.cancel();
-        Get.back();
-      },
+      text: StringKeys.backgroundCheckBackToBatterySettingsCTA.tr,
+      onTap: enabled
+          ? () {
+              subscriptionToBatteryOptimization?.cancel();
+              Get.back();
+            }
+          : null,
     );
   }
 }

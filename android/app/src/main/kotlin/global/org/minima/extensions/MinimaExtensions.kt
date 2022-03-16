@@ -1,6 +1,6 @@
 package global.org.minima.extensions
 
-import com.jraska.console.Console
+import global.org.minima.console.ConsoleStreamHandler
 import io.flutter.plugin.common.MethodCall
 import org.minima.Minima
 
@@ -11,8 +11,8 @@ fun Minima.runCommandFromArguments(call: MethodCall): String {
     val commandResponse = runMinimaCMD(command)
 
     if (showInConsole == true) {
-        Console.writeLine(command)
-        Console.writeLine(commandResponse)
+        ConsoleStreamHandler.instance.addMessage(command ?: "")
+        ConsoleStreamHandler.instance.addMessage(commandResponse)
     }
 
     return commandResponse

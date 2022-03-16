@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -8,6 +6,9 @@ import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
+import 'package:minimax/ui/screens/home/screens/rewards/rewards_cash_screen.dart';
+import 'package:minimax/ui/screens/incentive_program_first_screen/incentive_program_first_screen.dart';
+import 'package:minimax/utils/extensions/object_extensions.dart';
 import 'package:minimax/ui/screens/home/home_controller.dart';
 import 'package:minimax/ui/screens/home/model/home_page_model.dart';
 import 'package:minimax/ui/screens/home/screens/battery_optimisation/battery_optimisation_screen.dart';
@@ -20,13 +21,15 @@ import 'package:minimax/ui/screens/home/ui/home_drawer_radio_widget.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/utils/extensions/rx_extensions.dart';
 
+const int navigatorId = 1233;
+
 class HomeScreen extends GetWidget<HomeController> {
   static const String routeName = "/home";
 
   HomeScreen({Key? key}) : super(key: key);
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<NavigatorState>? _navigatorKey = Get.nestedKey(Random().nextInt(1 << 32));
+  final GlobalKey<NavigatorState>? _navigatorKey = Get.nestedKey(navigatorId);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +52,7 @@ class HomeScreen extends GetWidget<HomeController> {
           leading: IconButton(
             padding: const EdgeInsets.all(medium),
             icon: const Icon(Icons.menu),
-            color: darkMode ? coreGrey5: coreBlackContrast,
+            color: darkMode ? coreGrey5 : coreBlackContrast,
             onPressed: () => _scaffoldKey.currentState?.openDrawer(),
           ),
         ),
@@ -69,11 +72,15 @@ class HomeScreen extends GetWidget<HomeController> {
   Widget _buildBody() {
     return Navigator(
       initialRoute: HomeController.defaultPageSelected.routeName,
-      onPopPage: (_, __) => true,
       onGenerateRoute: (RouteSettings routeSettings) {
-        return MaterialPageRoute(
-            builder: (_) =>
-                _nestedPages.firstWhereOrNull((element) => element.name == routeSettings.name)?.page() ?? Container());
+        HomePageModel.values
+            .firstWhereOrNull((element) => element.routeName == routeSettings.name)
+            ?.let((homePageModel) => controller.selectPage(homePageModel));
+
+        return GetPageRoute(
+          transition: Transition.fadeIn,
+          page: () => _nestedPages[routeSettings.name]?.call() ?? Container(),
+        );
       },
       key: _navigatorKey,
     );
@@ -90,7 +97,7 @@ class HomeScreen extends GetWidget<HomeController> {
               large2.toSpace(),
               _buildHomePagesSelectors(),
               const Spacer(),
-              _buildDrawerFooter(),
+              Align(alignment: Alignment.centerRight, child: _buildDrawerFooter()),
             ],
           ),
         ),
@@ -134,7 +141,7 @@ class HomeScreen extends GetWidget<HomeController> {
     }
     controller.selectPage(homePageModel);
 
-    _navigatorKey?.currentState?.pushReplacementNamed(homePageModel.routeName);
+    Get.toNamed(homePageModel.routeName, id: navigatorId);
   }
 
   Widget _buildHeaderTextDrawer() {
@@ -149,12 +156,16 @@ class HomeScreen extends GetWidget<HomeController> {
 
   Widget _buildDrawerFooter() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: large2),
+      padding: const EdgeInsets.symmetric(
+        vertical: large2,
+        horizontal: small1,
+      ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SvgPicture.asset(
             ImageKeys.minimaLogoLandscape,
-            height: 32,
+            height: 25,
           ),
         ],
       ),
@@ -162,40 +173,26 @@ class HomeScreen extends GetWidget<HomeController> {
   }
 }
 
-List<GetPage> _nestedPages = [
-  GetPage(
-    name: NodeStatusScreen.routeName,
-    page: () => const NodeStatusScreen(),
-  ),
-  GetPage(
-    name: IncentiveCashScreen.routeName,
-    page: () => const IncentiveCashScreen(),
-  ),
-  GetPage(
-    name: NewsFeedScreen.routeName,
-    page: () => const NewsFeedScreen(),
-  ),
-  GetPage(
-    name: BatteryOptimisationScreen.routeName,
-    page: () => const BatteryOptimisationScreen(),
-  ),
-  GetPage(
-    name: TerminalScreen.routeName,
-    page: () => TerminalScreen(),
-  ),
-  GetPage(
-    name: HelpScreen.routeName,
-    page: () => const HelpScreen(),
-  ),
-];
+Map<String, Widget Function()> _nestedPages = {
+  NodeStatusScreen.routeName: () => const NodeStatusScreen(),
+  IncentiveCashScreen.routeName: () => const IncentiveCashScreen(),
+  IncentiveProgramFirstScreen.routeName: () => const IncentiveProgramFirstScreen(),
+  RewardsScreen.routeName: () => const RewardsScreen(),
+  NewsFeedScreen.routeName: () => const NewsFeedScreen(),
+  BatteryOptimisationScreen.routeName: () => const BatteryOptimisationScreen(),
+  TerminalScreen.routeName: () => TerminalScreen(),
+  HelpScreen.routeName: () => const HelpScreen(),
+};
 
 extension HomePageModelRouteNames on HomePageModel {
   String get routeName {
     switch (this) {
       case HomePageModel.nodeStatus:
         return NodeStatusScreen.routeName;
-      case HomePageModel.incentiveCash:
-        return IncentiveCashScreen.routeName;
+      case HomePageModel.incentiveProgram:
+        return IncentiveProgramFirstScreen.routeName;
+      case HomePageModel.rewards:
+        return RewardsScreen.routeName;
       case HomePageModel.newsFeed:
         return NewsFeedScreen.routeName;
       case HomePageModel.batteryOptimisation:

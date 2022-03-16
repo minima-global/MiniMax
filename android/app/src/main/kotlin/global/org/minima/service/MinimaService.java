@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
-import com.jraska.console.Console;
-
 import org.minima.Minima;
 import org.minima.objects.TxPoW;
 import org.minima.system.Main;
@@ -31,6 +29,7 @@ import org.minima.utils.messages.MessageListener;
 import global.org.minima.MainActivity;
 import global.org.minima.R;
 import global.org.minima.boot.Alarm;
+import global.org.minima.console.ConsoleStreamHandler;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -125,8 +124,7 @@ public class MinimaService extends Service {
             public void processMessage(Message zMessage) {
 
                 if(zMessage.getMessageType().equals(MinimaLogger.MINIMA_LOG)){
-                    Console.writeLine(zMessage.getString("log"));
-
+                    ConsoleStreamHandler.Companion.getInstance().addMessage(zMessage.getString("log"));
                 }else if(zMessage.getMessageType().equals(NotifyManager.NOTIFY_POST)) {
                     //Get the JSON..
                     JSONObject notify = (JSONObject) zMessage.getObject("notify");

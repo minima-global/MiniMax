@@ -11,6 +11,7 @@ import org.minima.database.wallet.Wallet;
 import org.minima.objects.Coin;
 import org.minima.objects.CoinProof;
 import org.minima.objects.ScriptProof;
+import org.minima.objects.StateVariable;
 import org.minima.objects.Token;
 import org.minima.objects.Transaction;
 import org.minima.objects.TxPoW;
@@ -32,7 +33,7 @@ import org.minima.utils.json.JSONObject;
 public class tokencreate extends Command {
 
 	public tokencreate() {
-		super("tokencreate","[name:] [amount:] (decimals:) (script:)  - Create a token. 'name' can be a JSON Object");
+		super("tokencreate","[name:] [amount:] (decimals:) (script:) (state:{}) - Create a token. 'name' can be a JSON Object");
 	}
 	
 	@Override
@@ -44,12 +45,23 @@ public class tokencreate extends Command {
 			throw new CommandException("MUST specify name and amount");
 		}
 		
+		//Is there a state JSON
+		JSONObject state = new JSONObject();
+		if(existsParam("state")) {
+			state = getJSONObjectParam("state");
+		}
+		
 		//Is name a JSON
 		String name = null;
 		if(isParamJSONObject("name")) {
 			
 			//Get the JSON
 			JSONObject jsonname = getJSONObjectParam("name");
+			
+			//make sure there is a name object
+			if(!jsonname.containsKey("name")) {
+				throw new CommandException("MUST specify a 'name' for the token in the JSON");
+			}
 			
 			//Get the String version
 			name = jsonname.toString();
@@ -264,6 +276,25 @@ public class tokencreate extends Command {
 			
 			Coin changecoin = new Coin(Coin.COINID_OUTPUT, chgaddress, change, Token.TOKENID_MINIMA);
 			transaction.addOutput(changecoin);
+		}
+		
+		//Are there any State Variables
+		for(Object key : state.keySet()) {
+			
+			//The Key is a String
+			String portstr = (String)key; 
+			
+			//The port
+			int port = Integer.parseInt(portstr);
+			
+			//Get the state var..
+			String var = (String) state.get(key);
+
+			//Create a state variable..
+			StateVariable sv = new StateVariable(port, var);
+			
+			//Add to the transaction..
+			transaction.addStateVariable(sv);
 		}
 		
 		//Calculate the TransactionID..

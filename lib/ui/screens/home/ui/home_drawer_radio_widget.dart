@@ -46,8 +46,10 @@ extension HomePageModelExtensions on HomePageModel {
     switch (this) {
       case HomePageModel.nodeStatus:
         return StringKeys.homeScreenDrawerTitleNodeStatus.tr;
-      case HomePageModel.incentiveCash:
+      case HomePageModel.incentiveProgram:
         return StringKeys.homeScreenDrawerTitleIncentiveCash.tr;
+      case HomePageModel.rewards:
+        return StringKeys.homeScreenDrawerTitleRewards.tr;
       case HomePageModel.newsFeed:
         return StringKeys.homeScreenDrawerTitleNewsFeed.tr;
       case HomePageModel.batteryOptimisation:

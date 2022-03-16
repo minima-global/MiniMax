@@ -14,12 +14,12 @@ import 'package:minimax/utils/extensions/rx_extensions.dart';
 import 'package:minimax/utils/keyboard.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SetUpInstructionsWidget extends StatelessWidget {
+class IncentiveProgramFirstTabScreen extends StatelessWidget {
   final String? nodeId;
-  final IncentiveCashController controller;
+  final IncentiveProgramController controller;
   final FocusNode _nodeIdFocusNode = FocusNode();
 
-  SetUpInstructionsWidget(this.nodeId, this.controller, {Key? key}) : super(key: key);
+  IncentiveProgramFirstTabScreen(this.nodeId, this.controller, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +76,8 @@ class SetUpInstructionsWidget extends StatelessWidget {
 
   Widget _buildNodeIdInput() {
     return controller.lockedEdition.buildMapped(
-      (locked) => locked && nodeId != null,
-      (locked) => semiTransparentModal(
+          (bool locked) => locked && nodeId != null,
+          (bool locked) => semiTransparentModal(
         child: Container(
           width: double.maxFinite,
           padding: const EdgeInsets.all(medium),
@@ -100,15 +100,15 @@ class SetUpInstructionsWidget extends StatelessWidget {
                 text: nodeId == null
                     ? StringKeys.incentiveCashScreenSetUpTextFieldEnterFirstTime.tr
                     : locked
-                        ? StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdateLocked.tr
-                        : StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdate.tr,
+                    ? StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdateLocked.tr
+                    : StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdate.tr,
                 onTap: locked
                     ? null
                     : () {
-                        controller.saveNodeId();
-                        hideKeyboard();
-                        _nodeIdFocusNode.unfocus();
-                      },
+                  controller.saveNodeId();
+                  _nodeIdFocusNode.unfocus();
+                  hideKeyboard().then((_) => controller.closeLock());
+                },
                 colour: primaryCTAColour.withOpacity(locked ? 0.2 : 1),
               )
             ],
@@ -135,7 +135,7 @@ class SetUpInstructionsWidget extends StatelessWidget {
                 maxLines: 1,
                 textInputAction: TextInputAction.done,
                 style: lmH2.copyWith(color: coreBlackContrast),
-                decoration: InputDecoration(
+                decoration: InputDecoration.collapsed(
                   hintText: StringKeys.incentiveCashScreenSetUpTextFieldHint.tr,
                   hintStyle: lmH2.copyWith(color: coreGrey40),
                 ),
@@ -149,13 +149,13 @@ class SetUpInstructionsWidget extends StatelessWidget {
                 padding: const EdgeInsetsDirectional.only(start: small1),
                 child: locked
                     ? const Icon(
-                        Icons.lock_outline,
-                        color: coreGrey100,
-                      )
+                  Icons.lock_outline,
+                  color: coreGrey100,
+                )
                     : SvgPicture.asset(
-                        ImageKeys.icLockOpen,
-                        color: coreGrey100,
-                      ),
+                  ImageKeys.icLockOpen,
+                  color: coreGrey100,
+                ),
               ),
             ),
         ],

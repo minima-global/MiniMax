@@ -48,17 +48,15 @@ class DeciderScreen extends GetWidget<DeciderController> {
               ),
               child: semiTransparentModal(
                 child: Container(
-                  width: double.maxFinite,
-                  padding: const EdgeInsets.symmetric(horizontal: large1),
+                  constraints: const BoxConstraints(minHeight: 350),
+                  padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      large6.toSpace(),
                       _buildMinimaLogo(),
-                      large1.toSpace(),
                       _buildSetUpYourPhone(),
                       _buildVersion(),
-                      small1.toSpace(),
                     ],
                   ),
                 ),
@@ -76,14 +74,11 @@ class DeciderScreen extends GetWidget<DeciderController> {
   }
 
   Widget _buildSetUpYourPhone() {
-    return SizedBox(
-      height: 72,
-      child: Center(
-        child: Text(
-          StringKeys.deciderMainContent.tr,
-          style: lmH2.copyWith(
-            color: coreBlackContrast,
-          ),
+    return Center(
+      child: Text(
+        StringKeys.deciderMainContent.tr,
+        style: lmH2.copyWith(
+          color: coreBlackContrast,
         ),
       ),
     );
@@ -91,14 +86,11 @@ class DeciderScreen extends GetWidget<DeciderController> {
 
   Widget _buildVersion() {
     return controller.version.build(
-      (version) => SizedBox(
-        height: 70,
-        child: Center(
-          child: Text(
-            version,
-            style: lmBodyCopyMedium.copyWith(
-              color: coreBlackContrast,
-            ),
+          (version) => Center(
+        child: Text(
+          version,
+          style: lmBodyCopyMedium.copyWith(
+            color: coreBlackContrast,
           ),
         ),
       ),

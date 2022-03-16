@@ -3,11 +3,13 @@ package org.minima.system.brains;
 import java.util.ArrayList;
 
 import org.minima.database.MinimaDB;
+import org.minima.database.txpowdb.TxPoWDB;
 import org.minima.database.txpowtree.TxPoWTreeNode;
 import org.minima.database.wallet.KeyRow;
 import org.minima.database.wallet.Wallet;
 import org.minima.objects.Coin;
 import org.minima.objects.Token;
+import org.minima.objects.TxPoW;
 import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
 
@@ -197,6 +199,111 @@ public class TxPoWSearcher {
 		}
 		
 		return null;
+	}
+	
+	public static TxPoW getTxPoWBlock(MiniNumber zBlockNumber) {
+		
+		//Start node position
+		TxPoWTreeNode tip = MinimaDB.getDB().getTxPoWTree().getTip();
+		
+		//Now cycle through and get all your coins..
+		while(tip != null) {
+
+			//Is this the block
+			if(tip.getBlockNumber().isEqual(zBlockNumber)) {
+				return tip.getTxPoW();
+			}
+			
+			//And move back up the tree
+			tip = tip.getParent();
+		}
+		
+		return null;
+	}
+
+	public static ArrayList<TxPoW> searchTxPoWviaAddress(MiniData zAddress) {
+		
+		ArrayList<TxPoW> ret = new ArrayList<>();
+		
+		//Start node position
+		TxPoWTreeNode tip = MinimaDB.getDB().getTxPoWTree().getTip();
+		
+		//The TxPoWDB
+		TxPoWDB txpdb = MinimaDB.getDB().getTxPoWDB();
+		
+		//Now cycle through and get all your coins..
+		while(tip != null) {
+
+			//Get ALL the coins..
+			ArrayList<Coin> coins = tip.getAllCoins();
+			
+			//Get the details..
+			for(Coin coin : coins) {
+				
+				//Is this the one..
+				if(coin.getAddress().equals(zAddress)) {
+					
+					//This block has this address somewhere.. find it..
+					TxPoW txblock = tip.getTxPoW();
+					
+					//Search ..
+					if(checkTxPoWForAddress(txblock, zAddress)) {
+						ret.add(txblock);
+					}
+					
+					//Check all the transactions..
+					ArrayList<MiniData> txns = txblock.getBlockTransactions();
+					for(MiniData txn : txns) {
+						
+						//Get this TxPoW..
+						TxPoW txp = txpdb.getTxPoW(txn.to0xString());
+						if(txp != null) {
+							if(checkTxPoWForAddress(txp, zAddress)) {
+								ret.add(txp);
+							}
+						}
+					}
+				}
+			}
+			
+			//And move back up the tree
+			tip = tip.getParent();
+		}
+		
+		return ret;
+	}
+	
+	public static boolean checkTxPoWForAddress(TxPoW zTxPoW, MiniData zAddress) {
+		
+		ArrayList<Coin> coins = zTxPoW.getTransaction().getAllInputs();
+		for(Coin cc : coins) {
+			if(cc.getAddress().isEqual(zAddress)) {
+				return true;
+			}
+		}
+		
+		coins = zTxPoW.getBurnTransaction().getAllInputs();
+		for(Coin cc : coins) {
+			if(cc.getAddress().isEqual(zAddress)) {
+				return true;
+			}
+		}
+		
+		coins = zTxPoW.getTransaction().getAllOutputs();
+		for(Coin cc : coins) {
+			if(cc.getAddress().isEqual(zAddress)) {
+				return true;
+			}
+		}
+		
+		coins = zTxPoW.getBurnTransaction().getAllOutputs();
+		for(Coin cc : coins) {
+			if(cc.getAddress().isEqual(zAddress)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public static ArrayList<Token> getAllTokens() {

@@ -32,15 +32,14 @@ class SetUpScreen extends StatelessWidget {
       ),
       child: semiTransparentModal(
         child: Container(
+          constraints: const BoxConstraints(minHeight: 350),
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              large2.toSpace(),
               _buildMinimaLogo(),
-              large4.toSpace(),
               _buildSetUpYourPhone(),
-              large2.toSpace(),
               _buildContinueButton(),
             ],
           ),

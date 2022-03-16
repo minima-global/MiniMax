@@ -1,6 +1,7 @@
 enum HomePageModel {
   nodeStatus,
-  incentiveCash,
+  incentiveProgram,
+  rewards,
   newsFeed,
   batteryOptimisation,
   terminal,

@@ -2,16 +2,17 @@ package global.org.minima
 
 import android.content.ComponentName
 import android.content.ServiceConnection
+import android.os.Bundle
 import android.os.IBinder
-import com.jraska.console.Console
-import global.org.minima.terminal.TerminalPlatformView
+import global.org.minima.console.ConsoleStreamHandler
 import global.org.minima.extensions.isIgnoringBatteryOptimizationModal
-import global.org.minima.extensions.showIgnoreBatteryOptimizationModal
 import global.org.minima.extensions.runCommandFromArguments
+import global.org.minima.extensions.showIgnoreBatteryOptimizationModal
 import global.org.minima.extensions.startMinimaService
 import global.org.minima.service.MinimaService.MyBinder
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
 import org.minima.Minima
 
@@ -20,20 +21,19 @@ class MainActivity : FlutterActivity(), ServiceConnection {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        ConsoleStreamHandler.init(this)
 
         configureMethodHandler(flutterEngine)
-        configurePlatformViews(flutterEngine)
+        configureEventChannel(flutterEngine)
     }
 
-    private fun configurePlatformViews(flutterEngine: FlutterEngine) {
-        flutterEngine
-            .platformViewsController
-            .registry
-            .registerViewFactory(TerminalPlatformView.viewTypeId, TerminalPlatformView.factory)
+    private fun configureEventChannel(flutterEngine: FlutterEngine) {
+        EventChannel(flutterEngine.dartExecutor.binaryMessenger, mainEventChannel)
+            .setStreamHandler(ConsoleStreamHandler.instance)
     }
 
     private fun configureMethodHandler(flutterEngine: FlutterEngine) {
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, mainChannel).setMethodCallHandler { call, result ->
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, mainPlatformChannel).setMethodCallHandler { call, result ->
             when (call.method) {
                 "ignoreBatteryOptimization" -> result.success(showIgnoreBatteryOptimizationModal())
                 "isIgnoringBatteryOptimization" -> result.success(isIgnoringBatteryOptimizationModal())
@@ -49,7 +49,7 @@ class MainActivity : FlutterActivity(), ServiceConnection {
                     }
                         ?: result.error("MINIMA_NOT_STARTED", "Minima not started", null)
                 }
-                "clearTerminal" -> Console.clear()
+                "clearTerminal" -> ConsoleStreamHandler.instance.clearMessages()
                 else -> result.notImplemented()
             }
         }
@@ -70,4 +70,5 @@ class MainActivity : FlutterActivity(), ServiceConnection {
     }
 }
 
-private const val mainChannel = "com.minima/main"
+private const val mainPlatformChannel = "com.minima/main"
+private const val mainEventChannel = "com.minima/events"

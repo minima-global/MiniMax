@@ -321,8 +321,10 @@ public class NIOMessage implements Runnable {
 				if(!TxPoWChecker.checkTxPoWScripts(tipmmr, txpow, tiptxpow.getBlockNumber())) {
 					//Monotonic txn MUST pass the script check or is INVALID - since will never pass..
 					if(txpow.isMonotonic()) {
-						MinimaLogger.log("Error Monotonic TxPoW failed script check from "+mClientUID+" "+txpow.getTxPoWID());
+						MinimaLogger.log("Error Monotonic TxPoW failed script check from Client:"+mClientUID+" "+txpow.getTxPoWID());
 						return;
+					}else {
+						MinimaLogger.log("NON-Monotonic TxPoW failed script check from Client:"+mClientUID+" "+txpow.getTxPoWID());
 					}
 					
 					//Could be block related

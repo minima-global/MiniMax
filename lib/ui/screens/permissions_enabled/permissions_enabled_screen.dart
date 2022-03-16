@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
-import 'package:minimax/ui/screens/incentive_cash_explanation/incentive_cash_explanation_screen.dart';
+import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
+import 'package:minimax/ui/screens/permissions_enabled/permission_enabled_args.dart';
+import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
@@ -13,6 +16,8 @@ class PermissionsEnabledScreen extends StatelessWidget {
   static const String routeName = "/background_running/permissions_enabled";
 
   const PermissionsEnabledScreen({Key? key}) : super(key: key);
+
+  PermissionEnabledArgs get _args => Get.arguments as PermissionEnabledArgs;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,7 @@ class PermissionsEnabledScreen extends StatelessWidget {
       child: semiTransparentModal(
         child: AnimatedContainer(
           color: allDone,
-          padding: const EdgeInsetsDirectional.only(top: large2,  start: large1, end: large1, bottom: small2),
+          padding: const EdgeInsetsDirectional.only(top: large2, start: large1, end: large1, bottom: small2),
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOutCubic,
           child: Column(
@@ -86,16 +91,19 @@ class PermissionsEnabledScreen extends StatelessWidget {
   }
 
   Widget _buildExplanation() {
-    final TextStyle explanationStyle = lmBodyCopy.copyWith(color: coreBlackContrast, height: 1.4);
+    final TextStyle explanationStyle = lmBodyCopyMedium.copyWith(color: coreBlackContrast, height: 1.4);
     return ConstrainedBox(
       // Min 5 lines
       constraints: BoxConstraints(
         minHeight: (explanationStyle.height ?? 0) * 5 * (explanationStyle.fontSize ?? 0),
         minWidth: double.maxFinite,
       ),
-      child: Text(
+      child: simpleHtmlText(
         StringKeys.permissionsEnabledExplanation.tr,
-        style: explanationStyle,
+        overridingStyles: (styles) => styles
+          ..addEntries(
+            [MapEntry("html", Style.fromTextStyle(explanationStyle))],
+          ),
       ),
     );
   }
@@ -107,15 +115,10 @@ class PermissionsEnabledScreen extends StatelessWidget {
         createRobotoButton(
           text: StringKeys.permissionsEnabledCTA.tr,
           colour: coreBlue100,
-          onTap: _continue,
+          onTap: _args.onContinueTapped,
         ),
       ],
     );
-  }
-
-  void _continue() {
-    Get.offNamedUntil(
-        IncentiveCashExplanationScreen.routeName, (route) => route.settings.name == BatterySettingsScreen.routeName);
   }
 
 }

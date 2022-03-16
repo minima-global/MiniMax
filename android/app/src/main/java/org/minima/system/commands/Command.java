@@ -14,6 +14,7 @@ import org.minima.system.commands.base.coinexport;
 import org.minima.system.commands.base.coinimport;
 import org.minima.system.commands.base.cointrack;
 import org.minima.system.commands.base.debugflag;
+import org.minima.system.commands.base.file;
 import org.minima.system.commands.base.getaddress;
 import org.minima.system.commands.base.hash;
 import org.minima.system.commands.base.hashtest;
@@ -58,6 +59,7 @@ import org.minima.system.commands.txn.txninput;
 import org.minima.system.commands.txn.txnlist;
 import org.minima.system.commands.txn.txnoutput;
 import org.minima.system.commands.txn.txnpost;
+import org.minima.system.commands.txn.txnscript;
 import org.minima.system.commands.txn.txnsign;
 import org.minima.system.commands.txn.txnstate;
 import org.minima.utils.MinimaLogger;
@@ -73,12 +75,12 @@ public abstract class Command {
 			new message(), new trace(), new help(), new printtree(), new automine(), new printmmr(), new rpc(),
 			new send(), new balance(), new tokencreate(), new tokens(),new getaddress(), new newaddress(), new debugflag(),
 			new incentivecash(), new sshtunnel(), new webhooks(),
-			new backup(), new restore(), new test(), 
+			new backup(), new restore(), new test(), new file(),
 			new runscript(), new tutorial(),new keys(),new scripts(),
 			
 			new txncreate(), new txninput(),new txnlist(), new txnclear(),
 			new txnoutput(),new txnstate(),new txnsign(),new txnpost(),new txndelete(),
-			new txnexport(),new txnimport(),new txncheck(),
+			new txnexport(),new txnimport(),new txncheck(), new txnscript(),
 			
 			new coinimport(), new coinexport(),new cointrack(),
 			
@@ -177,11 +179,19 @@ public abstract class Command {
 	
 	
 	
-	public JSONObject getJSONObjectParam(String zParamName) {
+	public JSONObject getJSONObjectParam(String zParamName) throws CommandException{
+		if(!existsParam(zParamName)) {
+			throw new CommandException("param not specified : "+zParamName);
+		}
+		
 		return (JSONObject) mParams.get(zParamName);
 	}
 	
-	public JSONArray getJSONArrayParam(String zParamName) {
+	public JSONArray getJSONArrayParam(String zParamName) throws CommandException {
+		if(!existsParam(zParamName)) {
+			throw new CommandException("param not specified : "+zParamName);
+		}
+		
 		return (JSONArray) mParams.get(zParamName);
 	}
 	
@@ -318,6 +328,17 @@ public abstract class Command {
 				try {
 					json = (JSONArray) new JSONParser().parse(value);
 				} catch (ParseException e) {
+					
+					//Is this a state variable
+					if(command.equals("txnstate")) {
+						
+						//Could be a String variable.. add normal String parameter to..
+						comms.getParams().put(name, value);
+						
+						continue;
+					}
+					
+					//Otherwise is just a broken JSONArray
 					return new missingcmd(command,"Invalid JSON parameter for "+command+" @ "+token+" "+e.toString());
 				}
 				
@@ -390,7 +411,7 @@ public abstract class Command {
 	
 	private static String[] splitStringJSON(String zInput) {
 		//Are there any JSON in this..
-		if(zInput.length()>10000 && zInput.indexOf("{") == -1) {
+		if(zInput.length()>10000 && zInput.indexOf("{") == -1 && zInput.indexOf("[") == -1) {
 			return splitterQuotedPattern(zInput);
 		}
 		

@@ -1,4 +1,4 @@
-enum IncentiveCashTab {
-  setUpInstructions,
-  balance,
+enum IncentiveProgramTab {
+  incentiveProgram,
+  inviteCode,
 }

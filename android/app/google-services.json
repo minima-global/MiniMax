@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "170332936097",
+    "project_id": "minima-minima",
+    "storage_bucket": "minima-minima.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170332936097:android:9f0d01282f6612ce489de0",
+        "android_client_info": {
+          "package_name": "global.org.minima"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "170332936097-6ed4gl76p9j27rifk35lolh96rhasmku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfAyB3Ra4SEJ2phc1Gb-FYGaVZ5ZTDLug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "170332936097-6ed4gl76p9j27rifk35lolh96rhasmku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

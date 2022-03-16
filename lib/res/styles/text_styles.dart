@@ -53,5 +53,12 @@ TextStyle button = const TextStyle(
 
 TextStyle lmH4Xtra = lmH4.copyWith(fontWeight: FontWeight.w800);
 
+TextStyle mono = const TextStyle(
+  fontFamily: _robotoMono,
+  fontSize: 11,
+  fontWeight: FontWeight.w300,
+);
+
 const _manrope = "manrope";
+const _robotoMono = "roboto-mono";
 const _roboto = "roboto";

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/dimensions.dart';
@@ -31,10 +32,8 @@ class AllDoneScreen extends StatelessWidget {
           vertical: large8,
           horizontal: large1,
         ),
-        child: Material(
-          elevation: mainModalElevation,
-          borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
-          color: allDone,
+        child: semiTransparentModal(
+          colour: allDone,
           child: AnimatedContainer(
             padding: const EdgeInsetsDirectional.only(top: large2,  start: large1, end: large1, bottom: small2),
             duration: const Duration(milliseconds: 300),
@@ -97,7 +96,10 @@ class AllDoneScreen extends StatelessWidget {
       ),
       child: simpleHtmlText(
         StringKeys.allDoneScreenContent.tr,
-        style: explanationStyle,
+        overridingStyles: (styles) => styles
+          ..addEntries(
+            [MapEntry("html", Style.fromTextStyle(explanationStyle))],
+          ),
       ),
     );
   }

@@ -15,11 +15,14 @@ class NewsFeedController extends GetxController {
   void onInit() {
     super.onInit();
 
-    loadNews();
+    loadNews(isRefreshing: false);
   }
 
-  Future<void> loadNews() {
-    loading(true);
+  Future<void> loadNews({required bool isRefreshing}) {
+    if (!isRefreshing) {
+      loading(true);
+    }
+
     _newsRepository
         .getNews()
         .then((news) => this.news(news))
