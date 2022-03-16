@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:minimax/data/bridge/channels.dart';
 import 'package:minimax/data/dependencies/background.dart';
 import 'package:minimax/data/dependencies/battery.dart';
+import 'package:minimax/data/dependencies/console.dart';
 import 'package:minimax/data/dependencies/network_manager.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
 import 'package:minimax/data/repositories/incentive_cash_repository.dart';
@@ -78,8 +79,12 @@ Future inject() async {
   Get.create<NodeStatusRepository>(() => NodeStatusRepositoryImpl(Get.find(), Get.find()));
 
   /// Dependencies
-  // Main bridge platform channel
+  // Main bridge platform channel and event channels
   Get.create(() => mainPlatformChannel, permanent: true);
+  Get.create(() => mainEventChannel, permanent: true);
+
+  // Console
+  Get.put(MinimaConsole(Get.find()), permanent: true);
 
   // Battery provider
   Get.create(() => BatteryProvider(Get.find()));

@@ -3,12 +3,12 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:minimax/data/dependencies/console.dart';
 import 'package:minimax/res/images/images.dart';
 import 'package:minimax/res/styles/colours.dart';
 import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
-import 'package:minimax/ui/platform_views/console_platform_view.dart';
 import 'package:minimax/ui/screens/home/screens/terminal/terminal_controller.dart';
 import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
@@ -22,6 +22,7 @@ class TerminalScreen extends GetWidget<TerminalController> {
   TerminalScreen({Key? key}) : super(key: key);
 
   final FocusNode _runCommandFocusNode = FocusNode();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +105,37 @@ class TerminalScreen extends GetWidget<TerminalController> {
     return Container(
       padding: const EdgeInsetsDirectional.only(top: large2, start: large1, end: large1),
       height: Get.height * 0.69,
-      child: const ConsolePlatformView(),
+      child: _buildConsole(),
     );
+  }
+
+  Widget _buildConsole() {
+    return StreamBuilder(
+        stream: MinimaConsole.streamReceiver,
+        builder: (_, __) {
+          Future.delayed(Duration.zero).then(
+            (value) => _scrollController.jumpTo(_scrollController.position.maxScrollExtent),
+          );
+          return Scrollbar(
+            child: Expanded(
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: MinimaConsole.messages
+                      .map(
+                        (e) => SelectableText(
+                          e,
+                          style: mono.copyWith(color: white),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ),
+          );
+        });
   }
 
   Widget _buildCommandInput() {
