@@ -117,21 +117,19 @@ class TerminalScreen extends GetWidget<TerminalController> {
             (value) => _scrollController.jumpTo(_scrollController.position.maxScrollExtent),
           );
           return Scrollbar(
-            child: Expanded(
-              child: SingleChildScrollView(
-                controller: _scrollController,
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: MinimaConsole.messages
-                      .map(
-                        (e) => SelectableText(
-                          e,
-                          style: mono.copyWith(color: white),
-                        ),
-                      )
-                      .toList(),
-                ),
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: MinimaConsole.messages
+                    .map(
+                      (e) => SelectableText(
+                        e,
+                        style: mono.copyWith(color: white),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           );
