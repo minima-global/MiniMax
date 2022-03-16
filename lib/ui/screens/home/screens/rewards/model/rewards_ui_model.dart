@@ -14,7 +14,7 @@ abstract class RewardsUIModel {
         rewards: pingResponseModel.rewards.communityRewards +
             pingResponseModel.rewards.dailyRewards +
             pingResponseModel.rewards.inviterRewards +
-            pingResponseModel.rewards.communityRewards,
+            pingResponseModel.rewards.previousRewards,
         dailyNodeRewards: pingResponseModel.rewards.dailyRewards
             + pingResponseModel.rewards.previousRewards,
         inviteRewards: pingResponseModel.rewards.inviterRewards,
