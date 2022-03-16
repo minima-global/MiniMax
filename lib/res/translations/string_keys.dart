@@ -204,4 +204,8 @@ class StringKeys {
   static const rewardsInfoSRewards = 'rewardsInfoSRewards';
   static const rewardsInfoInviteRewardsFooter = 'rewardsInfoInviteRewardsFooter';
 
+  // Push notifications channels
+  static const regularNotificationsChannel = 'regularNotificationsChannel';
+  static const updatesNotificationsChannel = 'updatesNotificationsChannel';
+
 }

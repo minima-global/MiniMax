@@ -174,6 +174,8 @@ class MiniMaxTranslations extends Translations {
         'rewardsInfoSPeople': '%s people invited',
         'rewardsInfoSRewards': '%s Rewards',
         'rewardsInfoInviteRewardsFooter': 'Your Invite Code will remain active until we reach 1 million nodes. Whilst active, there is no cap on the number of times your Invite Code can be used.',
+        'regularNotificationsChannel': 'Regular notifications',
+        'updatesNotificationsChannel': 'Notifications from updates',
       }
     };
   }

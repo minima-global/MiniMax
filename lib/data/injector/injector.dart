@@ -6,6 +6,7 @@ import 'package:minimax/data/dependencies/battery.dart';
 import 'package:minimax/data/dependencies/console.dart';
 import 'package:minimax/data/dependencies/network_manager.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
+import 'package:minimax/data/push_notifications/push_notifications_provider.dart';
 import 'package:minimax/data/repositories/incentive_cash_repository.dart';
 import 'package:minimax/data/repositories/news_repository.dart';
 import 'package:minimax/data/repositories/node_status_repository.dart';
@@ -105,4 +106,7 @@ Future inject() async {
 
   // Version
   Get.putAsync(() => PackageInfo.fromPlatform());
+  
+  // Android push notifications channels
+  Get.put(PushNotificationsProvider(), permanent: true);
 }
