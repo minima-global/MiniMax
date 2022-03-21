@@ -1,6 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:minimax/data/bridge/channels.dart';
+import 'package:minimax/data/crashlytics/crashlytics_provider.dart';
 import 'package:minimax/data/dependencies/background.dart';
 import 'package:minimax/data/dependencies/battery.dart';
 import 'package:minimax/data/dependencies/console.dart';
@@ -109,4 +110,6 @@ Future inject() async {
   
   // Android push notifications channels
   Get.put(PushNotificationsProvider(), permanent: true);
+  // Crashlytics
+  Get.put(CrashlyticsProvider(), permanent: true);
 }
