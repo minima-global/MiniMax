@@ -1,27 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:minimax/data/dependencies/background.dart';
-import 'package:minimax/data/dependencies/persistence.dart';
 
 class TerminalController extends GetxController {
   final BackgroundService _backgroundService;
-  final MinimaStorage _minimaStorage;
 
-  final Rxn<bool> userHasSeenTerminalWarningAlready = Rxn();
+  final RxBool userHasSeenTerminalWarningAlready = RxBool(false);
 
   final TextEditingController runCommandController = TextEditingController();
 
-  TerminalController(this._backgroundService, this._minimaStorage);
-
-  @override
-  void onInit() {
-    super.onInit();
-    _refreshWarning();
-  }
-
-  void _refreshWarning() {
-    _minimaStorage.getUserSeenTerminalCopyPasteAtLeastOnce().then(userHasSeenTerminalWarningAlready);
-  }
+  TerminalController(this._backgroundService);
 
   void runCommand() {
     if (runCommandController.text.isNotEmpty) {
@@ -35,8 +23,6 @@ class TerminalController extends GetxController {
   }
 
   void warningUnderstood() {
-    _minimaStorage //
-        .setUserSeenTerminalCopyPasteAtLeastOnce(true)
-        .then((_) => _refreshWarning());
+    userHasSeenTerminalWarningAlready(true);
   }
 }

@@ -34,6 +34,7 @@ class StringKeys {
 
   // Background running
   static const String backgroundRunningTitle = "backgroundRunningTitle";
+  static const String backgroundRunningTitleMustRun = "backgroundRunningTitleMustRun";
   static const String backgroundRunningBigTitle = "backgroundRunningBigTitle";
   static const String backgroundRunningBigTitleAreYouSure = "backgroundRunningBigTitleAreYouSure";
   static const String backgroundRunningExplanation2 = "backgroundRunningExplanation2";
@@ -91,12 +92,12 @@ class StringKeys {
   static const String incentiveCashScreenSetUpTextFieldEnterUpdateLocked =
       "incentiveCashScreenSetUpTextFieldEnterUpdateLocked";
   static const String incentiveCashScreenSetUpTextFieldHint = "incentiveCashScreenSetUpTextFieldHint";
-  static const String incentiveCashScreenIncentiveCashProgramTitle = "incentiveCashScreenIncentiveCashProgramTitle";
   static const String incentiveCashScreenIncentiveCashProgramExplanation =
       "incentiveCashScreenIncentiveCashProgramExplanation";
   static const String incentiveCashScreenIncentiveCashProgramCTA = "incentiveCashScreenIncentiveCashProgramCTA";
   static const String incentiveCashScreenIncentiveCashProgramCTAUrl = "incentiveCashScreenIncentiveCashProgramCTAUrl";
   static const String inviteCodeExplanation = "inviteCodeExplanation";
+  static const String inviteCodeExplanationCodeEntered = "inviteCodeExplanationCodeEntered";
   static const String inviteCodeHint = "inviteCodeHint";
   static const String inviteCodeTextFormTitle = "inviteCodeTextFormTitle";
   static const String inviteCodeShareCTA = "inviteCodeShareCTA";
@@ -202,7 +203,6 @@ class StringKeys {
   static const rewardsInfoAdditionalRewardsExplanation = 'rewardsInfoAdditionalRewardsExplanation';
   static const rewardsInfoSPeople = 'rewardsInfoSPeople';
   static const rewardsInfoSRewards = 'rewardsInfoSRewards';
-  static const rewardsInfoInviteRewardsFooter = 'rewardsInfoInviteRewardsFooter';
 
   // Push notifications channels
   static const regularNotificationsChannel = 'regularNotificationsChannel';

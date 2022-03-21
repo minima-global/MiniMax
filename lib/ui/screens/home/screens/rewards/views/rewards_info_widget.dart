@@ -77,9 +77,8 @@ class RewardsInfoWidget extends StatelessWidget {
       (e) => semiTransparentModal(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: small1, horizontal: small2),
-          child: Wrap(
-            direction: Axis.horizontal,
-            alignment: WrapAlignment.spaceBetween,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 StringKeys.rewardsInfoSPeople.trArgs([e.key.toString()]),
@@ -94,9 +93,6 @@ class RewardsInfoWidget extends StatelessWidget {
         ),
       ),
     ));
-
-    // Footer
-    widgets.add(simpleHtmlText(StringKeys.rewardsInfoInviteRewardsFooter.tr));
 
     return ListView.separated(
       shrinkWrap: true,

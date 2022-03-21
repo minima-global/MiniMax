@@ -13,7 +13,7 @@ import 'package:minimax/ui/screens/home/screens/terminal/terminal_controller.dar
 import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
-import 'package:minimax/utils/extensions/rxn_extensions.dart';
+import 'package:minimax/utils/extensions/rx_extensions.dart';
 import 'package:minimax/utils/keyboard.dart';
 
 class TerminalScreen extends GetWidget<TerminalController> {
@@ -37,7 +37,7 @@ class TerminalScreen extends GetWidget<TerminalController> {
   }
 
   Widget _buildBody(bool isKeyboardVisible) {
-    return controller.userHasSeenTerminalWarningAlready.buildIgnoreNull(
+    return controller.userHasSeenTerminalWarningAlready.build(
       (userHasSeenTerminalWarningAlready) =>
           userHasSeenTerminalWarningAlready ? _buildMainTerminal(isKeyboardVisible) : _buildWarningCopyPasteTerminal(),
     );

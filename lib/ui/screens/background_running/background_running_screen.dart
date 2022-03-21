@@ -47,7 +47,7 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildTitle(),
+                _buildTitle(state),
                 small1.toSpace(),
                 _buildSeparator(state),
                 medium.toSpace(),
@@ -75,14 +75,23 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
     );
   }
 
-  Widget _buildTitle() {
+  Widget _buildTitle(BackgroundRunningState state) {
     return SizedBox(
       width: double.maxFinite,
       child: Text(
-        StringKeys.backgroundRunningTitle.tr,
+        _createTitle(state),
         style: lmBodyCopy.copyWith(fontSize: 14, color: coreBlackContrast),
       ),
     );
+  }
+
+  String _createTitle(BackgroundRunningState state) {
+    switch (state) {
+      case BackgroundRunningState.doubleConfirm:
+        return StringKeys.backgroundRunningTitleMustRun.tr;
+      default:
+        return StringKeys.backgroundRunningTitle.tr;
+    }
   }
 
   Widget _buildSeparator(BackgroundRunningState state) {

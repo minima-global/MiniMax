@@ -40,8 +40,6 @@ class IncentiveProgramFirstTabScreen extends StatelessWidget {
         padding: const EdgeInsets.all(large1),
         child: Column(
           children: [
-            _buildIncentiveCashInfoTitle(),
-            small1.toSpace(),
             _buildIncentiveCashInfoExplanation(),
             large2.toSpace(),
             createSecondaryCTA(
@@ -56,16 +54,6 @@ class IncentiveProgramFirstTabScreen extends StatelessWidget {
 
   void _goToIncentiveCashUrl() {
     launch(StringKeys.incentiveCashScreenIncentiveCashProgramCTAUrl.tr);
-  }
-
-  Widget _buildIncentiveCashInfoTitle() {
-    return SizedBox(
-      width: double.maxFinite,
-      child: Text(
-        StringKeys.incentiveCashScreenIncentiveCashProgramTitle.tr,
-        style: lmH4Xtra.copyWith(color: coreBlue100),
-      ),
-    );
   }
 
   Widget _buildIncentiveCashInfoExplanation() {

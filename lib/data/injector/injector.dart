@@ -52,7 +52,7 @@ Future inject() async {
   Get.create(() => IncentiveProgramFirstController(Get.find()), permanent: true);
   Get.create(() => HelpController(), permanent: true);
   Get.create(() => PDFController(), permanent: true);
-  Get.create(() => TerminalController(Get.find(), Get.find()), permanent: true);
+  Get.create(() => TerminalController(Get.find()), permanent: true);
   Get.create(() => BatterySettingsController(Get.find()), permanent: true);
   Get.create(() => BackgroundCheckController(Get.find()), permanent: true);
   Get.create(() => LoaderController(Get.find(), Get.find(), Get.find()), permanent: true);

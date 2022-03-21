@@ -39,41 +39,41 @@ class InviteCodeWidget extends GetWidget<InviteCodeController> {
   }
 
   Widget _buildTextFormField() {
-    return semiTransparentModal(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: large1, horizontal: medium),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: large1),
-              child: Text(
-                StringKeys.inviteCodeTextFormTitle.tr,
-                style: lmH4.copyWith(color: coreBlackContrast),
+    return controller.inviteCode.buildIgnoreNull(
+      (_) => semiTransparentModal(
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: large1, horizontal: medium),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: large1),
+                child: Text(
+                  StringKeys.inviteCodeTextFormTitle.tr,
+                  style: lmH4.copyWith(color: coreBlackContrast),
+                ),
               ),
-            ),
-            small2.toSpace(),
-            semiTransparentModal(
-              child: Padding(
-                padding: const EdgeInsets.all(medium),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        enabled: false,
-                        controller: controller.inviteCodeController,
-                        keyboardType: TextInputType.visiblePassword,
-                        maxLines: 1,
-                        textInputAction: TextInputAction.done,
-                        style: lmH4.copyWith(color: coreBlackContrast),
-                        decoration: InputDecoration.collapsed(
-                          hintText: StringKeys.inviteCodeHint.tr,
-                          hintStyle: lmH4.copyWith(color: coreGrey40),
+              small2.toSpace(),
+              semiTransparentModal(
+                child: Padding(
+                  padding: const EdgeInsets.all(medium),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          enabled: false,
+                          controller: controller.inviteCodeController,
+                          keyboardType: TextInputType.visiblePassword,
+                          maxLines: 1,
+                          textInputAction: TextInputAction.done,
+                          style: lmH4.copyWith(color: coreBlackContrast),
+                          decoration: InputDecoration.collapsed(
+                            hintText: StringKeys.inviteCodeHint.tr,
+                            hintStyle: lmH4.copyWith(color: coreGrey40),
+                          ),
                         ),
                       ),
-                    ),
-                    controller.inviteCode.build(
-                      (inviteCode) => InkWell(
+                      InkWell(
                         onTap: () => controller.copyInviteCodeToClipboard(),
                         child: const Padding(
                           padding: EdgeInsetsDirectional.only(start: small1),
@@ -83,34 +83,41 @@ class InviteCodeWidget extends GetWidget<InviteCodeController> {
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            medium.toSpace(),
-            createPrimaryCTA(
-              text: StringKeys.inviteCodeShareCTA.tr,
-              onTap: () => controller.shareLink(
-                shareTitle: StringKeys.inviteCodeShareTitle.tr,
-                placeholder: StringKeys.inviteCodeMessageToCopyToClipboard,
-              ),
-            )
-          ],
+              medium.toSpace(),
+              createPrimaryCTA(
+                text: StringKeys.inviteCodeShareCTA.tr,
+                onTap: () => controller.shareLink(
+                  shareTitle: StringKeys.inviteCodeShareTitle.tr,
+                  placeholder: StringKeys.inviteCodeMessageToCopyToClipboard,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildInviteSentence() {
-    return semiTransparentModal(
-      child: Padding(
-        padding: const EdgeInsets.all(medium),
-        child: simpleHtmlText(
-          StringKeys.inviteCodeExplanation.tr,
+    return controller.inviteCode.build((inviteCode) {
+      String text =
+          (inviteCode == null) ? StringKeys.inviteCodeExplanation.tr : StringKeys.inviteCodeExplanationCodeEntered.tr;
+
+      final Widget widget = semiTransparentModal(
+        child: Padding(
+          padding: const EdgeInsets.all(medium),
+          child: simpleHtmlText(
+            text,
+          ),
         ),
-      ),
-    );
+      );
+      // Don't remove this aberration, the html won't refresh.
+      return inviteCode == null ? Container(child: widget) : widget;
+    });
   }
 
   void _onCopied(_) {
