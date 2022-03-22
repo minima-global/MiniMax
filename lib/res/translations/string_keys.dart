@@ -118,7 +118,6 @@ class StringKeys {
   static const String helpScreenCommunityTab = "helpScreenCommunityTab";
   static const String helpScreenCommunityDev = "helpScreenCommunityDev";
   static const String helpScreenCommunityTechPapers = "helpScreenCommunityTechPapers";
-  static const String helpScreenTileCommunityWiki = "helpScreenTileCommunityWiki";
   static const String helpScreenTileDiscord = "helpScreenTileDiscord";
   static const String helpScreenTileTelegram = "helpScreenTileTelegram";
   static const String helpScreenTileTwitter = "helpScreenTileTwitter";
@@ -129,7 +128,6 @@ class StringKeys {
   static const String helpScreenTileMinimaWhitePaper = "helpScreenTileMinimaWhitePaper";
   static const String helpScreenTileTokenomicsPaper = "helpScreenTileTokenomicsPaper";
   static const String helpScreenTileProtocolLayers = "helpScreenTileProtocolLayers";
-  static const String helpScreenLinkCommunityWiki = "helpScreenLinkCommunityWiki";
   static const String helpScreenLinkDiscord = "helpScreenLinkDiscord";
   static const String helpScreenLinkTelegram = "helpScreenLinkTelegram";
   static const String helpScreenLinkTwitter = "helpScreenLinkTwitter";

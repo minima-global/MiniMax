@@ -14,12 +14,6 @@ class HelpCommunityWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        buildCard(
-          text: StringKeys.helpScreenTileCommunityWiki.tr,
-          imageAsset: ImageKeys.icMinimaCircle,
-          onTap: () => launch(StringKeys.helpScreenLinkCommunityWiki.tr),
-        ),
-        small1.toSpace(),
         Row(
           children: [
             Flexible(

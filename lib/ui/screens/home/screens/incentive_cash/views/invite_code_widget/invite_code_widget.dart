@@ -48,7 +48,7 @@ class InviteCodeWidget extends GetWidget<InviteCodeController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: large1),
+                padding: const EdgeInsets.symmetric(horizontal: medium),
                 child: Text(
                   StringKeys.inviteCodeTextFormTitle.tr,
                   style: lmH4.copyWith(color: coreBlackContrast),
