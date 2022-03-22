@@ -73,7 +73,7 @@ class MiniMaxTranslations extends Translations {
         'inviteCodeShareCTA': 'Share Invite Link',
         'inviteCodeTextFormTitle': 'Invite Link',
         'inviteCodeCopiedSnackbarTitle': 'Invite link',
-        'inviteCodeCopiedSnackbarMessage': 'Code copied to your clipboard',
+        'inviteCodeCopiedSnackbarMessage': 'Copied to your clipboard',
         'inviteCodeMessageToCopyToClipboard': 'Hey! You can earn Rewards for running a node on the Minima network. 😊\n\nRegister via my Invite Link:\nhttps://incentive.minima.global/account/register?inviteCode=%s\n\nThen get your node set up & join the community:\nhttps://discord.gg/minima',
         'inviteCodeLink': 'https://incentive.minima.global/account/register?inviteCode=%s',
         'inviteCodeShareTitle': 'Join Minima with me',

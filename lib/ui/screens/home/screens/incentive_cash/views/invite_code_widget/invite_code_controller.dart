@@ -21,9 +21,9 @@ class InviteCodeController extends GetxController {
     loadInviteCode();
   }
 
-  void copyInviteCodeToClipboard() {
+  void copyInviteCodeToClipboard({required String textToCopy}) {
     FlutterClipboard //
-            .copy(inviteCode.value ?? "")
+            .copy(textToCopy)
         .then((_) => copiedTrigger.trigger(null));
   }
 
@@ -37,7 +37,7 @@ class InviteCodeController extends GetxController {
     });
   }
 
-  void shareLink({required String shareTitle, required String placeholder}) {
-    FlutterShare.share(title: shareTitle, text: placeholder.trArgs([inviteCode.value ?? ""]));
+  void shareLink({required String shareTitle, required String text}) {
+    FlutterShare.share(title: shareTitle, text: text);
   }
 }
