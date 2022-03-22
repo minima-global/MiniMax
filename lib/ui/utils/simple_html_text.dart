@@ -30,6 +30,7 @@ Widget simpleHtmlText(
   }
 
   return Html(
+    key: Key(text),
     data: text,
     onLinkTap: (String? url, _, __, ___) => onLinkTap != null ? onLinkTap(url) : url?.let((url) => launch(url)),
     tagsList: Html.tags..removeWhere((element) => ["img", "figure"].contains(element)),
