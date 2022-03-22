@@ -19,6 +19,8 @@ class IncentiveProgramFirstTabScreen extends StatelessWidget {
   final IncentiveProgramController controller;
   final FocusNode _nodeIdFocusNode = FocusNode();
 
+  bool get hasNodeId => nodeId?.isNotEmpty == true;
+
   IncentiveProgramFirstTabScreen(this.nodeId, this.controller, {Key? key}) : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class IncentiveProgramFirstTabScreen extends StatelessWidget {
     ];
 
     return Column(
-      children: nodeId != null ? widgets : widgets.reversed.toList(),
+      children: hasNodeId ? widgets : widgets.reversed.toList(),
     );
   }
 
@@ -41,7 +43,6 @@ class IncentiveProgramFirstTabScreen extends StatelessWidget {
         child: Column(
           children: [
             _buildIncentiveCashInfoExplanation(),
-            large2.toSpace(),
             createSecondaryCTA(
               text: StringKeys.incentiveCashScreenIncentiveCashProgramCTA.tr,
               onTap: _goToIncentiveCashUrl,
@@ -57,15 +58,37 @@ class IncentiveProgramFirstTabScreen extends StatelessWidget {
   }
 
   Widget _buildIncentiveCashInfoExplanation() {
-    return simpleHtmlText(
-      StringKeys.incentiveCashScreenIncentiveCashProgramExplanation.tr,
-    );
+    if (hasNodeId) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: small1),
+        child: simpleHtmlText(
+          StringKeys.incentiveCashScreenIncentiveCashProgramExplanationWithNodeId.tr,
+        ),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: large2),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              StringKeys.incentiveCashScreenIncentiveCashProgramTitle.tr,
+              style: lmH4.copyWith(color: coreBlue100),
+            ),
+            small1.toSpace(),
+            simpleHtmlText(
+              StringKeys.incentiveCashScreenIncentiveCashProgramExplanationWithoutNodeId.tr,
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   Widget _buildNodeIdInput() {
     return controller.lockedEdition.buildMapped(
-          (bool locked) => locked && nodeId != null,
-          (bool locked) => semiTransparentModal(
+      (bool locked) => locked && hasNodeId,
+      (bool locked) => semiTransparentModal(
         child: Container(
           width: double.maxFinite,
           padding: const EdgeInsets.all(medium),
@@ -85,18 +108,18 @@ class IncentiveProgramFirstTabScreen extends StatelessWidget {
               ),
               medium.toSpace(),
               createPrimaryCTA(
-                text: nodeId == null
+                text: !hasNodeId
                     ? StringKeys.incentiveCashScreenSetUpTextFieldEnterFirstTime.tr
                     : locked
-                    ? StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdateLocked.tr
-                    : StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdate.tr,
+                        ? StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdateLocked.tr
+                        : StringKeys.incentiveCashScreenSetUpTextFieldEnterUpdate.tr,
                 onTap: locked
                     ? null
                     : () {
-                  controller.saveNodeId();
-                  _nodeIdFocusNode.unfocus();
-                  hideKeyboard().then((_) => controller.closeLock());
-                },
+                        controller.saveNodeId();
+                        _nodeIdFocusNode.unfocus();
+                        hideKeyboard().then((_) => controller.closeLock());
+                      },
                 colour: primaryCTAColour.withOpacity(locked ? 0.2 : 1),
               )
             ],
@@ -130,20 +153,20 @@ class IncentiveProgramFirstTabScreen extends StatelessWidget {
               ),
             ),
           ),
-          if (nodeId != null)
+          if (hasNodeId)
             InkWell(
               onTap: controller.toggleLock,
               child: Padding(
                 padding: const EdgeInsetsDirectional.only(start: small1),
                 child: locked
                     ? const Icon(
-                  Icons.lock_outline,
-                  color: coreGrey100,
-                )
+                        Icons.lock_outline,
+                        color: coreGrey100,
+                      )
                     : SvgPicture.asset(
-                  ImageKeys.icLockOpen,
-                  color: coreGrey100,
-                ),
+                        ImageKeys.icLockOpen,
+                        color: coreGrey100,
+                      ),
               ),
             ),
         ],
@@ -152,7 +175,7 @@ class IncentiveProgramFirstTabScreen extends StatelessWidget {
   }
 
   void _focusIfNeeded(bool locked) {
-    if (nodeId == null) {
+    if (!hasNodeId) {
       return;
     }
     if (!locked) {

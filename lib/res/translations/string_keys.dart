@@ -34,9 +34,8 @@ class StringKeys {
 
   // Background running
   static const String backgroundRunningTitle = "backgroundRunningTitle";
-  static const String backgroundRunningTitleMustRun = "backgroundRunningTitleMustRun";
   static const String backgroundRunningBigTitle = "backgroundRunningBigTitle";
-  static const String backgroundRunningBigTitleAreYouSure = "backgroundRunningBigTitleAreYouSure";
+  static const String backgroundRunningBigTitleMinimaBackground = "backgroundRunningBigTitleMinimaBackground";
   static const String backgroundRunningExplanation2 = "backgroundRunningExplanation2";
   static const String backgroundRunningExplanation3 = "backgroundRunningExplanation3";
   static const String backgroundRunningCTAYes = "backgroundRunningCTAYes";
@@ -92,8 +91,11 @@ class StringKeys {
   static const String incentiveCashScreenSetUpTextFieldEnterUpdateLocked =
       "incentiveCashScreenSetUpTextFieldEnterUpdateLocked";
   static const String incentiveCashScreenSetUpTextFieldHint = "incentiveCashScreenSetUpTextFieldHint";
-  static const String incentiveCashScreenIncentiveCashProgramExplanation =
-      "incentiveCashScreenIncentiveCashProgramExplanation";
+  static const String incentiveCashScreenIncentiveCashProgramExplanationWithNodeId =
+      "incentiveCashScreenIncentiveCashProgramExplanationWithNodeId";
+  static const String incentiveCashScreenIncentiveCashProgramExplanationWithoutNodeId =
+      "incentiveCashScreenIncentiveCashProgramExplanationWithoutNodeId";
+  static const String incentiveCashScreenIncentiveCashProgramTitle = "incentiveCashScreenIncentiveCashProgramTitle";
   static const String incentiveCashScreenIncentiveCashProgramCTA = "incentiveCashScreenIncentiveCashProgramCTA";
   static const String incentiveCashScreenIncentiveCashProgramCTAUrl = "incentiveCashScreenIncentiveCashProgramCTAUrl";
   static const String inviteCodeExplanation = "inviteCodeExplanation";

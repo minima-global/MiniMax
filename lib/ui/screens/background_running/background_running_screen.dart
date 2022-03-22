@@ -79,19 +79,10 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
     return SizedBox(
       width: double.maxFinite,
       child: Text(
-        _createTitle(state),
+        StringKeys.backgroundRunningTitle.tr,
         style: lmBodyCopy.copyWith(fontSize: 14, color: coreBlackContrast),
       ),
     );
-  }
-
-  String _createTitle(BackgroundRunningState state) {
-    switch (state) {
-      case BackgroundRunningState.doubleConfirm:
-        return StringKeys.backgroundRunningTitleMustRun.tr;
-      default:
-        return StringKeys.backgroundRunningTitle.tr;
-    }
   }
 
   Widget _buildSeparator(BackgroundRunningState state) {
@@ -118,7 +109,7 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
         return StringKeys.backgroundRunningBigTitle.tr;
       case BackgroundRunningState.doubleConfirm:
         HapticFeedback.heavyImpact();
-        return StringKeys.backgroundRunningBigTitleAreYouSure.tr;
+        return StringKeys.backgroundRunningBigTitleMinimaBackground.tr;
     }
   }
 
