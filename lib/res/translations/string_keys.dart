@@ -83,6 +83,7 @@ class StringKeys {
 
   // Incentive cash
   static const String incentiveCashScreenIncentiveProgramTab = "incentiveCashScreenIncentiveProgramTab";
+  static const String inviteCodeLink = "inviteCodeLink";
   static const String incentiveCashScreenInviteCodeTab = "incentiveCashScreenInviteCodeTab";
   static const String incentiveCashScreenSetUpTextFieldTitle = "incentiveCashScreenSetUpTextFieldTitle";
   static const String incentiveCashScreenSetUpTextFieldEnterFirstTime =
@@ -100,7 +101,6 @@ class StringKeys {
   static const String incentiveCashScreenIncentiveCashProgramCTAUrl = "incentiveCashScreenIncentiveCashProgramCTAUrl";
   static const String inviteCodeExplanation = "inviteCodeExplanation";
   static const String inviteCodeExplanationCodeEntered = "inviteCodeExplanationCodeEntered";
-  static const String inviteCodeHint = "inviteCodeHint";
   static const String inviteCodeTextFormTitle = "inviteCodeTextFormTitle";
   static const String inviteCodeShareCTA = "inviteCodeShareCTA";
   static const String inviteCodeCopiedSnackbarTitle = "inviteCodeCopiedSnackbarTitle";

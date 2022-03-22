@@ -4,12 +4,12 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
 import 'package:minimax/data/repositories/ping_repository.dart';
+import 'package:minimax/res/translations/string_keys.dart';
 
 class InviteCodeController extends GetxController {
   final PingRepository _pingRepository;
   final MinimaStorage _minimaStorage;
 
-  final TextEditingController inviteCodeController = TextEditingController();
   final Rxn<String> inviteCode = Rxn<String>();
   final Rxn copiedTrigger = Rxn();
 
@@ -23,7 +23,7 @@ class InviteCodeController extends GetxController {
 
   void copyInviteCodeToClipboard() {
     FlutterClipboard //
-            .copy(inviteCodeController.text)
+            .copy(inviteCode.value ?? "")
         .then((_) => copiedTrigger.trigger(null));
   }
 
@@ -34,11 +34,10 @@ class InviteCodeController extends GetxController {
         .then((value) => value.inviteCode)
         .then((inviteCode) {
       this.inviteCode(inviteCode);
-      inviteCodeController.text = inviteCode;
     });
   }
 
   void shareLink({required String shareTitle, required String placeholder}) {
-    FlutterShare.share(title: shareTitle, text: placeholder.trArgs([inviteCodeController.text]));
+    FlutterShare.share(title: shareTitle, text: placeholder.trArgs([inviteCode.value ?? ""]));
   }
 }

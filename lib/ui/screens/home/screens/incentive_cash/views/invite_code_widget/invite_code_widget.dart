@@ -1,3 +1,4 @@
+import 'package:extended_text/extended_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -40,7 +41,7 @@ class InviteCodeWidget extends GetWidget<InviteCodeController> {
 
   Widget _buildTextFormField() {
     return controller.inviteCode.buildIgnoreNull(
-      (_) => semiTransparentModal(
+      (inviteCode) => semiTransparentModal(
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: large1, horizontal: medium),
           child: Column(
@@ -60,17 +61,14 @@ class InviteCodeWidget extends GetWidget<InviteCodeController> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextFormField(
-                          enabled: false,
-                          controller: controller.inviteCodeController,
-                          keyboardType: TextInputType.visiblePassword,
+                        child: ExtendedText(
+                          StringKeys.inviteCodeLink.trArgs([inviteCode]),
                           maxLines: 1,
-                          textInputAction: TextInputAction.done,
-                          style: lmH4.copyWith(color: coreBlackContrast),
-                          decoration: InputDecoration.collapsed(
-                            hintText: StringKeys.inviteCodeHint.tr,
-                            hintStyle: lmH4.copyWith(color: coreGrey40),
+                          overflowWidget: TextOverflowWidget(
+                            child: Text("… ", style: lmH4.copyWith(color: coreGrey40)),
+                            position: TextOverflowPosition.middle,
                           ),
+                          style: lmH4.copyWith(color: coreBlackContrast),
                         ),
                       ),
                       InkWell(
