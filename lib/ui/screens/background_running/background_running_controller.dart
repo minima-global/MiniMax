@@ -14,14 +14,7 @@ class BackgroundRunningWarningController extends GetxController {
   BackgroundRunningWarningController(this._minimaStorage);
 
   void noTapped() {
-    switch (state.value) {
-      case BackgroundRunningState.confirm:
-        backTrigger.trigger(null);
-        break;
-      case BackgroundRunningState.doubleConfirm:
-        state(BackgroundRunningState.confirm);
-        break;
-    }
+    backTrigger.trigger(null);
   }
 
   void yesTapped() {
