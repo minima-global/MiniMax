@@ -9,10 +9,6 @@ import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/background_check_screen/background_check_args.dart';
 import 'package:minimax/ui/screens/background_check_screen/background_check_controller.dart';
-import 'package:minimax/ui/screens/battery_settings/battery_settings_screen.dart';
-import 'package:minimax/ui/screens/congratulations/congratulations_screen.dart';
-import 'package:minimax/ui/screens/permissions_enabled/permission_enabled_args.dart';
-import 'package:minimax/ui/screens/permissions_enabled/permissions_enabled_screen.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 
@@ -20,8 +16,6 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
   static const String routeName = "/background_check";
 
   BackgroundCheckScreen({Key? key}) : super(key: key);
-
-  StreamSubscription? subscriptionToBatteryOptimization;
 
   BackgroundCheckArgs get _args => Get.arguments as BackgroundCheckArgs;
 
@@ -37,12 +31,12 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
   }
 
   void _listenWhenAllowed() {
-    subscriptionToBatteryOptimization = controller.isIgnoringBatteryOptimization.listen(
+    controller.subscriptionToBatteryOptimization = controller.isIgnoringBatteryOptimization.listen(
       (isIgnoring) {
         if (isIgnoring) {
           _args.onAllowed();
           controller.onClose();
-          subscriptionToBatteryOptimization?.cancel();
+          controller.subscriptionToBatteryOptimization?.cancel();
         }
       },
     );
@@ -108,10 +102,11 @@ class BackgroundCheckScreen extends GetWidget<BackgroundCheckController> {
       text: StringKeys.backgroundCheckBackToBatterySettingsCTA.tr,
       onTap: enabled
           ? () {
-              subscriptionToBatteryOptimization?.cancel();
+              controller.subscriptionToBatteryOptimization?.cancel();
               Get.back();
             }
           : null,
     );
   }
+
 }
