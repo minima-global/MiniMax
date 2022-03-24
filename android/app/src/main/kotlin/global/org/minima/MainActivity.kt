@@ -19,9 +19,13 @@ import org.minima.Minima
 class MainActivity : FlutterActivity(), ServiceConnection {
     private var minima: Minima? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        ConsoleStreamHandler.init(this)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        ConsoleStreamHandler.init(this)
 
         configureMethodHandler(flutterEngine)
         configureEventChannel(flutterEngine)
