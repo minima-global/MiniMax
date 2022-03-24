@@ -50,6 +50,6 @@ fun MainActivity.startMinimaService(call: MethodCall) {
             putExtra(runInBackgroundWhenKilledKey, runInBackgroundEvenWhenKilled)
         }
         startForegroundService(minimaIntent)
-        bindService(minimaIntent, this, Context.BIND_AUTO_CREATE)
+        shouldUnbind = bindService(minimaIntent, this, Context.BIND_AUTO_CREATE)
     }, 2000)
 }

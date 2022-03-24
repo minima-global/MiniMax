@@ -19,6 +19,8 @@ import org.minima.Minima
 class MainActivity : FlutterActivity(), ServiceConnection {
     private var minima: Minima? = null
 
+    internal var shouldUnbind = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         ConsoleStreamHandler.init(this)
         super.onCreate(savedInstanceState)
@@ -70,7 +72,10 @@ class MainActivity : FlutterActivity(), ServiceConnection {
 
     override fun onDestroy() {
         super.onDestroy()
-        unbindService(this)
+        if (shouldUnbind) {
+            unbindService(this)
+            shouldUnbind = false
+        }
     }
 }
 
