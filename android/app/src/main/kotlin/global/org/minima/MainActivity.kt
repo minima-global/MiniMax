@@ -55,7 +55,10 @@ class MainActivity : FlutterActivity(), ServiceConnection {
                     }
                         ?: result.error("MINIMA_NOT_STARTED", "Minima not started", null)
                 }
-                "clearTerminal" -> ConsoleStreamHandler.instance.clearMessages()
+                "clearTerminal" -> {
+                    ConsoleStreamHandler.instance.clearMessages()
+                    result.success(true)
+                }
                 else -> result.notImplemented()
             }
         }
