@@ -5,19 +5,20 @@ extension IterableExtensions<T, E> on Iterable<T> {
     if (predicate == null) {
       return getOrNull(0);
     } else {
-      try {
-        return firstWhere(predicate);
-      } on StateError {
-        return null;
+      for (T element in this) {
+        if (predicate(element)) {
+          return element;
+        }
       }
+
+      return null;
     }
   }
 
   T? getOrNull(int index) {
-    try {
+    if (length > index && index >= 0) {
       return elementAt(index);
-    } catch (exception) {
-      // Happening when the index is negative or it's out of bounds
+    } else {
       return null;
     }
   }

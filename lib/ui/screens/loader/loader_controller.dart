@@ -4,6 +4,7 @@ import 'package:minimax/data/dependencies/background.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
 import 'package:minimax/data/repositories/node_status_repository.dart';
 import 'package:minimax/ui/screens/home/screens/node_status/model/node_status_model.dart';
+import 'package:minimax/utils/extensions/stream_extensions.dart';
 
 class LoaderController extends GetxController {
   final NodeStatusRepository _nodeStatusRepository;
@@ -32,7 +33,7 @@ class LoaderController extends GetxController {
   }
 
   void _listen(bool discardNextGo) {
-    _createStream(discardNextGo).take(1).first.then((_) => connectedTrigger.trigger(null));
+    _createStream(discardNextGo).take(1).firstOrNull().then((_) => connectedTrigger.trigger(null));
   }
 
   Stream _createStream(bool discardNextGo) {
