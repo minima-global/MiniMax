@@ -3,6 +3,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:minimax/data/dependencies/persistence.dart';
 import 'package:minimax/data/repositories/ping_repository.dart';
+import 'package:minimax/data/services/ping/ping_response_model.dart';
 
 class InviteCodeController extends GetxController {
   final PingRepository _pingRepository;
@@ -28,17 +29,12 @@ class InviteCodeController extends GetxController {
   void loadInviteCode() {
     _minimaStorage
         .getNodeId() //
-        .then((uid) {
-          if (uid != null) {
-            return _pingRepository.getPingAndRewards(uid: uid);
-          } else {
-            return Future.error(Exception("No UID"));
-          }
-        })
-        .then((value) => value.inviteCode)
-        .then((inviteCode) {
-          this.inviteCode(inviteCode);
-        });
+        .then((uid) => _pingRepository.getPingAndRewards(uid: uid ?? ""))
+        .then((PingResponseModel value) {
+      if (value is CorrectPingUidResponseModel) {
+        inviteCode(value.inviteCode);
+      }
+    });
   }
 
   void shareLink({required String shareTitle, required String text}) {

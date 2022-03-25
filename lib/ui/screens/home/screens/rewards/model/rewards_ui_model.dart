@@ -7,19 +7,18 @@ abstract class RewardsUIModel {
   abstract final String additionalRewards;
 
   static RewardsUIModel fromPingResponseModel(PingResponseModel? pingResponseModel) {
-    if (pingResponseModel == null) {
-      return NotValidRewardsUIModel();
-    } else {
+    if (pingResponseModel is CorrectPingUidResponseModel) {
       return ValidRewardsUIModel(
         rewards: pingResponseModel.rewards.communityRewards +
             pingResponseModel.rewards.dailyRewards +
             pingResponseModel.rewards.inviterRewards +
             pingResponseModel.rewards.previousRewards,
-        dailyNodeRewards: pingResponseModel.rewards.dailyRewards
-            + pingResponseModel.rewards.previousRewards,
+        dailyNodeRewards: pingResponseModel.rewards.dailyRewards + pingResponseModel.rewards.previousRewards,
         inviteRewards: pingResponseModel.rewards.inviterRewards,
         additionalRewards: pingResponseModel.rewards.communityRewards,
       );
+    } else {
+      return NotValidRewardsUIModel();
     }
   }
 }

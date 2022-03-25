@@ -1,11 +1,23 @@
-class PingResponseModel {
+abstract class PingResponseModel {
+  static PingResponseModel fromJson(dynamic json) {
+    if (json == null) {
+      return IncorrectUidPingResponseModel();
+    } else {
+      return CorrectPingUidResponseModel.fromJson(json);
+    }
+  }
+}
+
+class CorrectPingUidResponseModel extends PingResponseModel {
   final String inviteCode;
   final RewardsResponseModel rewards;
 
-  PingResponseModel.fromJson(dynamic json)
+  CorrectPingUidResponseModel.fromJson(dynamic json)
       : inviteCode = json['inviteCode'],
         rewards = RewardsResponseModel.fromJson(json['rewards']);
 }
+
+class IncorrectUidPingResponseModel extends PingResponseModel { }
 
 class RewardsResponseModel {
   final num dailyRewards;
