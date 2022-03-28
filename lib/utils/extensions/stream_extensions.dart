@@ -2,16 +2,12 @@ extension StreamExtensions<T, E> on Stream<T> {
   Future<T?> firstOrNull([bool Function(T)? predicate]) {
     Future<T?> future;
     if (predicate == null) {
-      // (see (https://github.com/dart-lang/sdk/issues/48667))
-      // ignore: unnecessary_cast
-      future = first.then((value) => value as T?);
+      future = first;
     } else {
-      // (see (https://github.com/dart-lang/sdk/issues/48667))
-      // ignore: unnecessary_cast
-      future = firstWhere(predicate).then((value) => value as T?);
+      future = firstWhere(predicate);
     }
 
-    return future.catchError((error) {
+    return future.then((v) => v, onError: (error) {
       if (error is StateError) {
         return null;
       } else {
