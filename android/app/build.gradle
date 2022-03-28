@@ -62,7 +62,7 @@ android {
         release {
             keyAlias keystoreProperties['keyAlias'] ?: System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
             keyPassword keystoreProperties['keyPassword'] ?: System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : (System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL") ? file(System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL")) : null)
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : (System.getenv("DOWNLOADED_KEYSTORE_PATH") ? file(System.getenv("DOWNLOADED_KEYSTORE_PATH")) : null)
             storePassword keystoreProperties['storePassword'] ?: System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
         }
     }
