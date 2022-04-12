@@ -1,0 +1,7 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Support & Troubleshooting with the Discord Community
+    url: https://discord.gg/jy3CFABG
+    about: |
+      For general problems with Minima or related technologies, please raise a support ticket.
+      We highly encourage everyone also share their understanding by answering questions for others.
