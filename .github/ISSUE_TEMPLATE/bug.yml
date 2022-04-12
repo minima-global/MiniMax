@@ -1,5 +1,6 @@
 name: Bug Report
 description: Let us know about an issue you experienced with this software
+title: "BUG: "
 # labels: ["some existing label","another one"]
 body:
   - type: checkboxes

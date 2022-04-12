@@ -1,5 +1,6 @@
 name: Feature Request
 description: Submit your requests and suggestions to improve!
+title: "FTR: "
 body:
   - type: checkboxes
     id: unique
