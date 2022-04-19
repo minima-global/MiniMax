@@ -56,8 +56,6 @@ public class MinimaService extends Service {
     private IBinder mBinder = new MyBinder();
     MinimaService mService;
 
-    Alarm mAlarm;
-
     //Minima Main Starter
     Minima mStart;
 
@@ -198,12 +196,6 @@ public class MinimaService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        MinimaLogger.log("Service : OnStartCommand "+startId+" "+mListenerAdded);
 
-        if (intent != null && intent.getBooleanExtra(runInBackgroundWhenKilledKey, true)) {
-            //Set the Alarm..
-            mAlarm = new Alarm();
-            mAlarm.cancelAlarm(this);
-            mAlarm.setAlarm(this);
-        }
         //Set the default message
         setMinimaNotification();
 
@@ -245,9 +237,11 @@ public class MinimaService extends Service {
         mWakeLock.release();
         mWifiLock.release();
 
-        if (mAlarm != null) {
-            mAlarm.cancelAlarm(this);
-        }
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("restartBroadcastAction") ;
+        broadcastIntent.setClass(this, Alarm.class);
+        sendBroadcast(broadcastIntent);
+
     }
 
     @Override
