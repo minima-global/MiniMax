@@ -8,8 +8,10 @@ import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/home/home_screen.dart';
+import 'package:minimax/ui/screens/home/model/home_args.dart';
 import 'package:minimax/ui/screens/loader/loader_controller.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
+import 'package:minimax/utils/extensions/rxn_extensions.dart';
 
 class LoaderScreen extends GetWidget<LoaderController> {
   static const String routeName = "/loader";
@@ -18,7 +20,7 @@ class LoaderScreen extends GetWidget<LoaderController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.connectedTrigger.listen(_onConnected);
+    controller.connectedTrigger.listenWhenNotNull(_onConnected);
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -80,7 +82,7 @@ class LoaderScreen extends GetWidget<LoaderController> {
     return const CupertinoActivityIndicator();
   }
 
-  void _onConnected(_) {
-    Get.offAllNamed(HomeScreen.routeName);
+  void _onConnected(bool connected) {
+    Get.offAllNamed(HomeScreen.routeName, arguments: HomeArgs.fromIsAlreadyConnected(connected));
   }
 }

@@ -46,6 +46,7 @@ Future inject() async {
       Get.find(),
       Get.find(),
       Get.find(),
+      Get.find(),
     ),
     permanent: true,
   );

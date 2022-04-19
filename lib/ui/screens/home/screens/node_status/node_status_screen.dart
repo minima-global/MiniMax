@@ -9,10 +9,12 @@ import 'package:minimax/res/styles/margins.dart';
 import 'package:minimax/res/styles/text_styles.dart';
 import 'package:minimax/res/translations/string_keys.dart';
 import 'package:minimax/ui/screens/home/home_screen.dart';
+import 'package:minimax/ui/screens/home/model/home_args.dart';
 import 'package:minimax/ui/screens/home/screens/battery_optimisation/battery_optimisation_screen.dart';
 import 'package:minimax/ui/screens/home/screens/incentive_cash/model/incentive_cash_model.dart';
 import 'package:minimax/ui/screens/home/screens/node_status/model/node_status_model.dart';
 import 'package:minimax/ui/screens/home/screens/node_status/node_status_controller.dart';
+import 'package:minimax/ui/utils/consumer.dart';
 import 'package:minimax/ui/utils/simple_html_text.dart';
 import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/status.dart';
@@ -25,8 +27,12 @@ class NodeStatusScreen extends GetWidget<NodeStatusController> {
 
   const NodeStatusScreen({Key? key}) : super(key: key);
 
+  Consumer<bool>? get _wasAlreadyConnectedConsumer => cast<HomeArgs>(Get.arguments)?.consumer;
+
   @override
   Widget build(BuildContext context) {
+    _setShouldEnableRPC();
+
     return CustomScrollView(
       physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       slivers: [
@@ -183,5 +189,13 @@ class NodeStatusScreen extends GetWidget<NodeStatusController> {
           return realTextWidget;
         }
     }
+  }
+
+  void _setShouldEnableRPC() {
+    final bool? wasAlreadyConnected = _wasAlreadyConnectedConsumer?.get();
+    if (wasAlreadyConnected != null) {
+      controller.setShouldEnableRPC(!wasAlreadyConnected);
+    }
+
   }
 }
