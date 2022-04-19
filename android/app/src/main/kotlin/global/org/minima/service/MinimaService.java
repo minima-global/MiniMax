@@ -124,7 +124,7 @@ public class MinimaService extends Service {
             public void processMessage(Message zMessage) {
 
                 if(zMessage.getMessageType().equals(MinimaLogger.MINIMA_LOG)){
-                    ConsoleStreamHandler.Companion.getInstance().addMessage(zMessage.getString("log"));
+                    ConsoleStreamHandler.Companion.getInstance(MinimaService.this).addMessage(zMessage.getString("log"));
                 }else if(zMessage.getMessageType().equals(NotifyManager.NOTIFY_POST)) {
                     //Get the JSON..
                     JSONObject notify = (JSONObject) zMessage.getObject("notify");
