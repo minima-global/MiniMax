@@ -12,6 +12,7 @@ import org.minima.objects.StateVariable;
 import org.minima.objects.Transaction;
 import org.minima.objects.Witness;
 import org.minima.objects.base.MiniData;
+import org.minima.objects.base.MiniNumber;
 import org.minima.system.commands.Command;
 import org.minima.utils.json.JSONArray;
 import org.minima.utils.json.JSONObject;
@@ -140,6 +141,14 @@ public class runscript extends Command {
 	
 		//Set trhe Script..
 		contract.setGlobalVariable("@SCRIPT", new StringValue(script));
+		
+		//Is there enough for @COINAGE
+		if(globals.containsKey("@BLOCK") && globals.containsKey("@CREATED") && !globals.containsKey("@COINAGE")) {
+			MiniNumber block   		= new MiniNumber((String)globals.get("@BLOCK")); 
+			MiniNumber inblock 		= new MiniNumber((String)globals.get("@CREATED"));
+			MiniNumber blockdiff 	= block.sub(inblock);
+			globals.put("@COINAGE", blockdiff.toString());
+		}
 		
 		//Set the Globals..
 		for(Object key : globals.keySet()) {
