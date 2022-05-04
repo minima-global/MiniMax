@@ -66,8 +66,8 @@ class IncentiveCashScreen extends GetWidget<IncentiveProgramController> {
     switch (selectedTab) {
       case IncentiveProgramTab.incentiveProgram:
         return _buildSetUpInstructions();
-      case IncentiveProgramTab.inviteCode:
-        return _buildBalance();
+      case IncentiveProgramTab.inviteLink:
+        return _buildLinkContent();
     }
   }
 
@@ -80,15 +80,8 @@ class IncentiveCashScreen extends GetWidget<IncentiveProgramController> {
     );
   }
 
-  Widget _buildBalance() {
-    return controller.loadingBalance.build(
-      (loading) => controller.incentiveCashModel.build(
-        (incentiveCashModel) => InviteCodeWidget(
-          incentiveCashModel,
-          loading,
-        ),
-      ),
-    );
+  Widget _buildLinkContent() {
+    return const InviteLinkWidget();
   }
 
   Widget _buildTab(IncentiveProgramTab tab, {required bool selected}) {
@@ -103,7 +96,7 @@ class IncentiveCashScreen extends GetWidget<IncentiveProgramController> {
             child: Center(
               child: controller.inviteCodeOpacity.build(
                 (opacity) => wrapInFadeTransitionIfNeeded(
-                  wrapInFadeTransition: tab == IncentiveProgramTab.inviteCode && !selected,
+                  wrapInFadeTransition: tab == IncentiveProgramTab.inviteLink && !selected,
                   child: AutoSizeText(
                     tab.tabName,
                     maxLines: 1,
@@ -147,7 +140,7 @@ extension _IncentiveCashTabExtensions on IncentiveProgramTab {
     switch (this) {
       case IncentiveProgramTab.incentiveProgram:
         return StringKeys.incentiveCashScreenIncentiveProgramTab.tr;
-      case IncentiveProgramTab.inviteCode:
+      case IncentiveProgramTab.inviteLink:
         return StringKeys.incentiveCashScreenInviteCodeTab.tr;
     }
   }

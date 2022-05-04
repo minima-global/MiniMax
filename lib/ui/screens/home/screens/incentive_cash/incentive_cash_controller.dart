@@ -53,7 +53,7 @@ class IncentiveProgramController extends GetxController with GetSingleTickerProv
       if (value == null) {
         selectedTab(IncentiveProgramTab.incentiveProgram);
       } else {
-        selectedTab(IncentiveProgramTab.inviteCode);
+        selectedTab(IncentiveProgramTab.inviteLink);
       }
     });
   }

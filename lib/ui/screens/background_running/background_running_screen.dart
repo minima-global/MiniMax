@@ -33,30 +33,32 @@ class BackgroundRunningWarningScreen extends GetWidget<BackgroundRunningWarningC
 
   Widget _buildBody() {
     return controller.state.build((state) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: large7,
-          horizontal: large1,
-        ),
-        child: semiTransparentModal(
-          colour: _cardColour(state),
-          child: AnimatedContainer(
-            padding: const EdgeInsetsDirectional.only(top: large2, start: large1, end: large1, bottom: small2),
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOutCubic,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildTitle(state),
-                small1.toSpace(),
-                _buildSeparator(state),
-                medium.toSpace(),
-                _buildMainTitle(state),
-                small1.toSpace(),
-                _buildExplanation(state),
-                large1.toSpace(),
-                _buildActions(),
-              ],
+      return SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: large7,
+            horizontal: large1,
+          ),
+          child: semiTransparentModal(
+            colour: _cardColour(state),
+            child: AnimatedContainer(
+              padding: const EdgeInsetsDirectional.only(top: large2, start: large1, end: large1, bottom: small2),
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOutCubic,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildTitle(state),
+                  small1.toSpace(),
+                  _buildSeparator(state),
+                  medium.toSpace(),
+                  _buildMainTitle(state),
+                  small1.toSpace(),
+                  _buildExplanation(state),
+                  large1.toSpace(),
+                  _buildActions(),
+                ],
+              ),
             ),
           ),
         ),

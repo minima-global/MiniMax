@@ -14,12 +14,12 @@ Widget createCTA({
   return InkWell(
     onTap: onTap,
     child: Container(
+      constraints: const BoxConstraints(minHeight: 44),
       decoration: BoxDecoration(
         color: backgroundColour,
         border: Border.all(color: borderColour, width: 2),
         borderRadius: const BorderRadius.all(Radius.circular(mainModalRadius)),
       ),
-      height: 44,
       child: Center(
         child: Text(
           text,

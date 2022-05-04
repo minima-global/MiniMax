@@ -1,4 +1,4 @@
 enum IncentiveProgramTab {
   incentiveProgram,
-  inviteCode,
+  inviteLink,
 }

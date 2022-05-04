@@ -30,26 +30,28 @@ class BatterySettingsScreen extends GetWidget<BatterySettingsController> {
   }
 
   Widget _buildBody() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: large8,
-        horizontal: large1,
-      ),
-      child: semiTransparentModal(
-        child: Container(
-          constraints: const BoxConstraints(minHeight: 350),
-          padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildTitle(),
-              medium.toSpace(),
-              _buildBatterySettingsExplanation(),
-              large1.toSpace(),
-              _buildConfirmButton(),
-              medium.toSpace(),
-              _buildSkipButton(),
-            ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: large8,
+          horizontal: large1,
+        ),
+        child: semiTransparentModal(
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 350),
+            padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildTitle(),
+                medium.toSpace(),
+                _buildBatterySettingsExplanation(),
+                large1.toSpace(),
+                _buildConfirmButton(),
+                medium.toSpace(),
+                _buildSkipButton(),
+              ],
+            ),
           ),
         ),
       ),

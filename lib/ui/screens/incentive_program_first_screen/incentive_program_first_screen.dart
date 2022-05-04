@@ -29,26 +29,28 @@ class IncentiveProgramFirstScreen extends GetWidget<IncentiveProgramFirstControl
 
   Widget _buildBody() {
     return controller.nextTrigger.buildIgnoreNull(
-          (shouldItGoNext) => Visibility(
+      (shouldItGoNext) => Visibility(
         visible: !shouldItGoNext,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: large2,
-            horizontal: large1,
-          ),
-          child: semiTransparentModal(
-            child: Container(
-              constraints: const BoxConstraints(minHeight: 350),
-              padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildTitle(),
-                  medium.toSpace(),
-                  _buildBatterySettingsExplanation(),
-                  large1.toSpace(),
-                  _buildContinueButton(),
-                ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: large2,
+              horizontal: large1,
+            ),
+            child: semiTransparentModal(
+              child: Container(
+                constraints: const BoxConstraints(minHeight: 350),
+                padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildTitle(),
+                    medium.toSpace(),
+                    _buildBatterySettingsExplanation(),
+                    large1.toSpace(),
+                    _buildContinueButton(),
+                  ],
+                ),
               ),
             ),
           ),

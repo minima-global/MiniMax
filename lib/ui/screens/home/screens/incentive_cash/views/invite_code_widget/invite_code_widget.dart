@@ -13,11 +13,9 @@ import 'package:minimax/ui/widgets/backgrounds.dart';
 import 'package:minimax/ui/widgets/buttons.dart';
 import 'package:minimax/utils/extensions/rxn_extensions.dart';
 
-class InviteCodeWidget extends GetWidget<InviteCodeController> {
-  final IncentiveProgramModel? _model;
-  final bool _loading;
+class InviteLinkWidget extends GetWidget<InviteCodeController> {
 
-  const InviteCodeWidget(this._model, this._loading);
+  const InviteLinkWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +27,10 @@ class InviteCodeWidget extends GetWidget<InviteCodeController> {
         return true;
       },
       child: ListView(
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: [
-          _buildInviteSentence(),
+          _buildInviteLinkSentence(),
           medium.toSpace(),
           _buildTextFormField(),
         ],
@@ -102,7 +101,7 @@ class InviteCodeWidget extends GetWidget<InviteCodeController> {
     );
   }
 
-  Widget _buildInviteSentence() {
+  Widget _buildInviteLinkSentence() {
     return controller.inviteCode.build((inviteCode) {
       String text =
           (inviteCode == null) ? StringKeys.inviteCodeExplanation.tr : StringKeys.inviteCodeExplanationCodeEntered.tr;

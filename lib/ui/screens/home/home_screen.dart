@@ -91,7 +91,7 @@ class HomeScreen extends GetWidget<HomeController> {
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: medium),
-          child: Column(
+          child: ListView(
             children: [
               _buildHeaderTextDrawer(),
               large2.toSpace(),
@@ -123,6 +123,7 @@ class HomeScreen extends GetWidget<HomeController> {
 
         return ListView.separated(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           separatorBuilder: (_, position) => Container(
             width: double.maxFinite,
             height: 1,

@@ -22,7 +22,7 @@ class BatteryOptimisationScreen extends GetWidget<BatteryOptimisationController>
   @override
   Widget build(BuildContext context) {
     controller.batteryOptimisationPreviouslyAcceptedTrigger.listenWhenNotNull(_onTapped);
-    return Column(
+    return ListView(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
