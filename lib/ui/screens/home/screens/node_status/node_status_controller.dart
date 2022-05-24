@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:minimax/data/dependencies/background.dart';
 import 'package:minimax/data/dependencies/battery.dart';
 import 'package:minimax/data/repositories/incentive_cash_repository.dart';
 import 'package:minimax/data/repositories/node_status_repository.dart';
@@ -11,6 +12,7 @@ class NodeStatusController extends GetxController {
   final IncentiveCashRepository _incentiveCashRepository;
   final NodeStatusRepository _nodeStatusRepository;
   final BatteryProvider _batteryProvider;
+  final BackgroundService _backgroundService;
 
   final Rxn<IncentiveProgramModel> incentiveCashModel = Rxn();
   final Rxn<bool> batteryOptimisation = Rxn();
@@ -21,7 +23,10 @@ class NodeStatusController extends GetxController {
     this._incentiveCashRepository,
     this._nodeStatusRepository,
     this._batteryProvider,
+    this._backgroundService,
   );
+
+  bool _shouldEnableRPC = false;
 
   StreamSubscription? workingNodeSubscription;
 
@@ -49,6 +54,7 @@ class NodeStatusController extends GetxController {
         /// Retry after 1 second if there are no blocks yet
         Future.delayed(const Duration(seconds: 1)).then((_) => _refreshNodeStatus());
       } else {
+        _enableRPCIfPossible();
         // It's connected, to ensure connections, we're updating every 10 seconds
         workingNodeSubscription ??= Stream.periodic(const Duration(seconds: 10)).listen((_) => _refreshNodeStatus());
       }
@@ -82,5 +88,16 @@ class NodeStatusController extends GetxController {
   void onClose() {
     super.onClose();
     workingNodeSubscription?.cancel().then((value) => workingNodeSubscription = null);
+  }
+
+  void setShouldEnableRPC(bool shouldEnableRPC) {
+    _shouldEnableRPC = shouldEnableRPC;
+  }
+
+  void _enableRPCIfPossible() {
+    if (_shouldEnableRPC) {
+      _shouldEnableRPC = false;
+      _backgroundService.enableRPC();
+    }
   }
 }

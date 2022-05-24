@@ -11,7 +11,7 @@ class LoaderController extends GetxController {
   final BackgroundService _backgroundService;
   final MinimaStorage _storage;
 
-  final Rxn connectedTrigger = Rxn();
+  final Rxn<bool> connectedTrigger = Rxn();
 
   LoaderController(
     this._nodeStatusRepository,
@@ -33,7 +33,12 @@ class LoaderController extends GetxController {
   }
 
   void _listen(bool discardNextGo) {
-    _createStream(discardNextGo).take(1).firstOrNull().then((_) => connectedTrigger.trigger(null));
+    _createStream(discardNextGo).take(1).firstOrNull().then((nodeStatus) {
+      if (nodeStatus != null) {
+        _backgroundService.enableRPC();
+      }
+      connectedTrigger.trigger(nodeStatus != null);
+    });
   }
 
   Stream _createStream(bool discardNextGo) {
@@ -46,7 +51,7 @@ class LoaderController extends GetxController {
         .timeout(const Duration(seconds: 10), onTimeout: (e) {
       e.close();
       if (discardNextGo) {
-        connectedTrigger.trigger(null);
+        connectedTrigger.trigger(false);
       } else {
         _backgroundService.startBackgroundService(true, force: true);
         _listen(true);

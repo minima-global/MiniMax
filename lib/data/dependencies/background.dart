@@ -36,4 +36,11 @@ class BackgroundService {
       showInConsole: false,
     );
   }
+
+  Future enableRPC() {
+    return runCommand(
+      command: "rpc enable:true",
+      showInConsole: false,
+    );
+  }
 }
