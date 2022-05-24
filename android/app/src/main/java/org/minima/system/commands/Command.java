@@ -5,16 +5,17 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.minima.objects.Address;
 import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
 import org.minima.system.commands.base.automine;
 import org.minima.system.commands.base.backup;
 import org.minima.system.commands.base.balance;
+import org.minima.system.commands.base.burn;
 import org.minima.system.commands.base.coinexport;
 import org.minima.system.commands.base.coinimport;
 import org.minima.system.commands.base.cointrack;
 import org.minima.system.commands.base.debugflag;
-import org.minima.system.commands.base.file;
 import org.minima.system.commands.base.getaddress;
 import org.minima.system.commands.base.hash;
 import org.minima.system.commands.base.hashtest;
@@ -44,11 +45,14 @@ import org.minima.system.commands.network.network;
 import org.minima.system.commands.network.rpc;
 import org.minima.system.commands.network.sshtunnel;
 import org.minima.system.commands.network.webhooks;
+import org.minima.system.commands.persistent.file;
+import org.minima.system.commands.persistent.sql;
 import org.minima.system.commands.search.coins;
 import org.minima.system.commands.search.keys;
 import org.minima.system.commands.search.txpow;
 import org.minima.system.commands.signatures.sign;
 import org.minima.system.commands.signatures.verify;
+import org.minima.system.commands.txn.txnbasics;
 import org.minima.system.commands.txn.txncheck;
 import org.minima.system.commands.txn.txnclear;
 import org.minima.system.commands.txn.txncreate;
@@ -75,10 +79,12 @@ public abstract class Command {
 			new message(), new trace(), new help(), new printtree(), new automine(), new printmmr(), new rpc(),
 			new send(), new balance(), new tokencreate(), new tokens(),new getaddress(), new newaddress(), new debugflag(),
 			new incentivecash(), new sshtunnel(), new webhooks(),
-			new backup(), new restore(), new test(), new file(),
-			new runscript(), new tutorial(),new keys(),new scripts(),
+
+			new sql(),new file(),
+			new backup(), new restore(), new test(), 
+			new runscript(), new tutorial(),new keys(),new scripts(),new burn(),
 			
-			new txncreate(), new txninput(),new txnlist(), new txnclear(),
+			new txnbasics(),new txncreate(), new txninput(),new txnlist(), new txnclear(),
 			new txnoutput(),new txnstate(),new txnsign(),new txnpost(),new txndelete(),
 			new txnexport(),new txnimport(),new txncheck(), new txnscript(),
 			
@@ -172,12 +178,17 @@ public abstract class Command {
 		return new MiniNumber(num);
 	}
 	
+	public MiniNumber getNumberParam(String zParamName, MiniNumber zDefault) throws CommandException {
+		if(existsParam(zParamName)) {
+			return getNumberParam(zParamName);
+		}
+		return zDefault;
+	}
+	
 	public MiniData getDataParam(String zParamName) throws CommandException {
 		String hex = getParam(zParamName);
 		return new MiniData(hex);
 	}
-	
-	
 	
 	public JSONObject getJSONObjectParam(String zParamName) throws CommandException{
 		if(!existsParam(zParamName)) {
@@ -193,6 +204,24 @@ public abstract class Command {
 		}
 		
 		return (JSONArray) mParams.get(zParamName);
+	}
+	
+	public String getAddressParam(String zParamName) throws CommandException {
+		if(!existsParam(zParamName)) {
+			throw new CommandException("param not specified : "+zParamName);
+		}
+
+		String address = getParam(zParamName);
+		if(address.toLowerCase().startsWith("mx")) {
+			//Convert back to normal hex..
+			try {
+				address = Address.convertMinimaAddress(address).to0xString();
+			}catch(IllegalArgumentException exc) {
+				throw new CommandException(exc.toString());
+			}
+		}
+		
+		return address;
 	}
 	
 	public boolean isParamJSONObject(String zParamName) {
