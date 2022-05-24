@@ -31,6 +31,7 @@ class TerminalScreen extends GetWidget<TerminalController> {
         return Scaffold(
           backgroundColor: coreBlackDarkBlack,
           body: _buildBody(isKeyboardVisible),
+          bottomNavigationBar: _buildCommandInput(),
         );
       },
     );
@@ -44,29 +45,31 @@ class TerminalScreen extends GetWidget<TerminalController> {
   }
 
   Widget _buildWarningCopyPasteTerminal() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
-      child: semiTransparentModal(
-        colour: terminalInputBackground2,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: large1, horizontal: medium),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              simpleHtmlText(
-                StringKeys.terminalScreenWarning.tr,
-                overridingStyles: (styles) => styles
-                  ..addEntries(
-                    [
-                      MapEntry("html", Style.fromTextStyle(lmBodyCopyMedium.copyWith(color: coreGrey20))),
-                      MapEntry("b", Style.fromTextStyle(lmH4.copyWith(color: coreGrey20))),
-                    ],
-                  ),
-              ),
-              large2.toSpace(),
-              createPrimaryCTA(
-                  text: StringKeys.terminalScreenContinueWarningCTA.tr, onTap: controller.warningUnderstood),
-            ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+        child: semiTransparentModal(
+          colour: terminalInputBackground2,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: large1, horizontal: medium),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                simpleHtmlText(
+                  StringKeys.terminalScreenWarning.tr,
+                  overridingStyles: (styles) => styles
+                    ..addEntries(
+                      [
+                        MapEntry("html", Style.fromTextStyle(lmBodyCopyMedium.copyWith(color: coreGrey20))),
+                        MapEntry("b", Style.fromTextStyle(lmH4.copyWith(color: coreGrey20))),
+                      ],
+                    ),
+                ),
+                large2.toSpace(),
+                createPrimaryCTA(
+                    text: StringKeys.terminalScreenContinueWarningCTA.tr, onTap: controller.warningUnderstood),
+              ],
+            ),
           ),
         ),
       ),
@@ -77,17 +80,9 @@ class TerminalScreen extends GetWidget<TerminalController> {
     return Stack(
       children: [
         ListView(
-          physics: isKeyboardVisible ? const AlwaysScrollableScrollPhysics() : const NeverScrollableScrollPhysics(),
           children: [
             _buildTerminal(),
             large2.toSpace(),
-            Container(
-              width: double.maxFinite,
-              height: 1,
-              color: coreGrey100,
-            ),
-            medium.toSpace(),
-            _buildCommandInput(),
           ],
         ),
         Padding(
@@ -104,7 +99,6 @@ class TerminalScreen extends GetWidget<TerminalController> {
   Widget _buildTerminal() {
     return Container(
       padding: const EdgeInsetsDirectional.only(top: large2, start: large1, end: large1),
-      height: Get.height * 0.69,
       child: _buildConsole(),
     );
   }
@@ -137,41 +131,57 @@ class TerminalScreen extends GetWidget<TerminalController> {
   }
 
   Widget _buildCommandInput() {
-    return Container(
-      width: double.maxFinite,
-      padding: const EdgeInsets.all(medium),
-      child: semiTransparentModal(
-        colour: terminalInputBackground2,
-        child: Padding(
-          padding: const EdgeInsets.all(medium),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  focusNode: _runCommandFocusNode,
-                  controller: controller.runCommandController,
-                  keyboardType: TextInputType.visiblePassword,
-                  maxLines: 1,
-                  textInputAction: TextInputAction.send,
-                  style: lmH2.copyWith(color: coreGrey40),
-                  onEditingComplete: controller.runCommand,
-                  decoration: InputDecoration.collapsed(
-                    hintText: StringKeys.terminalScreenTextFieldHint.tr,
-                    hintStyle: lmH2.copyWith(color: coreGrey40),
+    return controller.userHasSeenTerminalWarningAlready.build(
+      (seen) => Visibility(
+        visible: seen,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: double.maxFinite,
+              height: 1,
+              color: coreGrey100,
+            ),
+            medium.toSpace(),
+            Container(
+              width: double.maxFinite,
+              padding: const EdgeInsets.all(medium),
+              child: semiTransparentModal(
+                colour: terminalInputBackground2,
+                child: Padding(
+                  padding: const EdgeInsets.all(medium),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          focusNode: _runCommandFocusNode,
+                          controller: controller.runCommandController,
+                          keyboardType: TextInputType.visiblePassword,
+                          maxLines: 1,
+                          textInputAction: TextInputAction.send,
+                          style: lmH2.copyWith(color: coreGrey40),
+                          onEditingComplete: controller.runCommand,
+                          decoration: InputDecoration.collapsed(
+                            hintText: StringKeys.terminalScreenTextFieldHint.tr,
+                            hintStyle: lmH2.copyWith(color: coreGrey40),
+                          ),
+                        ),
+                      ),
+                      small2.toSpace(),
+                      InkWell(
+                        onTap: () => hideKeyboard().then((_) => controller.runCommand()),
+                        child: SvgPicture.asset(
+                          ImageKeys.icTerminalSend,
+                          width: 32,
+                          height: 32,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              small2.toSpace(),
-              InkWell(
-                onTap: () => hideKeyboard().then((_) => controller.runCommand()),
-                child: SvgPicture.asset(
-                  ImageKeys.icTerminalSend,
-                  width: 32,
-                  height: 32,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

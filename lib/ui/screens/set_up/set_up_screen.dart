@@ -25,23 +25,25 @@ class SetUpScreen extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: large8,
-        horizontal: large1,
-      ),
-      child: semiTransparentModal(
-        child: Container(
-          constraints: const BoxConstraints(minHeight: 350),
-          padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildMinimaLogo(),
-              _buildSetUpYourPhone(),
-              _buildContinueButton(),
-            ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: large8,
+          horizontal: large1,
+        ),
+        child: semiTransparentModal(
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 350),
+            padding: const EdgeInsets.symmetric(vertical: large2, horizontal: large1),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildMinimaLogo(),
+                _buildSetUpYourPhone(),
+                _buildContinueButton(),
+              ],
+            ),
           ),
         ),
       ),
