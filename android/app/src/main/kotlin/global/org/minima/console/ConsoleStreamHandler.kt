@@ -2,10 +2,13 @@ package global.org.minima.console
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.os.Handler
+import android.os.Looper
+import global.org.minima.extensions.orElse
 import io.flutter.plugin.common.EventChannel
-import java.nio.Buffer
 
-class ConsoleStreamHandler(private val activity: Activity) : EventChannel.StreamHandler {
+class ConsoleStreamHandler(private val context: Context) : EventChannel.StreamHandler {
     private var events: EventChannel.EventSink? = null
 
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
@@ -18,13 +21,13 @@ class ConsoleStreamHandler(private val activity: Activity) : EventChannel.Stream
     }
 
     fun addMessage(message: String) {
-        activity.runOnUiThread {
+        context.runOnUiThread {
             events?.success(buffer.addMessage(message))
         }
     }
 
     fun clearMessages() {
-        activity.runOnUiThread {
+        context.runOnUiThread {
             events?.success(buffer.clearMessages())
         }
     }
@@ -34,10 +37,20 @@ class ConsoleStreamHandler(private val activity: Activity) : EventChannel.Stream
 
         @SuppressLint("StaticFieldLeak")
         // Unless we use some dependency injection
-        lateinit var instance: ConsoleStreamHandler
+        private var instance: ConsoleStreamHandler? = null
 
-        fun init(activity: Activity) = ConsoleStreamHandler(activity).apply {
-            instance = this
+        fun getInstance(context: Context) = instance.orElse {
+            return@orElse ConsoleStreamHandler(context).apply {
+                instance = this
+            }
+        }
+    }
+
+    private fun Context.runOnUiThread(runnable: Runnable) {
+        if (this is Activity) {
+            runOnUiThread(runnable)
+        } else {
+            Handler(Looper.getMainLooper()).post(runnable)
         }
     }
 }

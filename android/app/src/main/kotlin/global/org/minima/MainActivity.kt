@@ -2,7 +2,6 @@ package global.org.minima
 
 import android.content.ComponentName
 import android.content.ServiceConnection
-import android.os.Bundle
 import android.os.IBinder
 import global.org.minima.console.ConsoleStreamHandler
 import global.org.minima.extensions.isIgnoringBatteryOptimizationModal
@@ -21,11 +20,6 @@ class MainActivity : FlutterActivity(), ServiceConnection {
 
     internal var shouldUnbind = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        ConsoleStreamHandler.init(this)
-        super.onCreate(savedInstanceState)
-    }
-
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
@@ -35,7 +29,7 @@ class MainActivity : FlutterActivity(), ServiceConnection {
 
     private fun configureEventChannel(flutterEngine: FlutterEngine) {
         EventChannel(flutterEngine.dartExecutor.binaryMessenger, mainEventChannel)
-            .setStreamHandler(ConsoleStreamHandler.instance)
+            .setStreamHandler(ConsoleStreamHandler.getInstance(this))
     }
 
     private fun configureMethodHandler(flutterEngine: FlutterEngine) {
@@ -50,13 +44,13 @@ class MainActivity : FlutterActivity(), ServiceConnection {
                 "runCommand" -> {
                     minima?.let {
                         Thread {
-                            result.success(it.runCommandFromArguments(call))
+                            result.success(it.runCommandFromArguments(this, call))
                         }.start()
                     }
                         ?: result.error("MINIMA_NOT_STARTED", "Minima not started", null)
                 }
                 "clearTerminal" -> {
-                    ConsoleStreamHandler.instance.clearMessages()
+                    ConsoleStreamHandler.getInstance(this).clearMessages()
                     result.success(true)
                 }
                 else -> result.notImplemented()
