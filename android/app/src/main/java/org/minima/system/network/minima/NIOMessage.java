@@ -20,12 +20,16 @@ import org.minima.objects.base.MiniNumber;
 import org.minima.objects.base.MiniString;
 import org.minima.system.Main;
 import org.minima.system.brains.TxPoWChecker;
-import org.minima.system.network.maxima.Maxima;
-import org.minima.system.network.maxima.MaximaPackage;
+import org.minima.system.network.maxima.MaximaCTRLMessage;
+import org.minima.system.network.maxima.MaximaManager;
+import org.minima.system.network.maxima.message.MaxTxPoW;
+import org.minima.system.network.maxima.message.MaximaPackage;
 import org.minima.system.network.p2p.P2PFunctions;
 import org.minima.system.network.p2p.P2PManager;
 import org.minima.system.params.GeneralParams;
+import org.minima.system.params.GlobalParams;
 import org.minima.utils.ListCheck;
+import org.minima.utils.MiniFile;
 import org.minima.utils.MiniFormat;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.json.JSONObject;
@@ -38,16 +42,21 @@ public class NIOMessage implements Runnable {
 	/**
 	 * Base Message types sent over the network
 	 */
-	public static final MiniByte MSG_GREETING 	= new MiniByte(0);
-	public static final MiniByte MSG_IBD 		= new MiniByte(1); // initial blockchain download
-	public static final MiniByte MSG_TXPOWID 	= new MiniByte(2);
-	public static final MiniByte MSG_TXPOWREQ 	= new MiniByte(3);
-	public static final MiniByte MSG_TXPOW 		= new MiniByte(4);
-	public static final MiniByte MSG_GENMESSAGE = new MiniByte(5);
-	public static final MiniByte MSG_PULSE 		= new MiniByte(6);
-	public static final MiniByte MSG_P2P 		= new MiniByte(7);
-	public static final MiniByte MSG_PING 		= new MiniByte(8);
-	public static final MiniByte MSG_MAXIMA 	= new MiniByte(9);
+	public static final MiniByte MSG_GREETING 		= new MiniByte(0);
+	public static final MiniByte MSG_IBD 			= new MiniByte(1); // initial blockchain download
+	public static final MiniByte MSG_TXPOWID 		= new MiniByte(2);
+	public static final MiniByte MSG_TXPOWREQ 		= new MiniByte(3);
+	public static final MiniByte MSG_TXPOW 			= new MiniByte(4);
+	public static final MiniByte MSG_GENMESSAGE 	= new MiniByte(5);
+	public static final MiniByte MSG_PULSE 			= new MiniByte(6);
+	public static final MiniByte MSG_P2P 			= new MiniByte(7);
+	public static final MiniByte MSG_PING 			= new MiniByte(8);
+	
+	public static final MiniByte MSG_MAXIMA_CTRL	= new MiniByte(9);
+	public static final MiniByte MSG_MAXIMA_TXPOW 		= new MiniByte(10);
+	
+	public static final MiniByte MSG_SINGLE_PING 	= new MiniByte(11);
+	public static final MiniByte MSG_SINGLE_PONG 	= new MiniByte(12);
 	
 	/**
 	 * Helper function that converts to String 
@@ -71,7 +80,9 @@ public class NIOMessage implements Runnable {
 			return "P2P";
 		}else if(zType.isEqual(MSG_PING)) {
 			return "PING";
-		}else if(zType.isEqual(MSG_MAXIMA)) {
+		}else if(zType.isEqual(MSG_MAXIMA_CTRL)) {
+			return "MAXIMA_CTRL";
+		}else if(zType.isEqual(MSG_MAXIMA_TXPOW)) {
 			return "MAXIMA";
 		}
 		
@@ -134,12 +145,44 @@ public class NIOMessage implements Runnable {
 				Greeting greet = Greeting.ReadFromStream(dis);
 				
 				//What version..
-				if(!greet.getVersion().toString().startsWith("0.101")) {
-						
-					MinimaLogger.log("Greeting with Incompatible Version! "+greet.getVersion().toString());
+				boolean testcheck = true;
+				String greetstr = greet.getVersion().toString();
+				if(GeneralParams.TEST_PARAMS && !greetstr.contains("TEST")) {
+					testcheck = false;
+				}else if(!GeneralParams.TEST_PARAMS && greetstr.contains("TEST")) {
+					testcheck = false;
+				} 
+				
+				if(!testcheck || !greetstr.startsWith("0.102")) {
 					
-					//Disconnect..
-					Main.getInstance().getNIOManager().disconnect(mClientUID);
+					MinimaLogger.log("Greeting with Incompatible Version! "+greet.getVersion().toString()+" .. we are "+GlobalParams.MINIMA_VERSION);
+					
+					//Tell the P2P..
+					Message newconn = new Message(P2PFunctions.P2P_NOCONNECT);
+					newconn.addObject("client", nioclient);
+					newconn.addString("uid", nioclient.getUID());
+					Main.getInstance().getNetworkManager().getP2PManager().PostMessage(newconn);
+					
+					//Are we incoming..
+					if(nioclient.isIncoming() && !nioclient.haveSentGreeting()) {
+						nioclient.setSentGreeting(true);
+						
+						//Send them a greeting so THEY disconnect
+						Greeting greetout = new Greeting().createGreeting();
+						
+						//And send it..
+						NIOManager.sendNetworkMessage(nioclient.getUID(), NIOMessage.MSG_GREETING, greetout);
+						
+						//Disconnect in with a small pause
+						TimerMessage msg = new TimerMessage(2000,NIOManager.NIO_DISCONNECT);
+						msg.addString("uid", mClientUID);
+						Main.getInstance().getNIOManager().PostTimerMessage(msg);
+					
+					}else{
+					
+						//Just disconnect, you've already sent the Greeting - permanently ( no reconnect )
+						Main.getInstance().getNIOManager().disconnect(mClientUID);
+					}
 					
 					return;
 				}
@@ -159,23 +202,23 @@ public class NIOMessage implements Runnable {
 					nioclient.setMinimaPort(Integer.parseInt(greet.getExtraDataValue("port")));
 				}
 				
-				//Is there Maxima Ident..
-				if(greet.getExtraData().containsKey("maxima")) {
-					MinimaLogger.log("Maxima Client Connected "+nioclient);
-					nioclient.setMaximaIdent(greet.getExtraDataValue("maxima"));
-				}
-				
 				//Get the welcome message..
 				nioclient.setWelcomeMessage("Minima v"+greet.getVersion());
 				nioclient.setValidGreeting(true);
 				
 				//Tell the P2P..
-//				MinimaLogger.log("CONNECTED P2P Client "+nioclient);
 				Message newconn = new Message(P2PFunctions.P2P_CONNECTED);
 				newconn.addString("uid", nioclient.getUID());
 				newconn.addBoolean("incoming", nioclient.isIncoming());
 				newconn.addObject("client", nioclient);
 				Main.getInstance().getNetworkManager().getP2PManager().PostMessage(newconn);
+				
+				//Tell MAXIMA
+				Message maxconn = new Message(MaximaManager.MAXIMA_CONNECTED);
+				maxconn.addObject("nioclient", nioclient);
+				maxconn.addString("uid", nioclient.getUID());
+				maxconn.addBoolean("incoming", nioclient.isIncoming());
+				Main.getInstance().getMaxima().PostMessage(maxconn);
 				
 				//Is this an incoming connection.. send a greeting!
 				if(nioclient.isIncoming()) {
@@ -412,16 +455,7 @@ public class NIOMessage implements Runnable {
 					MinimaLogger.log(mClientUID+" Error null client on P2P NIOMessage..");
 					return;
 				}
-				
-				//Is this one of our Maxima Clients / Hosts.. if so ignore all P2P messages..
-				Maxima max = Main.getInstance().getMaxima();
-				if(nioclient.isMaximaClient()) {
-					//Don't forward these messages..
-					return;
-				}else if(max.isHostSet() && nioclient.getFullAddress().equals(max.getMaximaHost())) {
-					//Don't forward..
-					return;
-				}
+				NIOClientInfo clientInfo = new NIOClientInfo(nioclient, true);
 				
 				//Convert to JSON
 				JSONObject json = (JSONObject) new JSONParser().parse(msg.toString());
@@ -493,24 +527,109 @@ public class NIOMessage implements Runnable {
 					if (nioclient.getMinimaPort() == -1){
 						port = nioclient.getMinimaPort();
 					}
+					
 					//Hmm something funny..
 					MinimaLogger.log("[!] No Crossover found whilst syncing with new node. They are on a different chain. Please check you are on the correct chain.. disconnecting from "+ nioclient.getHost() + ":" + port);
 					Main.getInstance().getNIOManager().disconnect(mClientUID);
 				}
 				
-			}else if(type.isEqual(MSG_MAXIMA)) {
-				//Get the data..
-				MaximaPackage maxpkg = MaximaPackage.ReadFromStream(dis);
+			}else if(type.isEqual(MSG_MAXIMA_CTRL)) {
 				
-				//And send it on to Maxima..
-				Message maxmsg = new Message(Maxima.MAXIMA_RECMESSAGE);
-				maxmsg.addObject("maxpackage", maxpkg);
+				//Make sure acceptable length
+				if(mData.getLength() > 65535) {
+					MinimaLogger.log("Maxima CTRL message too Large! from "+mClientUID);
+					return;
+				}
+				
+				//Get the message
+				MaximaCTRLMessage msg = MaximaCTRLMessage.ReadFromStream(dis);
+				
+				//Get the client
+				NIOClient nioclient = Main.getInstance().getNIOManager().getNIOServer().getClient(mClientUID);
+				
+				//And post it to the Maxima Manager..
+				Message maxmsg = new Message(MaximaManager.MAXIMA_CTRLMESSAGE);
+				maxmsg.addObject("nioclient", nioclient);
+				maxmsg.addObject("maximactrl", msg);
 				
 				Main.getInstance().getMaxima().PostMessage(maxmsg);
 				
-				//Notify that Client that we received the message.. this makes external client disconnect ( internal just a ping )
-				NIOManager.sendNetworkMessage(mClientUID, MSG_PING, MiniData.ONE_TXPOWID);
+			}else if(type.isEqual(MSG_MAXIMA_TXPOW)) {
 				
+				//Convert to a MaxTxPOW
+				MaxTxPoW mxtxpow = MaxTxPoW.ReadFromStream(dis);
+				
+				//Check the TxPoW unit is correct
+				if(!mxtxpow.checkValidTxPoW()) {
+					MinimaLogger.log("Invalid Maxima message : Incorrect TxPoW Hash from "+mClientUID);
+
+					//Tell them it's a fail!
+					NIOManager.sendNetworkMessage(mClientUID, MSG_PING, MaximaManager.MAXIMA_WRONGHASH);
+					
+					return;
+				}
+								
+				//How large is the Maxima Package
+				MiniData mp = MiniData.getMiniDataVersion(mxtxpow.getMaximaPackage());
+				
+				//Make sure acceptable length - 256K
+				if(mp.getLength() > 262144) {
+					MinimaLogger.log("Maxima message too Large! from "+mClientUID+" "+MiniFormat.formatSize(mp.getLength()));
+					
+					//Tell them it's a fail!
+					NIOManager.sendNetworkMessage(mClientUID, MSG_PING, MaximaManager.MAXIMA_TOOBIG);
+					
+					return;
+				}
+				
+				//Get the client
+				NIOClient nioclient = Main.getInstance().getNIOManager().getNIOServer().getClient(mClientUID);
+				
+				//And send it on to Maxima..
+				Message maxmsg = new Message(MaximaManager.MAXIMA_RECMESSAGE);
+				maxmsg.addObject("nioclient", nioclient);
+				maxmsg.addObject("maxtxpow", mxtxpow);
+				
+				//Send to the Maxima Manager
+				Main.getInstance().getMaxima().PostMessage(maxmsg);
+				
+				//Is it a block or a transaction..
+				TxPoW txpow = mxtxpow.getTxPoW();
+				if(txpow.isTransaction() || txpow.isBlock()) {
+					
+					//And Now post the TxPoW on the stack..
+					MiniData niodata = NIOManager.createNIOMessage(NIOMessage.MSG_TXPOW, txpow);
+
+					//And send
+					Message newniomsg = new Message(NIOManager.NIO_INCOMINGMSG);
+					newniomsg.addString("uid", mClientUID);
+					newniomsg.addObject("data", niodata);
+
+					//Post to the NIOManager - which will check it and forward if correct
+					Main.getInstance().getNetworkManager().getNIOManager().PostMessage(newniomsg);
+				}
+				
+			}else if(type.isEqual(MSG_SINGLE_PING)) {
+				
+				//Get the Data Object..
+				MiniData datapacket = MiniData.ReadFromStream(dis);
+				
+				//Now send some useful info back 
+				Greeting pinggreet = new Greeting();
+				pinggreet.getExtraData().put("welcome", "hi there!");
+				
+				TxPoWTreeNode tip = MinimaDB.getDB().getTxPoWTree().getTip();
+				
+				pinggreet.getExtraData().put("topblock", tip.getBlockNumber().toString());
+				pinggreet.getExtraData().put("tophash", tip.getTxPoW().getTxPoWID());
+				
+				TxPoWTreeNode tip50 = MinimaDB.getDB().getTxPoWTree().getTip().getParent(50);
+				pinggreet.getExtraData().put("50block", tip50.getBlockNumber().toString());
+				pinggreet.getExtraData().put("50hash", tip50.getTxPoW().getTxPoWID());
+				
+				//Send this back to them.. 
+				NIOManager.sendNetworkMessage(mClientUID, MSG_SINGLE_PONG, pinggreet);
+			
 			}else {
 				
 				//UNKNOWN MESSAGE..

@@ -8,47 +8,24 @@ import java.util.regex.Pattern;
 import org.minima.objects.Address;
 import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
-import org.minima.system.commands.base.automine;
-import org.minima.system.commands.base.backup;
-import org.minima.system.commands.base.balance;
-import org.minima.system.commands.base.burn;
-import org.minima.system.commands.base.coinexport;
-import org.minima.system.commands.base.coinimport;
-import org.minima.system.commands.base.cointrack;
-import org.minima.system.commands.base.debugflag;
-import org.minima.system.commands.base.getaddress;
-import org.minima.system.commands.base.hash;
-import org.minima.system.commands.base.hashtest;
-import org.minima.system.commands.base.incentivecash;
-import org.minima.system.commands.base.missingcmd;
-import org.minima.system.commands.base.mmrcreate;
-import org.minima.system.commands.base.mmrproof;
-import org.minima.system.commands.base.newaddress;
-import org.minima.system.commands.base.printmmr;
-import org.minima.system.commands.base.printtree;
-import org.minima.system.commands.base.quit;
-import org.minima.system.commands.base.restore;
-import org.minima.system.commands.base.runscript;
-import org.minima.system.commands.base.scripts;
-import org.minima.system.commands.base.send;
-import org.minima.system.commands.base.status;
-import org.minima.system.commands.base.test;
-import org.minima.system.commands.base.tokencreate;
-import org.minima.system.commands.base.tokens;
-import org.minima.system.commands.base.trace;
-import org.minima.system.commands.base.tutorial;
+import org.minima.system.commands.base.*;
+import org.minima.system.commands.maxima.maxcontacts;
+import org.minima.system.commands.maxima.maxima;
 import org.minima.system.commands.network.connect;
 import org.minima.system.commands.network.disconnect;
-import org.minima.system.commands.network.maxima;
 import org.minima.system.commands.network.message;
 import org.minima.system.commands.network.network;
+import org.minima.system.commands.network.ping;
 import org.minima.system.commands.network.rpc;
-import org.minima.system.commands.network.sshtunnel;
 import org.minima.system.commands.network.webhooks;
 import org.minima.system.commands.persistent.file;
 import org.minima.system.commands.persistent.sql;
+import org.minima.system.commands.scripts.newscript;
+import org.minima.system.commands.scripts.runscript;
+import org.minima.system.commands.scripts.scripts;
 import org.minima.system.commands.search.coins;
 import org.minima.system.commands.search.keys;
+import org.minima.system.commands.search.tokens;
 import org.minima.system.commands.search.txpow;
 import org.minima.system.commands.signatures.sign;
 import org.minima.system.commands.signatures.verify;
@@ -77,22 +54,31 @@ public abstract class Command {
 	public static final Command[] ALL_COMMANDS = 
 		{   new quit(), new status(), new coins(), new txpow(), new connect(), new disconnect(), new network(),
 			new message(), new trace(), new help(), new printtree(), new automine(), new printmmr(), new rpc(),
-			new send(), new balance(), new tokencreate(), new tokens(),new getaddress(), new newaddress(), new debugflag(),
-			new incentivecash(), new sshtunnel(), new webhooks(),
+			new send(), new balance(), new tokencreate(), new tokenvalidate(), new tokens(),new getaddress(), new newaddress(), new debugflag(),
+			new incentivecash(), new webhooks(), new peers(), new p2pstate(),
 
+			//Removed code..
+//			new sshtunnel(), 
+			
+			new ping(),
 			new sql(),new file(),
+			new vault(), new consolidate(),
 			new backup(), new restore(), new test(), 
-			new runscript(), new tutorial(),new keys(),new scripts(),new burn(),
+			new runscript(), new tutorial(),new keys(),
+			new scripts(), new newscript(),
+			new burn(),
 			
 			new txnbasics(),new txncreate(), new txninput(),new txnlist(), new txnclear(),
 			new txnoutput(),new txnstate(),new txnsign(),new txnpost(),new txndelete(),
 			new txnexport(),new txnimport(),new txncheck(), new txnscript(),
 			
-			new coinimport(), new coinexport(),new cointrack(),
+			new coinimport(), new coinexport(),new cointrack(), new coincheck(),
 			
 			new hash(), new hashtest(), new sign(), new verify(),
 			
-			new maxima(),new mmrcreate(), new mmrproof()};
+			new maxima(), new maxcontacts(),
+			
+			new mmrcreate(), new mmrproof()};
 	
 	String mName;
 	String mHelp;

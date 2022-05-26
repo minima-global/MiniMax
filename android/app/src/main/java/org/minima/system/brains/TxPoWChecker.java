@@ -1,7 +1,6 @@
 package org.minima.system.brains;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 
 import org.minima.database.MinimaDB;
@@ -22,7 +21,6 @@ import org.minima.objects.TxHeader;
 import org.minima.objects.TxPoW;
 import org.minima.objects.Witness;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniNumber;
 import org.minima.objects.keys.Signature;
 import org.minima.objects.keys.TreeKey;
 import org.minima.system.params.GlobalParams;
@@ -36,16 +34,6 @@ public class TxPoWChecker {
 	public static MiniData CURRENT_NETWORK = TxHeader.TEST_NET;
 	
 	/**
-	 * The Number of blocks to get the MEDIAN block for time checks
-	 */
-	public static int MEDIAN_TIMECHECK_BLOCK = GlobalParams.MEDIAN_BLOCK_CALC * 4;
-	
-	/**
-	 * The MAX number of milliseconds in the future the Block can be from the Median Block ~2 hrs
-	 */
-	public static MiniNumber MAXMILLI_FUTURE = new MiniNumber(1000 * 50 * MEDIAN_TIMECHECK_BLOCK);
-	
-	/**
 	 * Parallel check all the transactions in this block
 	 */
 	public static boolean checkTxPoWBlock(TxPoWTreeNode zParentNode, TxPoW zTxPoW, ArrayList<TxPoW> zTransactions) {
@@ -55,17 +43,6 @@ public class TxPoWChecker {
 			//Check ChainID
 			if(!zTxPoW.getChainID().isEqual(TxPoWChecker.CURRENT_NETWORK)) {
 				MinimaLogger.log("Invalid Block ChainID! "+zTxPoW.getChainID()+" "+zTxPoW.getTxPoWID());
-				return false;
-			}
-			
-			//Check the time of the block is greater than the median time
-			TxPoW medianblock = TxPoWGenerator.getMedianTimeBlock(zParentNode, MEDIAN_TIMECHECK_BLOCK).getTxPoW();
-			if(zTxPoW.getTimeMilli().isLess(medianblock.getTimeMilli())) {
-				MinimaLogger.log("Invalid TxPoW block with millitime LESS than median "+new Date(zTxPoW.getTimeMilli().getAsLong())+" "+zTxPoW.getTxPoWID());
-				return false;
-			
-			}else if(zTxPoW.getTimeMilli().isMore(medianblock.getTimeMilli().add(MAXMILLI_FUTURE))) {
-				MinimaLogger.log("Invalid TxPoW block with millitime MORE than median + 2 hrs "+new Date(zTxPoW.getTimeMilli().getAsLong())+" "+zTxPoW.getTxPoWID());
 				return false;
 			}
 			
@@ -318,6 +295,30 @@ public class TxPoWChecker {
 			}
 		}
 		
+		//Check Output Tokens
+		ArrayList<Coin> outputs = zTransaction.getAllOutputs();
+		for(Coin cc : outputs) {
+			if(!cc.getTokenID().isEqual(Token.TOKENID_MINIMA) && !cc.getTokenID().isEqual(Token.TOKENID_CREATE)) {
+				
+				if(cc.getToken() == null) {
+					MinimaLogger.log("Incorrect output token with NULL token..");
+					return false;
+				
+				}else if(!cc.getToken().getTokenID().isEqual(cc.getTokenID())) {
+					
+					MinimaLogger.log("Incorrect output token with different tokenid..");
+					return false;
+				}
+			
+			}else if(cc.getTokenID().isEqual(Token.TOKENID_CREATE)) {
+				
+				if(cc.getToken() == null) {
+					MinimaLogger.log("Incorrect output token for create token with NULL token..");
+					return false;
+				}
+			}
+		}
+		
 		return true;
 	}
 	
@@ -407,7 +408,12 @@ public class TxPoWChecker {
 											cproof.getCoin().getState());
 			
 			contract.setMaxInstructions(maxops);
-			contract.setGlobals(zBlock.getBlockNumber(), zTransaction, i, cproof.getCoin().getBlockCreated(), script);
+			contract.setGlobals(zBlock.getBlockNumber(), 
+								zBlock.getTimeMilli(), 
+								zTransaction, 
+								i, 
+								cproof.getCoin().getBlockCreated(), 
+								script);
 			contract.run();
 			
 			//Monotonic - no @BLKNUM references..
@@ -440,7 +446,12 @@ public class TxPoWChecker {
 														cproof.getCoin().getState());
 					
 					tokcontract.setMaxInstructions(maxops);
-					tokcontract.setGlobals(zBlock.getBlockNumber(), zTransaction, i, cproof.getCoin().getBlockCreated(), tokscript);
+					tokcontract.setGlobals(	zBlock.getBlockNumber(), 
+											zBlock.getTimeMilli(), 
+											zTransaction, 
+											i, 
+											cproof.getCoin().getBlockCreated(), 
+											tokscript);
 					tokcontract.run();
 					
 					if(!tokcontract.isMonotonic()) {

@@ -12,16 +12,16 @@ public class GeneralParams {
 	 */
 	public static boolean IS_ACCEPTING_IN_LINKS = true;
 	
-	/**
-	 * Is this a private network - don;t connect to any users..
-	 */
-	public static boolean PRIVATE_NETWORK = false;
-	
-	/**
-	 * Are we automining a TxPoW every block
-	 */
-	public static boolean AUTOMINE = false;
-	
+//	/**
+//	 * Is this a private network - don;t connect to any users..
+//	 */
+//	public static boolean PRIVATE_NETWORK = false;
+//	
+//	/**
+//	 * Are we automining a TxPoW every block
+//	 */
+//	public static boolean AUTOMINE = false;
+//	
 	/**
 	 * Are we creating the genesis block 
 	 */

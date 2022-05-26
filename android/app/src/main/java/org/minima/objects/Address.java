@@ -1,5 +1,7 @@
 package org.minima.objects;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -104,49 +106,89 @@ public class Address implements Streamable{
 	}
 	
 	/**
-	 * Convert an address into a Minima Checksum Base32 address
+	 * Convert an address into a Minima Checksum Base32 address - MAX 32k
 	 */
 	public static String makeMinimaAddress(MiniData zAddress){
+		
 		//The Original data
 		byte[] data = zAddress.getBytes();
+		int datalen = data.length;
 		
-		//First hash it to add some checksum digits..
-		byte[] hash = Crypto.getInstance().hashData(data);
-		
-		//Now create one big byte array - address + first 4 bytes of hash
-		byte[] tot16 = new byte[data.length + 4];
-		
-		//Copy the old..
-		for(int i=0;i<data.length;i++) {
-			tot16[i] = data[i];
-		}
-		
-		//Add the checksum..
+		//First hash it to for checksum digits..
+		byte[] hash 		= Crypto.getInstance().hashData(data);
+		byte[] checksum		= new byte[4];
 		for(int i=0;i<4;i++) {
-			tot16[data.length+i] = hash[i];
+			checksum[i] = hash[i]; 
 		}
+		
+		//Now write this info to stream
+		ByteArrayOutputStream bos 	= new ByteArrayOutputStream();
+	    DataOutputStream dos 		= new DataOutputStream(bos);
+		
+	    try {
+	    	//MUST write 1 non 0 byte first to ensure no truncation in base 32 conversion
+	    	dos.write(1);
+	    	
+	    	//the length 
+			dos.writeShort(datalen);
+			
+		    //the data itself..
+			dos.write(data);
+			
+			//4 bytes of the hash
+			dos.write(checksum);
+			
+			//Close the Streams
+			dos.close();
+			bos.close();
+		    
+	    } catch (IOException e) {
+	    	throw new IllegalArgumentException("Invalid MxAddress - "+e.toString());
+		}
+	    
+		//Get the bytes
+		byte[] origdata = bos.toByteArray();
 		
 		//Now convert the whole thing to Base 32
-		String b32 = BaseConverter.encode32(tot16);
-		
-		return b32;
+		return BaseConverter.encode32(origdata);
 	}
 	
 	public static MiniData convertMinimaAddress(String zMinimAddress) throws IllegalArgumentException {
 		
 		//First convert the whole thing back..
-		byte[] decode = BaseConverter.decode32(zMinimAddress);
+		byte[] decode 	= BaseConverter.decode32(zMinimAddress);
+
+		//Now read in the data..
+		ByteArrayInputStream bais 	= new ByteArrayInputStream(decode);
+		DataInputStream dis 		= new DataInputStream(bais);
 		
-		//Now grab the fron and back..
-		int len = decode.length;
-		
-		//Create the byte arrays
+		byte[] data;
 		byte[] checksum = new byte[4];
-		byte[] data 	= new byte[len-4];
 		
-		//Copy correct..
-		System.arraycopy(decode, 0, data, 0, len-4);
-		System.arraycopy(decode, len-4, checksum, 0, 4);
+		try {
+			//Read the first byte
+			int one = dis.read();
+			if(one!=1) {
+				throw new IllegalArgumentException("Invalid MxAddress - should start with 1 "+zMinimAddress);
+			}
+			
+	    	//First the data length
+			int datalen = dis.readShort();
+			
+		    //the data itself..
+			data = new byte[datalen];
+			dis.readFully(data);
+			
+			//And the checksum
+			dis.readFully(checksum); 
+			
+			//Close the Streams
+			dis.close();
+			bais.close();
+		    
+	    } catch (IOException e) {
+	    	throw new IllegalArgumentException("Invalid MxAddress - "+e.toString());
+		}
 		
 		//Now check the hash
 		byte[] hash = Crypto.getInstance().hashData(data);
@@ -162,14 +204,21 @@ public class Address implements Streamable{
 	}
 	
 	public static void main(String[] zArgs) throws Exception {
-		MiniData tt = MiniData.getRandomData(32);
+		
+		MiniData tt = MiniData.getRandomData(320);
+//		MiniData tt = new MiniData("0x001");
+		
+		Address addr = new Address(tt);
+		System.out.println("Address   : "+addr.toString());
 		
 		String madd 	= Address.makeMinimaAddress(tt);
-		MiniData conv 	= Address.convertMinimaAddress(madd);
-		
-		System.out.println("Address   : "+tt.to0xString());
 		System.out.println("MxAddress : "+madd);
+		
+		MiniData conv 	= Address.convertMinimaAddress(madd);
 		System.out.println("Converted : "+conv.to0xString());
+		
+//		conv 	= Address.convertMinimaAddress("Mx1010CAGPCN14YDBKQ9AARA7S1EH76M39W712URVZPV4K57K8P042VK91HFVY789F0E7NFVNZRPEYPJ4WUQYFKMJUEK7ETZZG4SFE0BMT8BTM12ZTG");
+//		System.out.println("Hard Converted : "+conv.to0xString());
 		
 	}
 	

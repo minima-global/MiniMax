@@ -1,4 +1,6 @@
-package org.minima.kissvm.functions.string;
+package org.minima.kissvm.functions.cast;
+
+import java.nio.charset.Charset;
 
 import org.minima.kissvm.Contract;
 import org.minima.kissvm.exceptions.ExecutionException;
@@ -6,7 +8,6 @@ import org.minima.kissvm.functions.MinimaFunction;
 import org.minima.kissvm.values.HexValue;
 import org.minima.kissvm.values.StringValue;
 import org.minima.kissvm.values.Value;
-import org.minima.objects.base.MiniString;
 
 /**
  * Replace ALL occurrences of str with replacemnet
@@ -27,7 +28,7 @@ public class UTF8 extends MinimaFunction {
 		HexValue hex = zContract.getHexParam(0, this);
 		
 		//Now create a UTF8 String
-		String newstr = new String(hex.getRawData(), MiniString.MINIMA_CHARSET);
+		String newstr = new String(hex.getRawData(), Charset.forName("UTF-8"));
 		
 		return new StringValue(newstr);	
 	}

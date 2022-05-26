@@ -12,7 +12,6 @@ import org.minima.database.mmr.MMREntryNumber;
 import org.minima.database.mmr.MMRProof;
 import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
-import org.minima.utils.Crypto;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.Streamable;
 
@@ -132,14 +131,6 @@ public class TxBlock implements Streamable {
 		//The state of this Txn
 		ArrayList<StateVariable> txnstate = zTransaction.getCompleteState();
 		
-		//Create the state all outputs keep..
-		ArrayList<StateVariable> newstate = new ArrayList<>();
-		for(StateVariable sv : txnstate) {
-			if(sv.isKeepMMR()) {
-				newstate.add(sv);
-			}
-		}
-		
 		//All the Outputs..
 		ArrayList<Coin> outputs = zTransaction.getAllOutputs();
 		if(coinspent.size()>0) {
@@ -151,15 +142,8 @@ public class TxBlock implements Streamable {
 				basecoinid = zTransaction.getTransactionID();
 			}else {
 				
-				//Get the First Coin..
-				Coin firstcoin = coinspent.get(0).getCoin();
-				
-				//Hash that coin..
-				basecoinid = Crypto.getInstance().hashAllObjects(
-						firstcoin.getCoinID(),
-						firstcoin.getAddress(),
-						firstcoin.getAmount(),
-						firstcoin.getTokenID());
+				//First coinid
+				basecoinid = coinspent.get(0).getCoin().getCoinID();
 			}
 		
 			//All the new coins
@@ -174,7 +158,7 @@ public class TxBlock implements Streamable {
 				
 				//Set the correct state variables
 				if(correctcoin.storeState()) {
-					correctcoin.setState(newstate);
+					correctcoin.setState(txnstate);
 				}
 				
 				//Is this a create token output..

@@ -13,6 +13,7 @@ import org.minima.objects.TxBlock;
 import org.minima.objects.TxPoW;
 import org.minima.objects.base.MiniNumber;
 import org.minima.system.Main;
+import org.minima.system.params.GeneralParams;
 import org.minima.system.params.GlobalParams;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.Stack;
@@ -353,44 +354,39 @@ public class TxPoWProcessor extends MessageProcessor {
 			TxPowTree txptree 		= MinimaDB.getDB().getTxPoWTree();
 			MiniNumber timenow 		= new MiniNumber(System.currentTimeMillis());
 			
-			//Will not accept a TxBlock within 30 mins of current time.. will ask for full TxPoW blocks 
-			MiniNumber mintimediff 	= new MiniNumber(1000 * 60 * 30);
+			//If our chain is up to date (within 3 hrs) we don't accept TxBlock at all.. only full blocks
+			if(txptree.getTip() != null && ibd.getTxBlocks().size()>0) {
+				MiniNumber notxblocktimediff = new MiniNumber(1000 * 60 * 180);
+				if(GeneralParams.TEST_PARAMS) {
+					notxblocktimediff = new MiniNumber(1000 * 60 * 5);
+				}
+				if(txptree.getTip().getTxPoW().getTimeMilli().sub(timenow).abs().isLess(notxblocktimediff)) {
+					MinimaLogger.log("Your chain tip is up to date - no TxBlocks accepted - only FULL TxPoW");
+					return;
+				}
+			}
 			
-			//How long is our tree..
-			int additions 	= 0;
-			int treelen 	= txptree.getHeaviestBranchLength();
-			int minlen 		= GlobalParams.MINIMA_BLOCKS_SPEED_CALC.getAsInt()+TxPoWChecker.MEDIAN_TIMECHECK_BLOCK;
+			//How many blocks have we added
+			int additions = 0;
 			
 			//Cycle and add..
 			ArrayList<TxBlock> blocks = ibd.getTxBlocks();
 			for(TxBlock block : blocks) {
 				
-				//Process it..
 				try {
-					//What is the time diff
-					MiniNumber timediff = timenow.sub(block.getTxPoW().getTimeMilli());
-					
-					//Check if this sync block is too near the current time.. or if we have no blocks yet
-					if((treelen+additions)<minlen ||  timediff.isMore(mintimediff)) {
 						
-						//It's not near our time.. so process..
-						processSyncBlock(block);	
-						additions++;
-					
-						//If we've added a lot of blocks..
-						if(additions > 1000) {
-							
-							//recalculate the Tree..
-							recalculateTree();
-							
-							//Reset these
-							treelen 	= txptree.getHeaviestBranchLength();
-							additions	= 0;
-						}
+					//Process it..
+					processSyncBlock(block);	
+					additions++;
+				
+					//If we've added a lot of blocks..
+					if(additions > 1000) {
 						
-					}else {
-						MinimaLogger.log("TxBlock too close to real time.. skipping.. @ "+block.getTxPoW().getBlockNumber());
-						break;
+						//recalculate the Tree..
+						recalculateTree();
+						
+						//Reset these
+						additions = 0;
 					}
 					
 				}catch(Exception exc) {

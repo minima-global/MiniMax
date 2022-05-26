@@ -1,4 +1,4 @@
-package org.minima.system.network.p2p.messages;//package org.minima.system.network.p2p.messages;
+//package org.minima.system.network.p2p.messages;
 //
 //import lombok.Getter;
 //import lombok.Setter;

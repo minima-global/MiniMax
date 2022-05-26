@@ -1,12 +1,12 @@
 package org.minima.system.commands;
 
-import org.minima.system.commands.base.automine;
 import org.minima.system.commands.base.backup;
 import org.minima.system.commands.base.balance;
 import org.minima.system.commands.base.burn;
 import org.minima.system.commands.base.coinexport;
 import org.minima.system.commands.base.coinimport;
 import org.minima.system.commands.base.cointrack;
+import org.minima.system.commands.base.consolidate;
 import org.minima.system.commands.base.getaddress;
 import org.minima.system.commands.base.hash;
 import org.minima.system.commands.base.hashtest;
@@ -17,24 +17,27 @@ import org.minima.system.commands.base.newaddress;
 import org.minima.system.commands.base.printtree;
 import org.minima.system.commands.base.quit;
 import org.minima.system.commands.base.restore;
-import org.minima.system.commands.base.runscript;
-import org.minima.system.commands.base.scripts;
 import org.minima.system.commands.base.send;
 import org.minima.system.commands.base.status;
 import org.minima.system.commands.base.tokencreate;
-import org.minima.system.commands.base.tokens;
+import org.minima.system.commands.base.tokenvalidate;
 import org.minima.system.commands.base.trace;
 import org.minima.system.commands.base.tutorial;
+import org.minima.system.commands.base.vault;
+import org.minima.system.commands.maxima.maxcontacts;
+import org.minima.system.commands.maxima.maxima;
 import org.minima.system.commands.network.connect;
 import org.minima.system.commands.network.disconnect;
-import org.minima.system.commands.network.maxima;
 import org.minima.system.commands.network.message;
 import org.minima.system.commands.network.network;
 import org.minima.system.commands.network.rpc;
-import org.minima.system.commands.network.sshtunnel;
 import org.minima.system.commands.network.webhooks;
+import org.minima.system.commands.scripts.newscript;
+import org.minima.system.commands.scripts.runscript;
+import org.minima.system.commands.scripts.scripts;
 import org.minima.system.commands.search.coins;
 import org.minima.system.commands.search.keys;
+import org.minima.system.commands.search.tokens;
 import org.minima.system.commands.search.txpow;
 import org.minima.system.commands.signatures.sign;
 import org.minima.system.commands.signatures.verify;
@@ -72,7 +75,7 @@ public class help extends Command {
 		addCommand(details, new printtree());
 		addCommand(details, new burn());
 		addCommand(details, new trace());
-		addCommand(details, new automine());
+//		addCommand(details, new automine());
 		addCommand(details, new hashtest());
 //		addCommand(details, new debugflag());
 		
@@ -86,12 +89,16 @@ public class help extends Command {
 		addCommand(details, new send());
 		addCommand(details, new balance());
 		addCommand(details, new tokencreate());
+		addCommand(details, new tokenvalidate());
+		addCommand(details, new consolidate());
+		
 		addCommand(details, new hash());
 		
 //		addCommand(details, new file());
 //		addCommand(details, new sql());
 		
 		addCommand(details, new scripts());
+		addCommand(details, new newscript());
 		addCommand(details, new runscript());
 		addCommand(details, new tutorial());
 		
@@ -122,14 +129,17 @@ public class help extends Command {
 		
 		addCommand(details, new network());
 		addCommand(details, new maxima());
+		addCommand(details, new maxcontacts());
 		addCommand(details, new message());
 		addCommand(details, new connect());
 		addCommand(details, new disconnect());
 		addCommand(details, new rpc());
 		addCommand(details, new webhooks());
-		addCommand(details, new sshtunnel());
+//		addCommand(details, new sshtunnel());
 		
 		addCommand(details, new backup());
+		addCommand(details, new restore());
+		addCommand(details, new vault());
 		addCommand(details, new restore());
 		addCommand(details, new incentivecash());
 		

@@ -1,5 +1,8 @@
 package org.minima.system.params;
 
+import org.minima.system.network.p2p.P2PFunctions;
+import org.minima.system.network.p2p.params.P2PParams;
+
 import static java.nio.file.Files.lines;
 import static java.util.Arrays.stream;
 import static java.util.Optional.empty;
@@ -118,7 +121,10 @@ public class ParamConfigurer {
     }
 
     enum ParamKeys {
-        host("host", "Specify the host IP", (arg, configurer) -> {
+    	data("data", "Specify the data folder (defaults to .minima/ under user home", (args, configurer) -> {
+        	GeneralParams.DATA_FOLDER = new File(args).getAbsolutePath();
+        }),
+    	host("host", "Specify the host IP", (arg, configurer) -> {
             GeneralParams.MINIMA_HOST = arg;
             GeneralParams.IS_HOST_SET = true;
         }),
@@ -128,22 +134,24 @@ public class ParamConfigurer {
         rpc("rpc", "Specify the RPC port", (arg, configurer) -> {
             GeneralParams.RPC_PORT = Integer.parseInt(arg);
         }),
+        rpcenable("rpcenable", "Enable rpc", (args, configurer) -> {
+            if ("true".equals(args)) {
+                configurer.rpcenable = true;
+            }
+        }),
         conf("conf", "Specify a configuration file (absolute)", (args, configurer) -> {
             // do nothing
-        }),
-        data("data", "Specify the data folder (absolute) (defaults to .minima/ under user home", (args, configurer) -> {
-            GeneralParams.DATA_FOLDER = args;
         }),
         daemon("daemon", "Run in daemon mode with no stdin input ( services )", (args, configurer) -> {
             if ("true".equals(args)) {
                 configurer.daemon = true;
             }
         }),
-        private1("private", "Use a private network", (args, configurer) -> {
-            if ("true".equals(args)) {
-                GeneralParams.PRIVATE_NETWORK = true;
-            }
-        }),
+//        private1("private", "Use a private network", (args, configurer) -> {
+//            if ("true".equals(args)) {
+//                GeneralParams.PRIVATE_NETWORK = true;
+//            }
+//        }),
         isclient("isclient", "Tells the P2P System that this node can't accept incoming connections", (args, configurer) -> {
             if ("true".equals(args)) {
                 GeneralParams.IS_ACCEPTING_IN_LINKS = false;
@@ -152,11 +160,6 @@ public class ParamConfigurer {
         mobile("mobile", "Sets this device to a mobile device - used for metrics only", (args, configurer) -> {
             if ("true".equals(args)) {
                 GeneralParams.IS_MOBILE = true;
-            }
-        }),
-        rpcenable("rpcenable", "Enable rpc", (args, configurer) -> {
-            if ("true".equals(args)) {
-                configurer.rpcenable = true;
             }
         }),
         nop2p("nop2p", "Disable the automatic P2P system", (args, configurer) -> {
@@ -173,14 +176,20 @@ public class ParamConfigurer {
         p2pnode("p2pnode", "Specify the initial P2P host:port list to connect to", (args, configurer) -> {
             GeneralParams.P2P_ROOTNODE = args;
         }),
-        automine("automine", "Simulate user traffic to construct the blockchain", (args, configurer) -> {
-            if ("true".equals(args)) {
-                GeneralParams.AUTOMINE = true;
-            }
+        p2ploglevelinfo("p2p-log-level-info", "Set the P2P log level to info", (args, configurer) -> {
+            P2PParams.LOG_LEVEL = P2PFunctions.Level.INFO;
         }),
-        noautomine("noautomine", "Do not simulate user traffic to construct the blockchain", (args, configurer) -> {
-            GeneralParams.AUTOMINE = false;
+        p2plogleveldebug("p2p-log-level-debug", "Set the P2P log level to info", (args, configurer) -> {
+            P2PParams.LOG_LEVEL = P2PFunctions.Level.DEBUG;
         }),
+//        automine("automine", "Simulate user traffic to construct the blockchain", (args, configurer) -> {
+//            if ("true".equals(args)) {
+//                GeneralParams.AUTOMINE = true;
+//            }
+//        }),
+//        noautomine("noautomine", "Do not simulate user traffic to construct the blockchain", (args, configurer) -> {
+//            GeneralParams.AUTOMINE = false;
+//        }),
         connect("connect", "Disable the p2p and manually connect to this list of host:port", (args, configurer) -> {
             GeneralParams.P2P_ENABLED = false;
             GeneralParams.CONNECT_LIST = args;
@@ -193,15 +202,16 @@ public class ParamConfigurer {
         genesis("genesis", "Create a genesis block, -clean and -automine", (args, configurer) -> {
             if ("true".equals(args)) {
                 GeneralParams.CLEAN = true;
-                GeneralParams.PRIVATE_NETWORK = true;
+//                GeneralParams.PRIVATE_NETWORK = true;
                 GeneralParams.GENESIS = true;
-                GeneralParams.AUTOMINE = true;
+//                GeneralParams.AUTOMINE = true;
             }
         }),
-        test("test", "Use test params", (args, configurer) -> {
+        test("test", "Use test params on a private network", (args, configurer) -> {
             if ("true".equals(args)) {
-                GeneralParams.TEST_PARAMS = true;
-                GeneralParams.PRIVATE_NETWORK = true;
+                GeneralParams.TEST_PARAMS 		= true;
+//                GeneralParams.PRIVATE_NETWORK 	= true;
+//                GeneralParams.P2P_ENABLED 		= false;
                 TestParams.setTestParams();
             }
         }),

@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Container factory for creating containers for JSON object and JSON array.
  * 
- * @see JSONParser#parse(java.io.Reader, ContainerFactory)
+ * @see org.minima.utils.json.parser.JSONParser#parse(java.io.Reader, ContainerFactory)
  * 
  * @author FangYidong<fangyidong@yahoo.com.cn>
  */

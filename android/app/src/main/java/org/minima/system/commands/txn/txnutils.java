@@ -7,7 +7,7 @@ import org.minima.database.mmr.MMRProof;
 import org.minima.database.txpowdb.TxPoWDB;
 import org.minima.database.txpowtree.TxPoWTreeNode;
 import org.minima.database.userprefs.txndb.TxnRow;
-import org.minima.database.wallet.KeyRow;
+import org.minima.database.wallet.ScriptRow;
 import org.minima.database.wallet.Wallet;
 import org.minima.objects.Coin;
 import org.minima.objects.CoinProof;
@@ -111,13 +111,13 @@ public class txnutils {
 			
 			//Add the script proofs
 			String scraddress 	= input.getAddress().to0xString();
-			KeyRow keyrow 		= walletdb.getKeysRowFromAddress(scraddress); 
-			if(keyrow == null) {
+			ScriptRow srow 		= walletdb.getScriptFromAddress(scraddress);
+			if(srow == null) {
 				if(zExitOnFail) {
 					throw new Exception("SERIOUS ERROR script missing for simple address : "+scraddress);
 				}
 			}else {
-				ScriptProof pscr = new ScriptProof(keyrow.getScript());
+				ScriptProof pscr = new ScriptProof(srow.getScript());
 				zWitness.addScript(pscr);
 			}
 		}
@@ -163,17 +163,16 @@ public class txnutils {
 		
 		//Add the script proofs
 		String scraddress 	= zCoin.getAddress().to0xString();
-		KeyRow keyrow 		= walletdb.getKeysRowFromAddress(scraddress); 
-		if(keyrow == null) {
-			throw new Exception("SERIOUS ERROR script missing for simple address : "+scraddress);
+		ScriptRow srow 		= walletdb.getScriptFromAddress(scraddress);
+		if(srow == null) {
+			throw new CommandException("SERIOUS ERROR script missing for simple address : "+scraddress);
 		}
-		
-		ScriptProof pscr = new ScriptProof(keyrow.getScript());
+		ScriptProof pscr = new ScriptProof(srow.getScript());
 		zWitness.addScript(pscr);
 	}
 	
 	public static TxnRow createBurnTransaction(ArrayList<String> zExcludeCoins, MiniData zLinkTransactionID, MiniNumber zAmount) throws CommandException {
-		
+	
 		//The Full Txn..
 		TxnRow txnrow = new TxnRow("temp", new Transaction(), new Witness());
 		
@@ -284,18 +283,17 @@ public class txnutils {
 			
 			//Add the script proofs
 			String scraddress 	= input.getAddress().to0xString();
-			KeyRow keyrow 		= walletdb.getKeysRowFromAddress(scraddress); 
-			if(keyrow == null) {
+			ScriptRow srow 		= walletdb.getScriptFromAddress(scraddress);
+			if(srow == null) {
 				throw new CommandException("SERIOUS ERROR script missing for simple address : "+scraddress);
 			}
-			
-			ScriptProof pscr = new ScriptProof(keyrow.getScript());
+			ScriptProof pscr = new ScriptProof(srow.getScript());
 			witness.addScript(pscr);
 			
 			//Add this address to the list we need to sign as..
-			String priv = keyrow.getPrivateKey();
-			if(!reqsigs.contains(priv)) {
-				reqsigs.add(priv);
+			String pubkey = srow.getPublicKey();
+			if(!reqsigs.contains(pubkey)) {
+				reqsigs.add(pubkey);
 			}
 		}
 		
@@ -307,7 +305,7 @@ public class txnutils {
 		//Do we need to send change..
 		if(change.isMore(MiniNumber.ZERO)) {
 			//Create a new address
-			KeyRow newwalletaddress = MinimaDB.getDB().getWallet().getDefaultKeyAddress();
+			ScriptRow newwalletaddress = MinimaDB.getDB().getWallet().getDefaultAddress();
 			MiniData chgaddress = new MiniData(newwalletaddress.getAddress());
 			
 			//Get the scaled token ammount..
@@ -330,10 +328,10 @@ public class txnutils {
 		transaction.calculateTransactionID();
 		
 		//Now that we have constructed the transaction - lets sign it..
-		for(String priv : reqsigs) {
+		for(String pubk : reqsigs) {
 
 			//Use the wallet..
-			Signature signature = walletdb.sign(priv, transaction.getTransactionID());
+			Signature signature = walletdb.signData(pubk, transaction.getTransactionID());
 			
 			//Add it..
 			witness.addSignature(signature);

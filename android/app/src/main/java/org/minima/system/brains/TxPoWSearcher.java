@@ -1,11 +1,11 @@
 package org.minima.system.brains;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.minima.database.MinimaDB;
 import org.minima.database.txpowdb.TxPoWDB;
 import org.minima.database.txpowtree.TxPoWTreeNode;
-import org.minima.database.wallet.KeyRow;
 import org.minima.database.wallet.Wallet;
 import org.minima.objects.Coin;
 import org.minima.objects.Token;
@@ -87,7 +87,7 @@ public class TxPoWSearcher {
 		TxPoWTreeNode tip = zStartNode;
 		
 		//A list of spent CoinID..
-		ArrayList<String> spentcoins = new ArrayList<>();
+		HashSet<String> spentcoins = new HashSet<>();
 		
 		//Now cycle through and get all your coins..
 		while(tip != null) {
@@ -155,21 +155,38 @@ public class TxPoWSearcher {
 			//Get the wallet..
 			Wallet wallet = MinimaDB.getDB().getWallet();
 			
-			//Get all the keys
-			ArrayList<KeyRow> keys = wallet.getAllRelevant(false);
-			
 			//Now cycle through the coins
 			for(Coin cc : coinentry) {
-				for(KeyRow kr : keys) {
-					//Is it a simple key
-					if(!kr.getPublicKey().equals("")) {
-						if(cc.getAddress().isEqual(new MiniData(kr.getAddress()))) {
-							finalcoins.add(cc);
-						}
-					}
+				
+				//Is it a simple address
+				if(wallet.isAddressSimple(cc.getAddress().to0xString())) {
+					finalcoins.add(cc);
 				}
 			}
 		}
+		
+//		if(zSimpleOnly) {
+//			//Fresh List
+//			finalcoins = new ArrayList<>();
+//			
+//			//Get the wallet..
+//			Wallet wallet = MinimaDB.getDB().getWallet();
+//			
+//			//Get all the keys
+//			ArrayList<KeyRow> keys = wallet.getAllRelevant(false);
+//			
+//			//Now cycle through the coins
+//			for(Coin cc : coinentry) {
+//				for(KeyRow kr : keys) {
+//					//Is it a simple key
+//					if(!kr.getPublicKey().equals("")) {
+//						if(cc.getAddress().isEqual(new MiniData(kr.getAddress()))) {
+//							finalcoins.add(cc);
+//						}
+//					}
+//				}
+//			}
+//		}
 		
 		return finalcoins;
 	}	
@@ -315,7 +332,7 @@ public class TxPoWSearcher {
 		TxPoWTreeNode tip = MinimaDB.getDB().getTxPoWTree().getTip();
 		
 		//A list of added tokens
-		ArrayList<String> added = new ArrayList<>();
+		HashSet<String> added = new HashSet<>();
 		
 		//Now cycle through and get all your coins..
 		while(tip != null) {

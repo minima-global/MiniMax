@@ -6,7 +6,7 @@ import java.util.Random;
 
 import org.minima.database.MinimaDB;
 import org.minima.database.txpowtree.TxPoWTreeNode;
-import org.minima.database.wallet.KeyRow;
+import org.minima.database.wallet.ScriptRow;
 import org.minima.objects.Pulse;
 import org.minima.objects.TxBlock;
 import org.minima.objects.TxPoW;
@@ -17,7 +17,7 @@ import org.minima.system.brains.TxPoWProcessor;
 import org.minima.system.genesis.GenesisMMR;
 import org.minima.system.genesis.GenesisTxPoW;
 import org.minima.system.network.NetworkManager;
-import org.minima.system.network.maxima.Maxima;
+import org.minima.system.network.maxima.MaximaManager;
 import org.minima.system.network.minima.NIOClient;
 import org.minima.system.network.minima.NIOManager;
 import org.minima.system.network.minima.NIOMessage;
@@ -67,7 +67,12 @@ public class Main extends MessageProcessor {
 	public static final String MAIN_AUTOMINE 	= "MAIN_CHECKAUTOMINE";
 	public static final String MAIN_CLEANDB 	= "MAIN_CLEANDB";
 	public static final String MAIN_PULSE 		= "MAIN_PULSE";
+	
+	/**
+	 * Network Restart - every 24.5 hours
+	 */
 	public static final String MAIN_NETRESTART 	= "MAIN_NETRESTART";
+//	public static long MAIN_NETRESTART_TIMER 	= (1000 * 60 * 60 * 24) + (1000 * 60 * 30);
 	
 	/**
 	 * Debug Function
@@ -113,7 +118,7 @@ public class Main extends MessageProcessor {
 	/**
 	 * Maxima
 	 */
-	Maxima mMaxima;
+	MaximaManager mMaxima;
 	
 	/**
 	 * Are we shutting down..
@@ -133,7 +138,7 @@ public class Main extends MessageProcessor {
 	/**
 	 * Timer for the automine message
 	 */
-	long AUTOMINE_TIMER = 1000 * 60;
+	long AUTOMINE_TIMER = 1000 * 50;
 	
 	/**
 	 * Have all the default keys been created..
@@ -162,6 +167,18 @@ public class Main extends MessageProcessor {
 		//Load the Databases
 		MinimaDB.getDB().loadAllDB();
 		
+		//Set the Base Private seed if needed..
+		if(MinimaDB.getDB().getUserDB().getBasePrivateSeed().equals("")) {
+			MinimaLogger.log("Generating Base Private Seed Key");
+			
+			//Not set yet..
+			MinimaDB.getDB().getUserDB().setBasePrivateSeed(MiniData.getRandomData(32).to0xString());
+		}
+		
+		//Get the base private seed..
+		String basepriv = MinimaDB.getDB().getUserDB().getBasePrivateSeed();
+		MinimaDB.getDB().getWallet().initBaseSeed(new MiniData(basepriv));
+		
 		//Calculate the User hashrate..
 		MiniNumber hashrate = TxPoWMiner.calculateHashRate();
 		MinimaDB.getDB().getUserDB().setHashRate(hashrate);
@@ -184,7 +201,7 @@ public class Main extends MessageProcessor {
 		mNetwork = new NetworkManager();
 		
 		//Start up Maxima
-		mMaxima = new Maxima();
+		mMaxima = new MaximaManager();
 				
 		//Simulate traffic message ( only if auto mine is set )
 		AUTOMINE_TIMER = MiniNumber.THOUSAND.div(GlobalParams.MINIMA_BLOCK_SPEED).getAsLong();
@@ -198,6 +215,9 @@ public class Main extends MessageProcessor {
 		
 		//Store the IC User - do fast first time - 30 seconds in.. then every 8 hours
 		PostTimerMessage(new TimerMessage(1000*30, MAIN_INCENTIVE));
+	
+		//Restart the networking every 24 hours..
+//		PostTimerMessage(new TimerMessage(MAIN_NETRESTART_TIMER, MAIN_NETRESTART));
 		
 		//Debug Checker
 		PostTimerMessage(new TimerMessage(CHECKER_TIMER, MAIN_CHECKER));
@@ -229,7 +249,7 @@ public class Main extends MessageProcessor {
 		mNetwork.shutdownNetwork();
 		
 		//Shut down Maxima
-		mMaxima.stopMessageProcessor();
+		mMaxima.shutdown();
 		
 		//Stop the Miner
 		mTxPoWMiner.stopMessageProcessor();
@@ -268,7 +288,7 @@ public class Main extends MessageProcessor {
 		mNetwork.shutdownNetwork();
 		
 		//Shut down Maxima
-		mMaxima.stopMessageProcessor();
+		mMaxima.shutdown();
 				
 		//Stop the Miner
 		mTxPoWMiner.stopMessageProcessor();
@@ -295,28 +315,40 @@ public class Main extends MessageProcessor {
 			return;
 		}
 		
-		//Log 
-		MinimaLogger.log("Network Shutdown started..");
+		//Lock the DB
+		MinimaDB.getDB().readLock(true);
 		
-		//Shut down the NIO..
-		mNetwork.shutdownNetwork();
+		try {
+			//Log 
+			MinimaLogger.log("Network Shutdown started..");
 			
-		//Wait for the networking to finish
-		while(!mNetwork.isShutDownComplete()) {
-			try {Thread.sleep(50);} catch (InterruptedException e) {}
-		}
-		
-		//Save the state.. 
-		MinimaDB.getDB().saveState();
+			//Shut down the NIO..
+			mNetwork.shutdownNetwork();
 				
-		//Wait a second..
-		MinimaLogger.log("Network Shutdown complete.. restart in 5 seconds");
-		try {Thread.sleep(5000);} catch (InterruptedException e) {}
-		
-		//Now restart it..
-		mNetwork = new NetworkManager();
-		
-		MinimaLogger.log("Network restarted..");
+			//Wait for the networking to finish
+			while(!mNetwork.isShutDownComplete()) {
+				try {Thread.sleep(50);} catch (InterruptedException e) {}
+			}
+					
+			//Wait a second..
+			MinimaLogger.log("Network Shutdown complete.. restart in 5 seconds");
+			try {Thread.sleep(5000);} catch (InterruptedException e) {}
+			
+			//Now restart it..
+			mNetwork = new NetworkManager();
+			
+			MinimaLogger.log("Network restarted..");
+			
+		}catch(Exception exc) {
+			
+			//Uh oh..
+			MinimaLogger.log("[!] Error restarting Network.. Restart Minima!");
+			
+		}finally {
+			
+			//UNLock the DB
+			MinimaDB.getDB().readLock(false);
+		}
 	}
 	
 	public long getUptimeMilli() {
@@ -339,7 +371,7 @@ public class Main extends MessageProcessor {
 		return mTxPoWMiner;
 	}
 	
-	public Maxima getMaxima() {
+	public MaximaManager getMaxima() {
 		return mMaxima;
 	}
 	
@@ -359,11 +391,11 @@ public class Main extends MessageProcessor {
 	
 	private void doGenesis() {
 		
-		//Create a new key - to receive the genesis funds..
-		KeyRow genkey = MinimaDB.getDB().getWallet().createNewKey(true);
+		//Create a new address - to receive the genesis funds..
+		ScriptRow scrow = MinimaDB.getDB().getWallet().createNewSimpleAddress(false);
 		
 		//Create the Genesis TxPoW..
-		GenesisTxPoW genesis = new GenesisTxPoW(genkey.getAddress());
+		GenesisTxPoW genesis = new GenesisTxPoW(scrow.getAddress());
 		
 		//Hard add to the DB
 		MinimaDB.getDB().getTxPoWDB().addTxPoW(genesis);
@@ -398,6 +430,11 @@ public class Main extends MessageProcessor {
 				return;
 			}
 			
+			//Did we find a block.. only tell me on the main net.. too easy on Test
+			if(!GeneralParams.TEST_PARAMS && txpow.isBlock()) {
+				MinimaLogger.log("You found a block! "+txpow.getBlockNumber()+" "+txpow.getTxPoWID());
+			}
+			
 			//Create an NIO Message - so the message goes through the same checks as any other message
 			MiniData niodata = NIOManager.createNIOMessage(NIOMessage.MSG_TXPOW, txpow);
 
@@ -411,19 +448,26 @@ public class Main extends MessageProcessor {
 		
 		}else if(zMessage.getMessageType().equals(MAIN_AUTOMINE)) {
 			
-			//Are we auto mining
-			if(GeneralParams.AUTOMINE) {
-				//Create a TxPoW
-				mTxPoWMiner.PostMessage(TxPoWMiner.TXPOWMINER_MINEPULSE);
+			//Create a TxPoW
+			mTxPoWMiner.PostMessage(TxPoWMiner.TXPOWMINER_MINEPULSE);
+			
+			//TESTNET - has a small random delay as block speed faster - so no constant overlap
+			if(GeneralParams.TEST_PARAMS) {
+				//Next Attempt +/- 5 secs, minimum 5 secs
+				long minerdelay = AUTOMINE_TIMER + ( 2500L - (long)new Random().nextInt(5000));
+				if(minerdelay < 5000) {
+					minerdelay = 5000;
+				}
+				
+				//Post the Next AUTOMINE message
+				PostTimerMessage(new TimerMessage(minerdelay, MAIN_AUTOMINE));
+			
+			}else {
+				
+				//Post the Next AUTOMINE message
+				PostTimerMessage(new TimerMessage(AUTOMINE_TIMER, MAIN_AUTOMINE));
 			}
 			
-			//Next Attempt +/- 5 secs, minimum 5 secs
-			long minerdelay = AUTOMINE_TIMER + ( 5000L - (long)new Random().nextInt(10000));
-			if(minerdelay < 5000) {
-				minerdelay = 5000;
-			}
-			PostTimerMessage(new TimerMessage(minerdelay, MAIN_AUTOMINE));
-		
 		}else if(zMessage.getMessageType().equals(MAIN_CLEANDB)) {
 			
 			//Do some house keeping on the DB
@@ -449,13 +493,16 @@ public class Main extends MessageProcessor {
 			//And send it to all your peers..
 			NIOManager.sendNetworkMessageAll(NIOMessage.MSG_PULSE, pulse);
 		
-			//Mine a TxPoW
-			mTxPoWMiner.PostMessage(TxPoWMiner.TXPOWMINER_MINEPULSE);
+//			//Mine a TxPoW
+//			mTxPoWMiner.PostMessage(TxPoWMiner.TXPOWMINER_MINEPULSE);
 			
 			//And then wait again..
 			PostTimerMessage(new TimerMessage(GeneralParams.USER_PULSE_FREQ, MAIN_PULSE));
 		
 		}else if(zMessage.getMessageType().equals(MAIN_INCENTIVE)) {
+			
+			//Do it agin..
+			PostTimerMessage(new TimerMessage(IC_TIMER, MAIN_INCENTIVE));
 			
 			//Get the User
 			String user = MinimaDB.getDB().getUserDB().getIncentiveCashUserID();
@@ -466,8 +513,6 @@ public class Main extends MessageProcessor {
 				RPCClient.sendPUT("https://incentivecash.minima.global/api/ping/"+user+"?version="+GlobalParams.MINIMA_VERSION);
 			}
 			
-			//Do it agin..
-			PostTimerMessage(new TimerMessage(IC_TIMER, MAIN_INCENTIVE));
 			
 		}else if(zMessage.getMessageType().equals(MAIN_NEWBLOCK)) {
 			

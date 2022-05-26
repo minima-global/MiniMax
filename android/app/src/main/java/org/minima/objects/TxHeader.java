@@ -67,9 +67,14 @@ public class TxHeader implements Streamable {
 	public MiniNumber mMMRTotal = MiniNumber.ZERO;
 	
 	/**
+	 * A Custom HASH
+	 */
+	public MiniData mCustomHash 	= MiniData.ZERO_TXPOWID;
+	
+	/**
 	 * The HASH of the TxBody
 	 */
-	public MiniData mTxBodyHash    = new MiniData("0x00");
+	public MiniData mTxBodyHash    	= new MiniData("0x00");
 	
 	/**
 	 * In the long run ONLY this header is kept and the body is discarded..
@@ -140,6 +145,7 @@ public class TxHeader implements Streamable {
 		txpow.put("mmr", mMMRRoot.toString());
 		txpow.put("total", mMMRTotal.toString());
 		
+		txpow.put("customhash", mCustomHash.to0xString());
 		txpow.put("txbodyhash", mTxBodyHash.to0xString());
 		txpow.put("nonce", mNonce.toString());
 		txpow.put("timemilli", mTimeMilli.toString());
@@ -195,7 +201,10 @@ public class TxHeader implements Streamable {
 		//Write the Magic Number
 		mMagic.writeDataStream(zOut);
 		
-		//Write the Boddy Hash
+		//Write the Custom Hash
+		mCustomHash.writeHashToStream(zOut);
+		
+		//Write the Body Hash
 		mTxBodyHash.writeHashToStream(zOut);
 	}
 
@@ -224,6 +233,9 @@ public class TxHeader implements Streamable {
 		
 		//Read the Magic..
 		mMagic	= Magic.ReadFromStream(zIn);
+		
+		//The Custom Hash
+		mCustomHash = MiniData.ReadHashFromStream(zIn);
 		
 		//The TxBody Hash
 		mTxBodyHash = MiniData.ReadHashFromStream(zIn);

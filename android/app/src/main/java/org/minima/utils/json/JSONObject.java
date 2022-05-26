@@ -41,7 +41,7 @@ public class JSONObject extends LinkedHashMap implements JSONAware, JSONStreamAw
      * Encode a map into JSON text and write it to out.
      * If this map is also a JSONAware or JSONStreamAware, JSONAware or JSONStreamAware specific behaviours will be ignored at this top level.
      * 
-     * @see JSONValue#writeJSONString(Object, Writer)
+     * @see org.minima.utils.json.JSONValue#writeJSONString(Object, Writer)
      * 
      * @param map
      * @param out
@@ -62,7 +62,7 @@ public class JSONObject extends LinkedHashMap implements JSONAware, JSONStreamAw
             else
                 out.write(',');
             
-			Entry entry=(Entry)iter.next();
+			Map.Entry entry=(Map.Entry)iter.next();
             out.write('\"');
             out.write(escape(String.valueOf(entry.getKey())));
             out.write('\"');
@@ -80,7 +80,7 @@ public class JSONObject extends LinkedHashMap implements JSONAware, JSONStreamAw
 	 * Convert a map to JSON text. The result is a JSON object. 
 	 * If this map is also a JSONAware, JSONAware specific behaviours will be omitted at this top level.
 	 * 
-	 * @see JSONValue#toJSONString(Object)
+	 * @see org.minima.utils.json.JSONValue#toJSONString(Object)
 	 * 
 	 * @param map
 	 * @return JSON text, or "null" if map is null.
@@ -129,7 +129,7 @@ public class JSONObject extends LinkedHashMap implements JSONAware, JSONStreamAw
 	 * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters (U+0000 through U+001F).
 	 * It's the same as JSONValue.escape() only for compatibility here.
 	 * 
-	 * @see JSONValue#escape(String)
+	 * @see org.minima.utils.json.JSONValue#escape(String)
 	 * 
 	 * @param s
 	 * @return
