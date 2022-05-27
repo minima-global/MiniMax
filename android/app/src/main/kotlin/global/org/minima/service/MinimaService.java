@@ -97,6 +97,11 @@ public class MinimaService extends Service {
             mWifiLock.acquire();
         }
 
+        //Set the Alarm..
+        mAlarm = new Alarm();
+        mAlarm.cancelAlarm(this);
+        mAlarm.setAlarm(this);
+
         //Start Minima
         mStart = new Minima();
 
@@ -198,12 +203,6 @@ public class MinimaService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        MinimaLogger.log("Service : OnStartCommand "+startId+" "+mListenerAdded);
 
-        if (intent != null && intent.getBooleanExtra(runInBackgroundWhenKilledKey, true)) {
-            //Set the Alarm..
-            mAlarm = new Alarm();
-            mAlarm.cancelAlarm(this);
-            mAlarm.setAlarm(this);
-        }
         //Set the default message
         setMinimaNotification();
 
@@ -244,10 +243,6 @@ public class MinimaService extends Service {
         //Release the wakelocks..
         mWakeLock.release();
         mWifiLock.release();
-
-        if (mAlarm != null) {
-            mAlarm.cancelAlarm(this);
-        }
     }
 
     @Override
