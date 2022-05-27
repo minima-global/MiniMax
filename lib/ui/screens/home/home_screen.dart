@@ -91,12 +91,18 @@ class HomeScreen extends GetWidget<HomeController> {
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: medium),
-          child: ListView(
+          child: Column(
             children: [
-              _buildHeaderTextDrawer(),
-              large2.toSpace(),
-              _buildHomePagesSelectors(),
-              const Spacer(),
+              Expanded(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    _buildHeaderTextDrawer(),
+                    large2.toSpace(),
+                    _buildHomePagesSelectors(),
+                  ],
+                ),
+              ),
               Align(alignment: Alignment.centerRight, child: _buildDrawerFooter()),
             ],
           ),
