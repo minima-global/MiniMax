@@ -154,6 +154,9 @@ public class Main extends MessageProcessor {
 		//Reset the static values
 		mMainInstance 	= this;
 		
+		//Create the timer processor
+		TimerProcessor.createTimerProcessor();
+		
 		//Are we deleting previous..
 		if(GeneralParams.CLEAN) {
 			MinimaLogger.log("Wiping previous config files..");
@@ -215,9 +218,6 @@ public class Main extends MessageProcessor {
 		
 		//Store the IC User - do fast first time - 30 seconds in.. then every 8 hours
 		PostTimerMessage(new TimerMessage(1000*30, MAIN_INCENTIVE));
-	
-		//Restart the networking every 24 hours..
-//		PostTimerMessage(new TimerMessage(MAIN_NETRESTART_TIMER, MAIN_NETRESTART));
 		
 		//Debug Checker
 		PostTimerMessage(new TimerMessage(CHECKER_TIMER, MAIN_CHECKER));
@@ -242,42 +242,49 @@ public class Main extends MessageProcessor {
 		//we are shutting down
 		mShuttingdown = true;
 		
-		//Tell the wallet - in case we are creating default keys
-		MinimaDB.getDB().getWallet().shuttiongDown();
-		
-		//Shut down the network
-		mNetwork.shutdownNetwork();
-		
-		//Shut down Maxima
-		mMaxima.shutdown();
-		
-		//Stop the Miner
-		mTxPoWMiner.stopMessageProcessor();
-		
-		//Stop the main TxPoW processor
-		mTxPoWProcessor.stopMessageProcessor();
-		while(!mTxPoWProcessor.isShutdownComplete()) {
-			try {Thread.sleep(50);} catch (InterruptedException e) {}
-		}
-		
 		//No More timer Messages
 		TimerProcessor.stopTimerProcessor();
 		
-		//Wait for the networking to finish
-		while(!mNetwork.isShutDownComplete()) {
-			try {Thread.sleep(50);} catch (InterruptedException e) {}
+		try {
+			
+			//Tell the wallet - in case we are creating default keys
+			MinimaDB.getDB().getWallet().shuttiongDown();
+			
+			//Shut down the network
+			mNetwork.shutdownNetwork();
+			
+			//Shut down Maxima
+			mMaxima.shutdown();
+			
+			//Stop the Miner
+			mTxPoWMiner.stopMessageProcessor();
+			
+			//Stop the main TxPoW processor
+			mTxPoWProcessor.stopMessageProcessor();
+			while(!mTxPoWProcessor.isShutdownComplete()) {
+				try {Thread.sleep(50);} catch (InterruptedException e) {}
+			}
+			
+			//Wait for the networking to finish
+			while(!mNetwork.isShutDownComplete()) {
+				try {Thread.sleep(50);} catch (InterruptedException e) {}
+			}
+			
+			//Now backup the  databases
+			MinimaDB.getDB().saveAllDB();
+					
+			//Stop this..
+			stopMessageProcessor();
+			
+			//Wait for it..
+			while(!isShutdownComplete()) {
+				try {Thread.sleep(50);} catch (InterruptedException e) {}
+			}
+		
+		}catch(Exception exc) {
+			MinimaLogger.log("ERROR Shutting down..");
+			MinimaLogger.log(exc);
 		}
-		
-		//Stop this..
-		stopMessageProcessor();
-				
-		//Now backup the  databases
-		MinimaDB.getDB().saveAllDB();
-		
-		//Wait for it..
-		while(!isShutdownComplete()) {
-			try {Thread.sleep(50);} catch (InterruptedException e) {}
-		}		
 	}
 	
 	public void restoreReady() {

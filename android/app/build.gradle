@@ -68,12 +68,19 @@ android {
     }
 
     buildTypes {
-        release {
+        /*release {
             useProguard true
             shrinkResources false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+        }*/
+
+        debug {
+            useProguard true
+            shrinkResources false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
