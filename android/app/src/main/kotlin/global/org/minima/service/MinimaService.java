@@ -20,22 +20,19 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 
 import org.minima.Minima;
-import org.minima.objects.TxPoW;
 import org.minima.system.Main;
+import org.minima.system.network.webhooks.NotifyManager;
 import org.minima.utils.MinimaLogger;
+import org.minima.utils.json.JSONObject;
 import org.minima.utils.messages.Message;
 import org.minima.utils.messages.MessageListener;
+
+import java.util.ArrayList;
 
 import global.org.minima.MainActivity;
 import global.org.minima.R;
 import global.org.minima.boot.Alarm;
 import global.org.minima.console.ConsoleStreamHandler;
-
-import java.util.ArrayList;
-import java.util.Date;
-
-import org.minima.utils.json.JSONObject;
-import org.minima.system.network.webhooks.NotifyManager;
 
 /** Foreground Service for the Minima Node
  *
@@ -55,8 +52,6 @@ public class MinimaService extends Service {
     }
     private IBinder mBinder = new MyBinder();
     MinimaService mService;
-
-    Alarm mAlarm;
 
     //Minima Main Starter
     Minima mStart;
@@ -96,11 +91,6 @@ public class MinimaService extends Service {
         if(!mWifiLock.isHeld()){
             mWifiLock.acquire();
         }
-
-        //Set the Alarm..
-        mAlarm = new Alarm();
-        mAlarm.cancelAlarm(this);
-        mAlarm.setAlarm(this);
 
         //Start Minima
         mStart = new Minima();
@@ -243,6 +233,11 @@ public class MinimaService extends Service {
         //Release the wakelocks..
         mWakeLock.release();
         mWifiLock.release();
+
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("restartBroadcastAction");
+        broadcastIntent.setClass(this, Alarm.class);
+        sendBroadcast(broadcastIntent);
     }
 
     @Override
