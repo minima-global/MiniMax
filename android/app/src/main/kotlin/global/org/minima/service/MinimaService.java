@@ -53,6 +53,8 @@ public class MinimaService extends Service {
     private IBinder mBinder = new MyBinder();
     MinimaService mService;
 
+    Alarm mAlarm;
+
     //Minima Main Starter
     Minima mStart;
 
@@ -91,6 +93,10 @@ public class MinimaService extends Service {
         if(!mWifiLock.isHeld()){
             mWifiLock.acquire();
         }
+
+        mAlarm = new Alarm();
+        mAlarm.cancelAlarm(this);
+        mAlarm.setAlarm(this);
 
         //Start Minima
         mStart = new Minima();
